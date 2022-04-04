@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+    <select id="member.retrieve" parameterType="edu.dataworld.snackworld.member.service.MemberVO" resultType="edu.dataworld.snackworld.member.service.MemberVO">
+        SELECT MEMBER_ID
+             , MEMBER_NAME
+             , DEPT_CODE
+             , AGE
+          FROM MEMBER_TEST
+    </select>
+    <insert id="member.insert" parameterType="edu.dataworld.snackworld.member.service.MemberVO">
+        INSERT
+          INTO MEMBER_TEST(
+               MEMBER_ID
+             , MEMBER_NAME
+             , DEPT_CODE
+             , AGE
+             ) VALUES(
+               #{memberId}
+             , #{memberName}
+             , #{deptCode}
+             , #{age}
+             )
+    </insert>
+    <update id="member.update" parameterType="edu.dataworld.snackworld.member.service.MemberVO">
+        UPDATE MEMBER_TEST
+           SET MEMBER_NAME = #{memberName}
+             , DEPT_CODE = #{deptCode}
+             , AGE = #{age}
+         WHERE MEMBER_ID = #{memberId}
+    </update>
+</mapper>

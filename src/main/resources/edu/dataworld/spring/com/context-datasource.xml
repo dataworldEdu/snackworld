@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <bean id="egov.propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:edu/dataworld/eGovProp/globals.properties</value>
+                <!-- value>file:/product/jeus/egovProps/globals.properties</value-->
+            </list>
+        </property>
+    </bean>
+
+    <!-- DataSource -->
+    <alias name="dataSource" alias="egov.dataSource" />
+
+    <!-- MySQL -->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${Globals.mysql.DriverClassName}"/>
+        <property name="url" value="${Globals.mysql.Url}" />
+        <property name="username" value="${Globals.mysql.UserName}"/>
+        <property name="password" value="${Globals.mysql.Password}"/>
+    </bean>
+
+</beans>
