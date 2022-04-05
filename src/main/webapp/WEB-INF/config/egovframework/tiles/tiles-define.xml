@@ -11,7 +11,9 @@
         <put-attribute name="main" value=""/>
     </definition>
 
-    <definition name="/login/*.view" extends="baseLayout">
+    <definition name="/login/*.view" >
+        <put-attribute name="title" value="로그인"/>
+        <put-attribute name="header" value=""/>
         <put-attribute name="main" value="/WEB-INF/jsp/login/{1}.jsp" />
     </definition>
     <definition name="/*/*.view" extends="baseLayout">
