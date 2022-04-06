@@ -10,4 +10,14 @@ public class MainController {
     public String index() {
         return "redirect:/login/loginForm.do";
     }
+
+    @RequestMapping(value="/")
+    public String showMainRoot() {
+        return "redirect:/home/main.view";
+    }
+
+    @RequestMapping(value="/home/main")
+    public String showMain() {
+        return "/home/main.view";
+    }
 }
