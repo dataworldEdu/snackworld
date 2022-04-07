@@ -8,13 +8,14 @@
     <definition name="baseLayout" template="/WEB-INF/jsp/tiles/tiles-layout.jsp">
         <put-attribute name="title" value=""/>
         <put-attribute name="header" value="/WEB-INF/jsp/tiles/header.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/jsp/tiles/menu.jsp" />
         <put-attribute name="main" value=""/>
     </definition>
-
 
     <definition name="/login/*.view" extends="baseLayout">
         <put-attribute name="title" value="로그인"/>
         <put-attribute name="header" value=""/>
+        <put-attribute name="menu" value=""/>
         <put-attribute name="main" value="/WEB-INF/jsp/login/{1}.jsp" />
 
     </definition>

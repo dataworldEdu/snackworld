@@ -24,4 +24,9 @@ public class MemberController {
         return "/member/memberMng.view";
     }
 
+    @RequestMapping(value="/memberMng")
+    public String showMemberMng() {
+        return "/member/memberMng.view";
+    }
+
 }

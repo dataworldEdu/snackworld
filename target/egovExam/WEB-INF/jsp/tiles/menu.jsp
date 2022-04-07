@@ -10,6 +10,11 @@
 <head>
     <title>메뉴</title>
 </head>
+<style>
+    .navbar-nav > .nav-item{
+        margin: 0px 70px;
+    }
+</style>
 <body>
 <div class="mb-3">
     <nav class="navbar navbar-expand-lg navbar-light bg-light rounded" aria-label="Twelfth navbar example">

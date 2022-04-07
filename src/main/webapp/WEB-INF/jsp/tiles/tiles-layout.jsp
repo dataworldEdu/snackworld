@@ -21,6 +21,7 @@
 <body>
 <div class='wrap'>
     <tiles:insertAttribute name="header" />
+    <tiles:insertAttribute name="menu" />
     <div class='content'>
         <tiles:insertAttribute name="main"/>
     </div>
