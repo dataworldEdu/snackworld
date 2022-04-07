@@ -21,7 +21,7 @@
 <div class='wrap'>
     <tiles:insertAttribute name="header" />
     <div class='content'>
-    <tiles:insertAttribute name="main"/>
+        <tiles:insertAttribute name="main"/>
     </div>
 </div>
 </body>

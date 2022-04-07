@@ -1,3 +1,4 @@
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%--
   Created by IntelliJ IDEA.
   User: choyounga
@@ -11,6 +12,6 @@
     <title>홈</title>
 </head>
 <body>
-
+잘나오니
 </body>
 </html>

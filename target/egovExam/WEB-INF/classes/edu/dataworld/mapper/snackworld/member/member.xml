@@ -8,6 +8,7 @@
              , DEPT_CODE
              , AGE
           FROM MEMBER_TEST
+         WHERE MEMBER_ID = #{memberId}
     </select>
     <insert id="member.insert" parameterType="edu.dataworld.snackworld.member.service.MemberVO">
         INSERT
