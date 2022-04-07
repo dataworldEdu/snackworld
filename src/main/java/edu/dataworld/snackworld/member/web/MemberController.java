@@ -29,4 +29,8 @@ public class MemberController {
         return "/member/memberMng.view";
     }
 
+    @RequestMapping(value="/standardMng")
+    public String showStandardMng() {
+        return "/member/standardMng.view";
+    }
 }
