@@ -11,6 +11,7 @@
         <put-attribute name="main" value=""/>
     </definition>
 
+
     <definition name="/login/*.view" extends="baseLayout">
         <put-attribute name="title" value="로그인"/>
         <put-attribute name="header" value=""/>

@@ -1,4 +1,3 @@
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%--
   Created by IntelliJ IDEA.
   User: jangsangik
@@ -7,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"  %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -114,5 +114,6 @@
         </form>
     </main>
 </div>
+
 </body>
 </html>
