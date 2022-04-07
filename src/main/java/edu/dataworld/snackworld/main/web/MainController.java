@@ -16,4 +16,8 @@ public class MainController {
         return "/home/main.view";
     }
 
+    @RequestMapping(value="/login/loginForm")
+    public String showLogin() {
+        return "/login/loginForm.view";
+    }
 }
