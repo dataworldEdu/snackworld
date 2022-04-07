@@ -22,4 +22,9 @@ public class OrderController {
         return "/order/standardMng.view";
     }
 
+    @RequestMapping(value="/cart")
+    public String showCart() {
+        return "/order/cart.view";
+    }
+
 }
