@@ -1,5 +1,6 @@
 package edu.dataworld.snackworld.user.service;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface UserService {
@@ -8,4 +9,6 @@ public interface UserService {
     void insert(UserVO vo);
     void update(UserVO vo);
 
+    UserVO login(UserVO vo);
+    int checkId(UserVO vo);
 }

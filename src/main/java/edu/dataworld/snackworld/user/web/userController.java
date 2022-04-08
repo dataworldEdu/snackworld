@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping(value="/user")
 public class userController {
 
-    @Resource(name="userService")
+    @Resource(name="UserService")
     private UserService userService;
 
     @RequestMapping(value="/userMng.do")
