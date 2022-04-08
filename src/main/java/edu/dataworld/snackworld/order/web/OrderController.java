@@ -17,11 +17,6 @@ public class OrderController {
         return "/order/orderDetail.view";
     }
 
-    @RequestMapping(value="/standardMng")
-    public String showStandardMng() {
-        return "/order/standardMng.view";
-    }
-
     @RequestMapping(value="/cart")
     public String showCart() {
         return "/order/cart.view";
