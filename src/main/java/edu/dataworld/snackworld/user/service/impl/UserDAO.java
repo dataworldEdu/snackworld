@@ -21,4 +21,5 @@ public class UserDAO extends EgovComAbstractDAO {
         update("user.update", vo);
     }
 
+    public void setRowNum() { update("user.setRowNum"); }
 }

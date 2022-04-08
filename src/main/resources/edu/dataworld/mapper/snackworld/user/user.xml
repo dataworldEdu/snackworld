@@ -3,32 +3,40 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
     <select id="user.retrieve" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="edu.dataworld.snackworld.user.service.UserVO">
-        SELECT USER_ID
-             , USER_NAME
-             , DEPT_CODE
-             , AGE
-          FROM USER
-         WHERE USER_ID = #{userId}
+        SELECT
+            @ROWNUM :=  @ROWNUM+1 AS USER_SEQ
+             , U.USER_ID
+             , U.AUTH_ID
+             , A.AUTH_NAME
+             , U.USER_NAME
+        FROM USER U
+         LEFT JOIN AUTH A
+           ON U.AUTH_ID = A.AUTH_ID;
     </select>
     <insert id="user.insert" parameterType="edu.dataworld.snackworld.user.service.UserVO">
         INSERT
           INTO USER(
                USER_ID
+             , AUTH_ID
+             , USER_PW
              , USER_NAME
-             , DEPT_CODE
-             , AGE
+             , DEL_YN
              ) VALUES(
-               #{userId}
-             , #{userName}
-             , #{deptCode}
-             , #{age}
-             )
+                #{userId}
+                #{authId}
+              , #{userPw}
+              , #{userName}
+              , 'N'
+              )
     </insert>
     <update id="user.update" parameterType="edu.dataworld.snackworld.user.service.UserVO">
         UPDATE USER
-           SET USER_NAME = #{userName}
-             , DEPT_CODE = #{deptCode}
-             , AGE = #{age}
-         WHERE USER_ID = #{userId}
+        SET AUTH_ID = #{authId}
+            USER_PW = #{userPw}
+            USER_NAME = #{userName}
+            DEL_YN = #{delYn}
+    </update>
+    <update id="user.setRowNum" parameterType="edu.dataworld.snackworld.user.service.UserVO">
+        SET @ROWNUM :=0;
     </update>
 </mapper>

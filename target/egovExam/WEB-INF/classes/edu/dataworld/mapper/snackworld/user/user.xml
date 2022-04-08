@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+    <select id="user.retrieve" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="edu.dataworld.snackworld.user.service.UserVO">
+        SELECT
+            @ROWNUM :=  @ROWNUM+1 AS USER_SEQ
+             , U.USER_ID
+             , U.AUTH_ID
+             , A.AUTH_NAME
+             , U.USER_NAME
+        FROM USER U
+         LEFT JOIN AUTH A
+           ON U.AUTH_ID = A.AUTH_ID;
+    </select>
+    <insert id="user.insert" parameterType="edu.dataworld.snackworld.user.service.UserVO">
+        INSERT
+          INTO USER(
+               USER_ID
+             , AUTH_ID
+             , USER_PW
+             , USER_NAME
+             , DEL_YN
+             ) VALUES(
+                #{userId}
+                #{authId}
+              , #{userPw}
+              , #{userName}
+              , 'N'
+              )
+    </insert>
+    <update id="user.update" parameterType="edu.dataworld.snackworld.user.service.UserVO">
+        UPDATE USER
+        SET AUTH_ID = #{authId}
+            USER_PW = #{userPw}
+            USER_NAME = #{userName}
+            DEL_YN = #{delYn}
+    </update>
+    <update id="user.setRowNum" parameterType="edu.dataworld.snackworld.user.service.UserVO">
+        SET @ROWNUM :=0;
+    </update>
+</mapper>

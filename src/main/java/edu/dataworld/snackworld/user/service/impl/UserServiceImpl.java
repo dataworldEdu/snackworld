@@ -28,4 +28,9 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
     public void update(UserVO vo) {
         userDAO.update(vo);
     }
+
+    @Override
+    public void setRowNum() {
+        userDAO.setRowNum();
+    }
 }
