@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+    <select id="user.retrieve" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="edu.dataworld.snackworld.user.service.UserVO">
+        SELECT USER_ID
+             , USER_NAME
+             , DEPT_CODE
+             , AGE
+          FROM USER
+         WHERE USER_ID = #{userId}
+    </select>
+    <insert id="user.insert" parameterType="edu.dataworld.snackworld.user.service.UserVO">
+        INSERT
+          INTO USER(
+               USER_ID
+             , USER_NAME
+             , DEPT_CODE
+             , AGE
+             ) VALUES(
+               #{userId}
+             , #{userName}
+             , #{deptCode}
+             , #{age}
+             )
+    </insert>
+    <update id="user.update" parameterType="edu.dataworld.snackworld.user.service.UserVO">
+        UPDATE USER
+           SET USER_NAME = #{userName}
+             , DEPT_CODE = #{deptCode}
+             , AGE = #{age}
+         WHERE USER_ID = #{userId}
+    </update>
+</mapper>

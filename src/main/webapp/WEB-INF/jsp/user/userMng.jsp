@@ -43,6 +43,7 @@
                     <td>조영아</td>
                     <td>zeroa7</td>
                     <td>사용자</td>
+                    <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary btn-sm" >수정</button></td>
                 </tr>
                 <tr>
                     <td><input type="checkbox" name="_selected_" value="ROW_2"></td>
@@ -50,6 +51,7 @@
                     <td>주정민</td>
                     <td>jm_joo995</td>
                     <td>사용자</td>
+                    <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary btn-sm" >수정</button></td>
                 </tr>
                 <tr>
                     <td><input type="checkbox" name="_selected_" value="ROW_3"></td>
@@ -57,6 +59,7 @@
                     <td>이후원</td>
                     <td>dlgndnjs1</td>
                     <td>사용자</td>
+                    <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary btn-sm" >수정</button></td>
                 </tr>
                 </tbody>
             </table>
