@@ -5,8 +5,9 @@
   Time: 2:27 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>회원관리</title>
@@ -29,7 +30,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th class="header" width="30"><input type="checkbox" id="checkall" /></th>
+                    <th class="header" width="30"><input type="checkbox" /></th>
                     <th>번호</th>
                     <th>이름</th>
                     <th>ID</th>
@@ -37,30 +38,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td><input type="checkbox" name="_selected_" value="ROW_1"></td>
-                    <td>1</td>
-                    <td>조영아</td>
-                    <td>zeroa7</td>
-                    <td>사용자</td>
-                    <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary btn-sm" >수정</button></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="_selected_" value="ROW_2"></td>
-                    <td>2</td>
-                    <td>주정민</td>
-                    <td>jm_joo995</td>
-                    <td>사용자</td>
-                    <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary btn-sm" >수정</button></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="_selected_" value="ROW_3"></td>
-                    <td>3</td>
-                    <td>이후원</td>
-                    <td>dlgndnjs1</td>
-                    <td>사용자</td>
-                    <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary btn-sm" >수정</button></td>
-                </tr>
+                <c:forEach items="${userList}" var="user">
+                    <tr>
+                        <td><input type="checkbox" name="_selected_" value="ROW_1"></td>
+                        <td>${user.userSeq}</td>
+                        <td>${user.userName}</td>
+                        <td>${user.userId}</td>
+                        <td>${user.authId}</td>
+                        <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary btn-sm" >수정</button></td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>

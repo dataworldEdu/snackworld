@@ -5,8 +5,14 @@
   Time: 2:27 PM
   To change this template use File | Settings | File Templates.
 --%>
+<<<<<<< HEAD
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+=======
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+>>>>>>> e326af00d5536a5e13ab3912c0ff507499ec0a5b
 <html>
 <head>
     <title>회원관리</title>
@@ -29,7 +35,11 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
+<<<<<<< HEAD
                     <th class="header" width="30"><input type="checkbox" id="checkall" /></th>
+=======
+                    <th class="header" width="30"><input type="checkbox" /></th>
+>>>>>>> e326af00d5536a5e13ab3912c0ff507499ec0a5b
                     <th>번호</th>
                     <th>이름</th>
                     <th>ID</th>
@@ -37,6 +47,7 @@
                 </tr>
                 </thead>
                 <tbody>
+<<<<<<< HEAD
                 <tr>
                     <td><input type="checkbox" name="_selected_" value="ROW_1"></td>
                     <td>1</td>
@@ -61,6 +72,18 @@
                     <td>사용자</td>
                     <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary btn-sm" >수정</button></td>
                 </tr>
+=======
+                <c:forEach items="${userList}" var="user">
+                    <tr>
+                        <td><input type="checkbox" name="_selected_" value="ROW_1"></td>
+                        <td>${user.userSeq}</td>
+                        <td>${user.userName}</td>
+                        <td>${user.userId}</td>
+                        <td>${user.authId}</td>
+                        <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary btn-sm" >수정</button></td>
+                    </tr>
+                </c:forEach>
+>>>>>>> e326af00d5536a5e13ab3912c0ff507499ec0a5b
                 </tbody>
             </table>
         </div>

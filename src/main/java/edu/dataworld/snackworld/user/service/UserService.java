@@ -11,4 +11,5 @@ public interface UserService {
 
     UserVO login(UserVO vo);
     int checkId(UserVO vo);
+    void setRowNum();
 }

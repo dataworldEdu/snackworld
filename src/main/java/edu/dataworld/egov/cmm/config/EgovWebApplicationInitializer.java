@@ -57,6 +57,8 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 //
         servletContext.addListener(new RequestContextListener());
 
+
+
         logger.debug("EgovWebApplicationInitializer END-============================================");
     }
 }

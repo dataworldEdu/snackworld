@@ -38,4 +38,9 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
     public int checkId(UserVO vo) {
         return userDAO.checkId(vo);
     }
+
+    @Override
+    public void setRowNum() {
+        userDAO.setRowNum();
+    }
 }

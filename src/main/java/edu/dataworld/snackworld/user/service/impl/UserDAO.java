@@ -29,4 +29,6 @@ public class UserDAO extends EgovComAbstractDAO {
     public int checkId(UserVO vo) {
         return selectOne("user.checkId", vo);
     }
+
+    public void setRowNum() { update("user.setRowNum"); }
 }

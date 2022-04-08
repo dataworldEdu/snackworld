@@ -2,7 +2,7 @@
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"  %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
@@ -23,7 +23,7 @@
     <tiles:insertAttribute name="header" />
     <tiles:insertAttribute name="menu" />
     <div class='content'>
-        <tiles:insertAttribute name="main"/>
+        <tiles:insertAttribute name="main" />
     </div>
 </div>
 </body>
