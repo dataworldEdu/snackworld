@@ -105,11 +105,6 @@
                 <label for="floatingPassword">Password</label>
             </div>
 
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me"> 자동 로그인
-                </label>
-            </div>
             <input class="w-100 btn btn-lg btn-primary" type="submit" value="로그인"></input>
         </form>
     </main>

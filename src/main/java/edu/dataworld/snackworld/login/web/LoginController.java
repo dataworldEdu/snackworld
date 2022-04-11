@@ -8,13 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 @Controller
 @RequestMapping(value="/login")
 public class LoginController {
+
+    public static UserVO currentUser;
 
     @Resource(name="UserService")
     private UserService userService;
@@ -26,13 +30,19 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/loginAction.do", method = RequestMethod.POST)
-    public String loginAction(UserVO vo, HttpServletResponse response) throws Exception{
+    public String loginAction(UserVO vo, HttpServletResponse response, HttpSession session) throws Exception{
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
+
+        if(session.getAttribute("login") != null){
+            session.removeAttribute("login");
+        }
+
         // 로그인 성공
         if(userService.checkId(vo) == 1){
-            UserVO currentUser = userService.login(vo);
-            return "/home/main.view";
+            currentUser = userService.login(vo);
+            session.setAttribute("login", currentUser.getUserId());
+            return "redirect:/home/main";
         }
         // 로그인 실패
         else{
@@ -43,5 +53,14 @@ public class LoginController {
             out.close();
             return "/login/loginForm.view";
         }
+    }
+
+    @RequestMapping(value = "/logoutAction.do")
+    public String logoutAction(HttpServletResponse response, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null)
+            session.invalidate();
+
+        return "redirect:/login/loginForm.do";
     }
 }

@@ -41,11 +41,7 @@
     </update>
 
     <select id="user.login" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="edu.dataworld.snackworld.user.service.UserVO">
-        SELECT USER_ID
-             , AUTH_ID
-             , USER_PW
-             , USER_NAME
-             , DEL_YN
+        SELECT *
         FROM USER
         WHERE USER_ID = #{userId}
           AND USER_PW = #{userPw}

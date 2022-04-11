@@ -3,14 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
     <select id="user.retrieve" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="edu.dataworld.snackworld.user.service.UserVO">
-<<<<<<< HEAD
-        SELECT USER_ID
-             , USER_NAME
-             , DEPT_CODE
-             , AGE
-          FROM USER
-         WHERE USER_ID = #{userId}
-=======
         SELECT
             @ROWNUM :=  @ROWNUM+1 AS USER_SEQ
              , U.USER_ID
@@ -20,52 +12,15 @@
         FROM USER U
          LEFT JOIN AUTH A
            ON U.AUTH_ID = A.AUTH_ID;
->>>>>>> e326af00d5536a5e13ab3912c0ff507499ec0a5b
     </select>
     <insert id="user.insert" parameterType="edu.dataworld.snackworld.user.service.UserVO">
         INSERT
           INTO USER(
                USER_ID
-<<<<<<< HEAD
-             , USER_NAME
-             , DEPT_CODE
-             , AGE
-             ) VALUES(
-               #{userId}
-             , #{userName}
-             , #{deptCode}
-             , #{age}
-             )
-    </insert>
-    <update id="user.update" parameterType="edu.dataworld.snackworld.user.service.UserVO">
-        UPDATE USER
-           SET USER_NAME = #{userName}
-             , DEPT_CODE = #{deptCode}
-             , AGE = #{age}
-         WHERE USER_ID = #{userId}
-    </update>
-
-    <select id="user.login" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="edu.dataworld.snackworld.user.service.UserVO">
-        SELECT USER_ID
-=======
->>>>>>> e326af00d5536a5e13ab3912c0ff507499ec0a5b
              , AUTH_ID
              , USER_PW
              , USER_NAME
              , DEL_YN
-<<<<<<< HEAD
-        FROM USER
-        WHERE USER_ID = #{userId}
-          AND USER_PW = #{userPw}
-    </select>
-
-    <select id="user.checkId" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="Integer">
-        SELECT COUNT(*)
-        FROM USER
-        WHERE USER_ID = #{userId}
-          AND USER_PW = #{userPw}
-    </select>
-=======
              ) VALUES(
                 #{userId}
                 #{authId}
@@ -84,5 +39,18 @@
     <update id="user.setRowNum" parameterType="edu.dataworld.snackworld.user.service.UserVO">
         SET @ROWNUM :=0;
     </update>
->>>>>>> e326af00d5536a5e13ab3912c0ff507499ec0a5b
+
+    <select id="user.login" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="edu.dataworld.snackworld.user.service.UserVO">
+        SELECT *
+        FROM USER
+        WHERE USER_ID = #{userId}
+          AND USER_PW = #{userPw}
+    </select>
+
+    <select id="user.checkId" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="Integer">
+        SELECT COUNT(*)
+        FROM USER
+        WHERE USER_ID = #{userId}
+          AND USER_PW = #{userPw}
+    </select>
 </mapper>
