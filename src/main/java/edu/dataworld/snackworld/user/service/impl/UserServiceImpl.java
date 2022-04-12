@@ -1,5 +1,6 @@
 package edu.dataworld.snackworld.user.service.impl;
 
+import edu.dataworld.snackworld.common.Search;
 import edu.dataworld.snackworld.user.service.UserService;
 import edu.dataworld.snackworld.user.service.UserVO;
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
@@ -15,8 +16,8 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
     private UserDAO userDAO;
 
     @Override //조회
-    public List<UserVO> retrieve(UserVO vo) {
-        return userDAO.retrieve(vo);
+    public List<UserVO> retrieve(Search search) {
+        return userDAO.retrieve(search);
     }
 
     @Override
@@ -43,5 +44,10 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
     @Override
     public void setRowNum() {
         userDAO.setRowNum();
+    }
+
+    @Override
+    public int userCnt() {
+        return userDAO.userCnt();
     }
 }

@@ -4,14 +4,45 @@
 <mapper namespace="user">
     <select id="user.retrieve" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="edu.dataworld.snackworld.user.service.UserVO">
         SELECT
-            @ROWNUM :=  @ROWNUM+1 AS USER_SEQ
-             , U.USER_ID
-             , U.AUTH_ID
-             , A.AUTH_NAME
-             , U.USER_NAME
-        FROM USER U
-         LEFT JOIN AUTH A
-           ON U.AUTH_ID = A.AUTH_ID;
+            B.*
+        FROM (
+            SELECT
+                @ROWNUM :=  @ROWNUM+1 AS USER_SEQ
+                ,A.*
+            FROM (
+                SELECT
+                    U.USER_ID
+                    ,U.AUTH_ID
+                    ,A.AUTH_NAME
+                    ,U.USER_NAME
+                FROM USER U
+                LEFT JOIN AUTH A
+                    ON U.AUTH_ID = A.AUTH_ID
+                ORDER BY U.LAST_CHG_DT DESC, U.USER_NAME ASC
+            ) A
+        )B
+        LIMIT #{startList}, #{listSize}
+    </select>
+
+    <select id="user.userCnt" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="Integer">
+        SELECT
+            COUNT(*)AS LIST_CNT
+        FROM (
+                 SELECT
+                     @ROWNUM :=  @ROWNUM+1 AS USER_SEQ
+                ,A.*
+                 FROM (
+                     SELECT
+                     U.USER_ID
+                         ,U.AUTH_ID
+                         ,A.AUTH_NAME
+                         ,U.USER_NAME
+                     FROM USER U
+                     LEFT JOIN AUTH A
+                     ON U.AUTH_ID = A.AUTH_ID
+                     ORDER BY U.LAST_CHG_DT DESC, U.USER_NAME ASC
+                     ) A
+             )B
     </select>
     <insert id="user.insert" parameterType="edu.dataworld.snackworld.user.service.UserVO">
         INSERT
