@@ -37,22 +37,29 @@ public class LoginController {
         if(session.getAttribute("login") != null){
             session.removeAttribute("login");
         }
+        UserVO currentUser = userService.getUserByLoginId(vo.getUserId());
 
-        // 로그인 성공
-        if(userService.checkId(vo) == 1){
-            currentUser = userService.login(vo);
-            session.setAttribute("login", currentUser.getUserId());
-            return "redirect:/home/main";
-        }
-        // 로그인 실패
-        else{
+        if(currentUser == null) {
             out.println("<script>");
-            out.println("alert('아이디나 비밀번호를 다시 확인하세요');");
+            out.println("alert('존재하지 않는 아이디 입니다');");
             out.println("history.go(-1);");
             out.println("</script>");
             out.close();
             return "/login/loginForm.view";
         }
+
+        if(currentUser.getUserPw().equals(vo.getUserPw()) == false) {
+            out.println("<script>");
+            out.println("alert('비밀번호가 일치하지 않습니다.');");
+            out.println("history.go(-1);");
+            out.println("</script>");
+            out.close();
+            return "/login/loginForm.view";
+        }
+
+        session.setAttribute("login", currentUser.getUserId());
+        return "redirect:/home/main";
+
     }
 
     @RequestMapping(value = "/logoutAction.do")

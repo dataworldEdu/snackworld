@@ -36,16 +36,16 @@
             <!-- 상품 정보 입력-->
             <div class="row mb-3">
                 <p class="fs-5 fw-bold">카테고리</p>
-                <p class="fs-5">스낵</p>
+                <p class="fs-5" id="catCode"></p>
             </div>
 
             <div class="row mb-3">
                 <p class="fs-5 fw-bold">이름</p>
-                <p class="fs-5">신당동 장독대를 뛰쳐나온 떡볶이 총각의 맛있는 프로포즈</p>
+                <p class="fs-5" id="gdsName"></p>
             </div>
             <div class="row mb-3">
                 <p class="fs-5 fw-bold">가격</p>
-                <p class="fs-5">1,500</p>
+                <p class="fs-5" id="gdsPrice"></p>
             </div>
 
             <div class="row mb-2">
@@ -61,6 +61,15 @@
         <div class="col"></div>
     </div>
 </div>
+
+<script>
+    var st = '11234455';
+    $(document).ready(function (){
+        $('#gdsName').text(st);
+        $('#gdsPrice').text(st);
+        $('#catCode').text(st);
+    });
+</script>
 
 </body>
 </html>

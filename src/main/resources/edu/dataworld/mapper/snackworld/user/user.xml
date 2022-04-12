@@ -47,10 +47,10 @@
           AND USER_PW = #{userPw}
     </select>
 
-    <select id="user.checkId" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="Integer">
-        SELECT COUNT(*)
+    <select id="user.getUserByLoginId" parameterType="String" resultType="edu.dataworld.snackworld.user.service.UserVO">
+        SELECT *
         FROM USER
         WHERE USER_ID = #{userId}
-          AND USER_PW = #{userPw}
+          AND DEL_YN = 'N'
     </select>
 </mapper>
