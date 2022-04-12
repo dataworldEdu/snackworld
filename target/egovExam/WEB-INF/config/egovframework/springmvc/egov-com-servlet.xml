@@ -52,4 +52,14 @@
     <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"
           p:contentType="text/html;charset=UTF-8" />
 
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/resource/**"/>
+            <mvc:exclude-mapping path="/login/loginForm.do"/>
+            <mvc:exclude-mapping path="/login/loginAction.do"/>
+            <bean id="AuthLoginInterceptor" class="edu.dataworld.snackworld.login.interceptor.AuthLoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

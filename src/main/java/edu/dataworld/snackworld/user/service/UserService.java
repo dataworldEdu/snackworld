@@ -9,6 +9,9 @@ public interface UserService {
     List<UserVO> retrieve(Search search);
     void insert(UserVO vo);
     void update(UserVO vo);
+
+    UserVO login(UserVO vo);
+    int checkId(UserVO vo);
     void setRowNum();
     int userCnt();
 }

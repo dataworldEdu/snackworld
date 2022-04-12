@@ -71,4 +71,17 @@
         SET @ROWNUM :=0;
     </update>
 
+    <select id="user.login" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="edu.dataworld.snackworld.user.service.UserVO">
+        SELECT *
+        FROM USER
+        WHERE USER_ID = #{userId}
+          AND USER_PW = #{userPw}
+    </select>
+
+    <select id="user.checkId" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="Integer">
+        SELECT COUNT(*)
+        FROM USER
+        WHERE USER_ID = #{userId}
+          AND USER_PW = #{userPw}
+    </select>
 </mapper>

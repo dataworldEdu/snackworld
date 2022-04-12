@@ -94,24 +94,18 @@
 <div style="width: 100%">
     <!-- Sign-in box-->
     <main class="form-signin">
-        <form>
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <form method="post" action="/login/loginAction.do">
 
             <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <input type="text" class="form-control" id="floatingInput" name="userId" placeholder="name">
                 <label for="floatingInput">ID</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <input type="password" class="form-control" id="floatingPassword" name="userPw" placeholder="Password">
                 <label for="floatingPassword">Password</label>
             </div>
 
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
-            </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <input class="w-100 btn btn-lg btn-primary" type="submit" value="로그인"></input>
         </form>
     </main>
 </div>
