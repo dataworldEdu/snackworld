@@ -57,6 +57,9 @@ public class LoginController {
         }
 
         session.setAttribute("login", currentUser.getUserId());
+        //카운트 로직
+
+        session.setAttribute("test", "100원");
         return "redirect:/home/main";
 
     }
