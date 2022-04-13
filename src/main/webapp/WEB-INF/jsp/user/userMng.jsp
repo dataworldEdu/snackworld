@@ -38,9 +38,15 @@
         }
 
         var arr = new Array();
-        $("input:checkbox[name='selected']:checked").each(function() {
-            arr.push($(this).attr('id'));
+        var checkbox =  $("input:checkbox[name='selected']:checked");
+        checkbox.each(function(key) {
+            var tr = checkbox.parent().parent().eq(key);
+            var td = tr.children();
+
+            var td_userId = td.eq(3).text();
+            arr.push(td_userId);
         });
+        debugger;
         if(arr.length != 0) {
             $.ajax = {
                 type: "POST",
@@ -162,7 +168,7 @@
         </div>
         <div class="col">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn btn-outline-secondary" onclick="delCheckedList()">삭제</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="deleteUser()">삭제</button>
                 <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">추가</button>
             </div>
         </div>
@@ -186,7 +192,7 @@
                         <td><input type="checkbox" name="selected" value="row" onclick="checkSelectAll(this)"></td>
                         <td>${rowNum}</td>
                         <td>${user.userName}</td>
-                        <td>${user.userId}</td>
+                        <td >${user.userId}</td>
                         <td>${user.authName}</td>
                         <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary btn-sm" >수정</button></td>
                     </tr>

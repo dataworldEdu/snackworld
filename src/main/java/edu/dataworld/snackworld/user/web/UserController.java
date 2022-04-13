@@ -72,6 +72,9 @@ public class UserController {
         int joinUserCount = userService.addUser(userVO);
         System.out.println("회원 추가 확인값!!!!!!!! : " + joinUserCount);
 
+        if(joinUserCount == 0) {
+            return Util.msgAndBack(req,"회원 추가에 실패하였습니다.");
+        }
         return Util.msgAndReplace(req,"회원이 추가되었습니다.", "/user/userMng.view");
     }
 
@@ -81,6 +84,8 @@ public class UserController {
         if(checkBoxArr.size() == 0) {
             return Util.msgAndBack(req,"선택된 회원이 없습니다.");
         }
+        System.out.println("회원 지우기 탔삽!!!!:" + checkBoxArr.get(0));
+
         userService.deleteUser(checkBoxArr);
 
         return Util.msgAndReplace(req,"회원이 삭제되었습니다.", "/user/userMng.view");
