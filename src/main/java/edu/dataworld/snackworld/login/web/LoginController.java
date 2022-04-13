@@ -11,7 +11,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.io.PrintWriter;
 
 @Controller
@@ -61,7 +60,7 @@ public class LoginController {
         //카운트 로직
 
         session.setAttribute("test", "100원");
-        return "redirect:/home/main";
+        return "redirect:/home/main.do";
 
     }
 

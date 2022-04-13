@@ -5,7 +5,7 @@
   Time: 2:27 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -248,7 +248,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="/user/userAdd" id="userForm">
+                <form method="post" action="/user/userAdd.do" id="userForm">
                     <div class="mb-3">
                         <label for="inputAuth" class="form-label">권한</label>
                         <select class="form-select" id="inputAuth" name="authId" required>

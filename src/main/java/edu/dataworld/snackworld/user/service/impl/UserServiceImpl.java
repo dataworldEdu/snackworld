@@ -31,11 +31,6 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
     }
 
     @Override
-    public UserVO login(UserVO vo) {
-        return userDAO.login(vo);
-    }
-
-    @Override
     public UserVO getUserByLoginId(String userId) {
         return userDAO.getUserByLoginId(userId);
     }

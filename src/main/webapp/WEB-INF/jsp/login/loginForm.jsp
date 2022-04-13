@@ -84,7 +84,7 @@
     <header class="py-3 mb-4 border-bottom">
         <div class="container d-flex flex-wrap justify-content-center">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <img src="/image/logo.png" alt="My Image" width="50" height="35" style="margin-right:10px; margin-bottom:10px;">
+                <img src="/images/logo.png" alt="My Image" width="50" height="35" style="margin-right:10px; margin-bottom:10px;">
                 <span class="fs-4">SNACK WORLD</span>
             </a>
         </div>

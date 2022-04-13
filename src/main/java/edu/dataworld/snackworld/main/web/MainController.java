@@ -8,10 +8,10 @@ public class MainController {
 
     @RequestMapping(value="/index.do")
     public String index() {
-        return "redirect:/login/loginForm.do";
+        return "redirect:/login/loginForm";
     }
 
-    @RequestMapping(value="/home/main")
+    @RequestMapping(value="/home/main.do")
     public String showMain() {
         return "/home/main.view";
     }
