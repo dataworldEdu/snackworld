@@ -23,7 +23,7 @@ public class LoginController {
     private UserService userService;
 
 
-    @RequestMapping("/loginForm")
+    @RequestMapping("/loginForm.do")
     public String loginForm(Model model, String ok) {
         return "/login/loginForm.view";
     }
@@ -60,7 +60,7 @@ public class LoginController {
         //카운트 로직
 
         session.setAttribute("test", "100원");
-        return "redirect:/home/main";
+        return "redirect:/home/main.do";
 
     }
 

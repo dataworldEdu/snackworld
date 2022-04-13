@@ -23,12 +23,12 @@ public class GoodsController {
     @Resource(name="GoodsService")
     private GoodsService goodsService;
 
-    @RequestMapping(value = "/goodsDetail")
+    @RequestMapping(value = "/goodsDetail.do")
     public String showGoodsDetail(){
         return "/goods/goodsDetail.view";
     }
 
-    @RequestMapping(value = "/goodsList", method = RequestMethod.GET)
+    @RequestMapping(value = "/goodsList.do", method = RequestMethod.GET)
     public String showGoodsList(
             @RequestParam(required=false,defaultValue="1")int page
             , @RequestParam(required=false,defaultValue="1")int range
@@ -55,7 +55,7 @@ public class GoodsController {
         return "/goods/goodsList.view";
     }
 
-    @RequestMapping(value = "/regGoods")
+    @RequestMapping(value = "/regGoods.do")
     public String showRegGoods() {
         return "/goods/regGoods.view";
     }
@@ -67,10 +67,10 @@ public class GoodsController {
         return "/goods/modifyGoods.view";
     }
 
-    @RequestMapping(value = "/modifyGoodsAction", method = RequestMethod.GET)
+    @RequestMapping(value = "/modifyGoodsAction.do", method = RequestMethod.GET)
     public String modifyGoodsAction(String catCode, String gdsName, String gdsPrice, String gdsURL, String imgPath){
 
-        return "redirect:/goods/goodsList";
+        return "redirect:/goods/goodsList.do";
     }
 
 }
