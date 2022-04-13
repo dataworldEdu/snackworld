@@ -17,10 +17,10 @@
 
         </ul>
         <ul class="nav">
-            <li class="nav-item"><a href="#" class="nav-link link-dark px-2 active" aria-current="page">상품관리</a></li>
+            <li class="nav-item"><a href="/goods/goodsList" class="nav-link link-dark px-2 active" aria-current="page">상품관리</a></li>
             <li class="nav-item"><a href="#" class="nav-link link-dark px-2">장바구니</a></li>
             <li class="nav-item"><a href="#" class="nav-link link-dark px-2">주문목록</a></li>
-            <li class="nav-item"><a href="#" class="nav-link link-dark px-2">로그아웃</a></li>
+            <li class="nav-item"><a href="/login/loginForm.do" class="nav-link link-dark px-2">로그아웃</a></li>
         </ul>
     </div>
 </nav>
@@ -32,7 +32,7 @@
         </a>
         <div style="margin-right:20px;">
             <li style="list-style:none;">총 잔액</li>
-            <li style="list-style:none;">10000원</li>
+            <li style="list-style:none;">10000원 ++++ ${sessionScope.test}</li>
         </div>
         <div style="margin-right:20px;">
             <li style="list-style:none;">개인 잔액</li>

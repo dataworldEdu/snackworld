@@ -44,19 +44,23 @@
                      ) A
              )B
     </select>
-    <insert id="user.insert" parameterType="edu.dataworld.snackworld.user.service.UserVO">
+    <insert id="user.addUser" parameterType="edu.dataworld.snackworld.user.service.UserVO">
         INSERT
           INTO USER(
                USER_ID
              , AUTH_ID
              , USER_PW
              , USER_NAME
+             , FRST_REG_DT
+             , LAST_CHG_DT
              , DEL_YN
              ) VALUES(
                 #{userId}
-                #{authId}
+              , #{authId}
               , #{userPw}
               , #{userName}
+              , NOW()
+              , NOW()
               , 'N'
               )
     </insert>
@@ -69,6 +73,15 @@
     </update>
     <update id="user.setRowNum" parameterType="edu.dataworld.snackworld.user.service.UserVO">
         SET @ROWNUM :=0;
+    </update>
+
+    <update id="user.deleteUser" parameterType="hashmap">
+        UPDATE `USER`
+        SET DEL_YN = 'Y'
+        WHERE USER_ID IN
+        <foreach collection="list" item="type" open="(" close=")" separator=",">
+            #{checkBoxArr.value}
+        </foreach>
     </update>
 
     <select id="user.login" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="edu.dataworld.snackworld.user.service.UserVO">

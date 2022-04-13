@@ -2,6 +2,7 @@ package edu.dataworld.snackworld.user.web;
 
 import edu.dataworld.snackworld.common.Pagination;
 import edu.dataworld.snackworld.common.Search;
+import edu.dataworld.snackworld.common.Util;
 import edu.dataworld.snackworld.user.service.UserService;
 import edu.dataworld.snackworld.user.service.UserVO;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.registry.infomodel.User;
+import java.io.PrintWriter;
 import java.util.List;
 
 @Controller
@@ -57,11 +61,29 @@ public class UserController {
     }
 
     @RequestMapping(value="/userAdd", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("userVO") UserVO userVO) {
+    public String addUser(HttpServletRequest req, @ModelAttribute("userVO") UserVO userVO) throws Exception{
 
-        return "/user/userMng.view";
+        UserVO existUser = userService.getUserByLoginId(userVO.getUserId());
+
+        if(existUser != null) {
+            return Util.msgAndBack(req,userVO.getUserId() + "(은)는 이미 사용중인 로그인 아이디 입니다.");
+        }
+
+        int joinUserCount = userService.addUser(userVO);
+        System.out.println("회원 추가 확인값!!!!!!!! : " + joinUserCount);
+
+        return Util.msgAndReplace(req,"회원이 추가되었습니다.", "/user/userMng.view");
     }
 
+    @RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
+    public String deleteUser(HttpServletRequest req, @RequestParam(value="checkBoxArr[]") List<String> checkBoxArr) {
 
+        if(checkBoxArr.size() == 0) {
+            return Util.msgAndBack(req,"선택된 회원이 없습니다.");
+        }
+        userService.deleteUser(checkBoxArr);
+
+        return Util.msgAndReplace(req,"회원이 삭제되었습니다.", "/user/userMng.view");
+    }
 
 }

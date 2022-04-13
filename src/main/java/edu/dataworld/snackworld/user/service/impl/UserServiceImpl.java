@@ -50,4 +50,14 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
     public int userCnt() {
         return userDAO.userCnt();
     }
+
+    @Override
+    public int addUser(UserVO vo) {
+        return userDAO.addUser(vo);
+    }
+
+    @Override
+    public void deleteUser(List<String> checkBoxArr) {
+        userDAO.deleteUser(checkBoxArr);
+    }
 }

@@ -14,4 +14,8 @@ public interface UserService {
     UserVO getUserByLoginId(String userId);
     void setRowNum();
     int userCnt();
+
+    int addUser(UserVO userVO);
+
+    void deleteUser(List<String> checkBoxArr);
 }
