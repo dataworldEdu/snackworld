@@ -60,7 +60,7 @@ public class GoodsController {
         return "/goods/regGoods.view";
     }
 
-    @RequestMapping(value = "/modifyGoods", method = RequestMethod.GET)
+    @RequestMapping(value = "/modifyGoods.do", method = RequestMethod.GET)
     public String showModifyGoods(ModelMap model, String Id) {
         GoodsVO goodsVO = goodsService.selectById(Id);
         model.addAttribute("modifyGoods", goodsVO);
@@ -68,7 +68,7 @@ public class GoodsController {
     }
 
     @RequestMapping(value = "/modifyGoodsAction.do", method = RequestMethod.GET)
-    public String modifyGoodsAction(String catCode, String gdsName, String gdsPrice, String gdsURL, String imgPath){
+    public String modifyGoodsAction(String gdsId, String catCode, String gdsName, String gdsPrice, String gdsURL, String imgPath){
 
         return "redirect:/goods/goodsList.do";
     }

@@ -36,9 +36,10 @@
             </div>
         </div>
         <div class="col-4">
-            <form id="modifyForm" action="/goods/modifyGoodsAction" method="get">
+            <form id="modifyForm" action="/goods/modifyGoodsAction.do" method="get">
             <!-- 상품 정보 입력-->
             <div class="row">
+                <input type="hidden" value="${modifyGoods.gdsId}" name="gdsId">
                 <div class="btn-group mb-5">
                     <select class="form-select" id="catCode" aria-label="Default select example" style="width: 150px"
                         name="catCode">
@@ -97,22 +98,18 @@
     }
 
     $('#submitBtn').click(function (){
-
         if($('#catCode').val() == ""){
             alert("카테고리를 선택하세요")
             return false;
         }
-
         if($('#gdsName').val() == ""){
             alert("상품명을 입력하세요")
             return false;
         }
-
         if($('#gdsPrice').val() == ""){
             alert("상품 가격을 입력하세요")
             return false;
         }
-
         $('#modifyForm').submit();
     })
 </script>
