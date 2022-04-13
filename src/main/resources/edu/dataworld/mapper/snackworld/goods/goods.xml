@@ -3,15 +3,32 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goods">
     <select id="goods.retrieve" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO" resultType="edu.dataworld.snackworld.goods.service.GoodsVO">
-        SELECT
-            @ROWNUM :=  @ROWNUM+1 AS GOODS_SEQ
-             , G.CAT_CODE
-             , GI.SOTRED_FILE_NAME
-             , G.GDS_NAME
-             , G.GDS_PRICE
+        SELECT B.*
+        FROM (
+             SELECT @ROWNUM :=  @ROWNUM+1 AS GOODS_SEQ
+                  , GDS.*
+             FROM (
+                 SELECT
+                     G.*
+                     , GI.STORED_FILE_NAME
+                 FROM GOODS G
+                 LEFT JOIN GOODS_IMG_FILE GI
+                        ON G.GDS_ID = GI.GDS_ID
+                 ) GDS
+             ) B
+        LIMIT #{startList}, #{listSize}
+    </select>
+    <select id="goods.goodsCnt" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO" resultType="Integer">
+        SELECT COUNT(*)
+        FROM GOODS
+    </select>
+    <select id="goods.selectById" parameterType="String" resultType="edu.dataworld.snackworld.goods.service.GoodsVO">
+        SELECT G.*
+             , GI.STORED_FILE_NAME
         FROM GOODS G
-            LEFT JOIN GOODS_IMG_FILE GI
-        ON G.GDS_ID = A.GDS_ID;
+        LEFT JOIN GOODS_IMG_FILE GI
+               ON G.GDS_ID = GI.GDS_ID
+        WHERE G.GDS_ID = #{gdsId}
     </select>
     <insert id="goods.insert" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO">
         INSERT
@@ -31,6 +48,7 @@
                 , 'N'
                 )
     </insert>
+
     <update id="goods.update" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO">
         UPDATE GOODS
         SET GDS_ID = #{gdsId}
@@ -61,4 +79,9 @@
                 , 'N'
                 )
     </insert>
+
+    <update id="goods.setRowNum">
+        SET @ROWNUM :=0;
+    </update>
+
 </mapper>

@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>상품 수정</title>
@@ -33,14 +36,18 @@
             </div>
         </div>
         <div class="col-4">
+            <form id="modifyForm" action="/goods/modifyGoodsAction" method="get">
             <!-- 상품 정보 입력-->
             <div class="row">
                 <div class="btn-group mb-5">
-                    <select class="form-select" aria-label="Default select example" style="width: 150px">
-                        <option selected>카테고리</option>
+                    <select class="form-select" id="catCode" aria-label="Default select example" style="width: 150px"
+                        name="catCode">
+                        <option value="" selected>카테고리</option>
                         <option value="1">스낵</option>
-                        <option value="2">초콜릿</option>
-                        <option value="3">홈런볼</option>
+                        <option value="2">사탕</option>
+                        <option value="3">초콜릿</option>
+                        <option value="4">젤리</option>
+                        <option value="5">파이류</option>
                     </select>
                 </div>
             </div>
@@ -48,32 +55,65 @@
             <div class="row">
                 <p class="fs-5 fw-bold">이름</p>
                 <div class="input-group mb-2" style="width: 80%">
-                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" >
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default"
+                        value="${modifyGoods.gdsName}" name="gdsName" id="gdsName">
                 </div>
             </div>
             <div class="row">
                 <p class="fs-5 fw-bold">가격</p>
                 <div class="input-group mb-2" style="width: 80%">
-                    <input type="text" class="form-control" aria-label="Price" aria-describedby="inputGroup-sizing-default" >
+                    <input type="text" class="form-control" aria-label="Price" aria-describedby="inputGroup-sizing-default"
+                        value="${modifyGoods.gdsPrice}" name="gdsPrice" id="gdsPrice">
                 </div>
             </div>
 
             <div class="row">
                 <p class="fs-5 fw-bold">URL</p>
                 <div class="input-group mb-3" style="width: 80%">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea class="form-control" id="gdsURL" rows="3"
+                        name="gdsURL"></textarea>
                 </div>
             </div>
 
             <div class="row">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-right: 1%">
-                    <button type="button" class="btn btn-outline-secondary ">취소</button>
-                    <button type="button" class="btn btn-outline-primary">수정</button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="history.back()">취소</button>
+                    <input id="submitBtn" type="button" class="btn btn-outline-primary" value="수정"></input>
                 </div>
             </div>
+            </form>
         </div>
         <div class="col"></div>
     </div>
+    <div class="row">
+        <div class="col mb-5"></div>
+    </div>
 </div>
 </body>
+<script>
+    window.onload = function(){
+        let setSelect = ${modifyGoods.catCode * 1};
+        $('#selectBox').val(setSelect).prop("selected", true);
+    }
+
+    $('#submitBtn').click(function (){
+
+        if($('#catCode').val() == ""){
+            alert("카테고리를 선택하세요")
+            return false;
+        }
+
+        if($('#gdsName').val() == ""){
+            alert("상품명을 입력하세요")
+            return false;
+        }
+
+        if($('#gdsPrice').val() == ""){
+            alert("상품 가격을 입력하세요")
+            return false;
+        }
+
+        $('#modifyForm').submit();
+    })
+</script>
 </html>

@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainController {
 
-    @RequestMapping(value="/index.do")
+    @RequestMapping(value="/index")
     public String index() {
-        return "redirect:/login/loginForm.do";
+        return "redirect:/login/loginForm";
     }
 
     @RequestMapping(value="/home/main")

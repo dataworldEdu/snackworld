@@ -11,7 +11,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.io.PrintWriter;
 
 @Controller
@@ -24,7 +23,7 @@ public class LoginController {
     private UserService userService;
 
 
-    @RequestMapping("/loginForm.do")
+    @RequestMapping("/loginForm")
     public String loginForm(Model model, String ok) {
         return "/login/loginForm.view";
     }
