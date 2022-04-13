@@ -16,5 +16,5 @@ public interface UserService {
 
     int addUser(UserVO userVO);
 
-    void deleteUser(List<String> checkBoxArr);
+    int deleteUser(List<String> checkBoxArr);
 }

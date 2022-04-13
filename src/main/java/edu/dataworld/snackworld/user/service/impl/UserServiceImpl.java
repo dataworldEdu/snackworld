@@ -52,7 +52,7 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
     }
 
     @Override
-    public void deleteUser(List<String> checkBoxArr) {
-        userDAO.deleteUser(checkBoxArr);
+    public int deleteUser(List<String> checkBoxArr) {
+        return userDAO.deleteUser(checkBoxArr);
     }
 }

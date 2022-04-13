@@ -42,7 +42,7 @@ public class UserDAO extends EgovComAbstractDAO {
         return insert("user.addUser", vo);
     }
 
-    public void deleteUser(List<String> checkBoxArr) {
-        update("user.deleteUser", checkBoxArr);
+    public int deleteUser(List<String> checkBoxArr) {
+        return update("user.deleteUser", checkBoxArr);
     }
 }

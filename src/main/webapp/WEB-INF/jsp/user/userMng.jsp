@@ -32,6 +32,7 @@
     }
 
     function deleteUser(){
+
         if($("input:checkbox[name='selected']:checked").length === 0) {
             alert("삭제할 항목을 선택하세요.");
             return;
@@ -46,25 +47,24 @@
             var td_userId = td.eq(3).text();
             arr.push(td_userId);
         });
-        debugger;
         if(arr.length != 0) {
-            $.ajax = {
+            var url = "/user/deleteUser.do";
+            $.ajax({
                 type: "POST",
-                url: "/user/deleteUser",
+                url: url,
                 data: {
                     checkBoxArr : arr
                 },
-                dataType:"json",
                 success: function(data){
-                    if(data != 1) {
-                        alert("삭제 오류");
+                    if(data == "success") {
+                        alert("삭제 성공");
                     }
                     else{
-                        alert("삭제 성공");
+                        alert("삭제 실패");
                     }
                 },
                 error: function(){alert("서버통신 오류");}
-            };
+            });
         }
     }
 
@@ -142,7 +142,7 @@
         newCell4.innerText = form.userId.value;
         newCell5.innerText = form.auth.value;
 
-        debugger;
+        // debugger;
 
         $('#exampleModal').modal("hide");
     }
@@ -209,18 +209,18 @@
                 <ul class="pagination justify-content-center">
                     <c:if test="${pagination.prev}">
                         <li class="page-item disabled">
-                            <a class="page-link" href="/user/userMng" tabindex="-1">Previous</a>
+                            <a class="page-link" href="/user/userMng.do" tabindex="-1">Previous</a>
                         </li>
                     </c:if>
 
                     <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="pageId">
                         <li class="page-item <c:out value="${pagination.page == pageId ? 'active' : ''}"/> ">
-                            <a class="page-link" href="/user/userMng?page=${pageId}">${pageId}</a></li>
+                            <a class="page-link" href="/user/userMng.do?page=${pageId}">${pageId}</a></li>
                     </c:forEach>
 
                     <c:if test="${pagination.next}">
                         <li class="page-item">
-                            <a class="page-link" href="/user/userMng">Next</a>
+                            <a class="page-link" href="/user/userMng.do">Next</a>
                         </li>
                     </c:if>
                 </ul>
