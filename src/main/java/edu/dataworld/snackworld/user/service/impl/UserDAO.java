@@ -3,10 +3,8 @@ package edu.dataworld.snackworld.user.service.impl;
 import edu.dataworld.egov.cmm.service.impl.EgovComAbstractDAO;
 import edu.dataworld.snackworld.common.Search;
 import edu.dataworld.snackworld.user.service.UserVO;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.xml.registry.infomodel.User;
 import java.util.List;
 
 @Repository("UserDAO")
@@ -42,7 +40,8 @@ public class UserDAO extends EgovComAbstractDAO {
         return insert("user.addUser", vo);
     }
 
-    public void deleteUser(List<String> checkBoxArr) {
-        update("user.deleteUser", checkBoxArr);
+    public int deleteUser(List<String> checkBoxArr) {
+        return update("user.deleteUser", checkBoxArr);
     }
+
 }

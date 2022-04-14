@@ -7,8 +7,6 @@ import java.util.List;
 public interface UserService {
 
     List<UserVO> retrieve(Search search);
-    void insert(UserVO vo);
-    void update(UserVO vo);
 
     UserVO getUserByLoginId(String userId);
     void setRowNum();
@@ -16,5 +14,6 @@ public interface UserService {
 
     int addUser(UserVO userVO);
 
-    void deleteUser(List<String> checkBoxArr);
+    int deleteUser(List<String> checkBoxArr);
+
 }
