@@ -57,6 +57,7 @@ public class LoginController {
         }
 
         session.setAttribute("login", currentUser.getUserId());
+        session.setAttribute("auth", currentUser.getAuthId());
         //카운트 로직
 
         session.setAttribute("test", "100원");

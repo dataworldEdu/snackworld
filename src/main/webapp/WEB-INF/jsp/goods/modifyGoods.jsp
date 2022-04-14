@@ -94,7 +94,7 @@
 <script>
     window.onload = function(){
         let setSelect = ${modifyGoods.catCode * 1};
-        $('#selectBox').val(setSelect).prop("selected", true);
+        $('#catCode').val(setSelect).prop("selected", true);
     }
 
     $('#submitBtn').click(function (){

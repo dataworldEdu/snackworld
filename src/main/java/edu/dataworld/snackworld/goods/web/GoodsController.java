@@ -23,23 +23,15 @@ public class GoodsController {
     @Resource(name="GoodsService")
     private GoodsService goodsService;
 
-    @RequestMapping(value = "/goodsDetail.do")
-    public String showGoodsDetail(){
-        return "/goods/goodsDetail.view";
-    }
-
     @RequestMapping(value = "/goodsList.do", method = RequestMethod.GET)
     public String showGoodsList(
             @RequestParam(required=false,defaultValue="1")int page
             , @RequestParam(required=false,defaultValue="1")int range
-            , @RequestParam(required=false)String searchType
-            , @RequestParam(required=false)String keyword
             , @ModelAttribute("searchVO") Search search, ModelMap model) {
         model.addAttribute("search", search);
-        search.setSearchType(searchType);
-        search.setKeyword(keyword);
 
-        int listCnt = goodsService.goodsCnt();
+
+        int listCnt = goodsService.goodsCnt(search);
 
         //검색 후 페이지
         search.pageInfo(page, range, listCnt);
@@ -49,6 +41,9 @@ public class GoodsController {
 
         goodsService.setRowNum();
         List<GoodsVO> goodsList = goodsService.retrieve(search);
+        for(GoodsVO goodsVO : goodsList){
+            System.out.println("goodsVO.getGdsName() = " + goodsVO.getGdsName());
+        }
         model.addAttribute("goodsList", goodsList);
         model.addAttribute("pageNum", search.getPage());
 
@@ -60,17 +55,23 @@ public class GoodsController {
         return "/goods/regGoods.view";
     }
 
+    @RequestMapping(value = "/goodsDetail.do", method = RequestMethod.GET)
+    public String showGoodsDetail(ModelMap model, String Id){
+        model.addAttribute("goodsDetail", goodsService.selectById(Id));
+        return "/goods/goodsDetail.view";
+    }
+
     @RequestMapping(value = "/modifyGoods.do", method = RequestMethod.GET)
     public String showModifyGoods(ModelMap model, String Id) {
-        GoodsVO goodsVO = goodsService.selectById(Id);
-        model.addAttribute("modifyGoods", goodsVO);
+        model.addAttribute("modifyGoods", goodsService.selectById(Id));
         return "/goods/modifyGoods.view";
     }
 
     @RequestMapping(value = "/modifyGoodsAction.do", method = RequestMethod.GET)
-    public String modifyGoodsAction(String gdsId, String catCode, String gdsName, String gdsPrice, String gdsURL, String imgPath){
-
+    public String modifyGoodsAction(GoodsVO goodsVO) {
+        goodsVO.setCatCode("0" + goodsVO.getCatCode());
+        goodsService.modifyGoods(goodsVO);
+        System.out.println("success");
         return "redirect:/goods/goodsList.do";
     }
-
 }

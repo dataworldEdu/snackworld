@@ -8,8 +8,10 @@ import java.util.List;
 public interface GoodsService {
 
     List<GoodsVO> retrieve(Search search);
-    int goodsCnt();
+    List<GoodsVO> listSearch(Search search);
+    int goodsCnt(Search search);
     void setRowNum();
     GoodsVO selectById(String gdsId);
+    void modifyGoods(GoodsVO vo);
 
 }
