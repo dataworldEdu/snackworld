@@ -1,5 +1,7 @@
 package edu.dataworld.snackworld.login.web;
 
+import edu.dataworld.snackworld.standard.service.StandardService;
+import edu.dataworld.snackworld.standard.service.StandardVO;
 import edu.dataworld.snackworld.user.service.UserService;
 import edu.dataworld.snackworld.user.service.UserVO;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ public class LoginController {
     @Resource(name="UserService")
     private UserService userService;
 
+    @Resource(name="StandardService")
+    private StandardService standardService;
 
     @RequestMapping("/loginForm.do")
     public String loginForm(Model model, String ok) {
@@ -57,9 +61,12 @@ public class LoginController {
         }
 
         session.setAttribute("login", currentUser.getUserId());
-        //카운트 로직
 
-        session.setAttribute("test", "100원");
+        StandardVO standardVo = standardService.getUserStandard(currentUser.getUserId());
+
+        session.setAttribute("order_amt", standardVo.getOrderAmt());
+        session.setAttribute("user_amt", standardVo.getUserAmt());
+
         return "redirect:/home/main.do";
 
     }

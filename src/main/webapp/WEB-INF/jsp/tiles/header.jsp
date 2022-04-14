@@ -17,9 +17,11 @@
 
         </ul>
         <ul class="nav">
-            <li class="nav-item"><a href="/goods/goodsList" class="nav-link link-dark px-2 active" aria-current="page">상품관리</a></li>
-            <li class="nav-item"><a href="#" class="nav-link link-dark px-2">장바구니</a></li>
-            <li class="nav-item"><a href="#" class="nav-link link-dark px-2">주문목록</a></li>
+            <li class="nav-item"><a href="/user/userMng.do" class="nav-link link-dark px-2">회원관리</a></li>
+            <li class="nav-item"><a href="/standard/standardMng.do" class="nav-link link-dark px-2">기준관리</a></li>
+            <li class="nav-item"><a href="/goods/goodsList.do" class="nav-link link-dark px-2 active" aria-current="page">상품관리</a></li>
+            <li class="nav-item"><a href="/order/cart.do" class="nav-link link-dark px-2">장바구니</a></li>
+            <li class="nav-item"><a href="/order/orderList.do" class="nav-link link-dark px-2">주문목록</a></li>
             <li class="nav-item"><a href="/login/loginForm.do" class="nav-link link-dark px-2">로그아웃</a></li>
         </ul>
     </div>
@@ -31,12 +33,12 @@
             <span class="fs-4">SNACK WORLD</span>
         </a>
         <div style="margin-right:20px;">
-            <li style="list-style:none;">총 잔액</li>
-            <li style="list-style:none;">10000원 ++++ ${sessionScope.test}</li>
+            <li style="list-style:none;">전체 잔액</li>
+            <li style="list-style:none;">${sessionScope.order_amt}원</li>
         </div>
         <div style="margin-right:20px;">
             <li style="list-style:none;">개인 잔액</li>
-            <li style="list-style:none;">10000원</li>
+            <li class="ms-2" style="list-style:none; ">${sessionScope.user_amt}원</li>
         </div>
         <form class="col-12 col-lg-auto mb-3 mb-lg-0">
             <input type="search" class="form-control" placeholder="검색..." aria-label="Search">

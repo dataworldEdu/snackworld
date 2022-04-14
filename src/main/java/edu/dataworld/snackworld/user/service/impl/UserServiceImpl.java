@@ -21,20 +21,9 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
     }
 
     @Override
-    public void insert(UserVO vo) {
-        userDAO.insert(vo);
-    }
-
-    @Override
-    public void update(UserVO vo) {
-        userDAO.update(vo);
-    }
-
-    @Override
     public UserVO getUserByLoginId(String userId) {
         return userDAO.getUserByLoginId(userId);
     }
-
 
     @Override
     public void setRowNum() {
@@ -55,4 +44,5 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
     public int deleteUser(List<String> checkBoxArr) {
         return userDAO.deleteUser(checkBoxArr);
     }
+
 }

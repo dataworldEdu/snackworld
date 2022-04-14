@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="standard">
+    <select id="standard.getUserStandard" parameterType="String" resultType="edu.dataworld.snackworld.standard.service.StandardVO">
+        SELECT
+            CRTR_ID,
+            USER_ID,
+            ORDER_AMT,
+            USER_AMT,
+            ORDER_BGNG,
+            ORDER_END
+        FROM CRTR_MNG
+        WHERE USER_ID = #{userId};
+    </select>
+</mapper>

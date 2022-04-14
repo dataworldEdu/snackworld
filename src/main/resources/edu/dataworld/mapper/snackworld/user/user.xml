@@ -18,6 +18,7 @@
                 FROM USER U
                 LEFT JOIN AUTH A
                     ON U.AUTH_ID = A.AUTH_ID
+                WHERE U.DEL_YN = 'N'
                 ORDER BY U.LAST_CHG_DT DESC, U.USER_NAME ASC
             ) A
         )B
@@ -39,11 +40,13 @@
                          ,U.USER_NAME
                      FROM USER U
                      LEFT JOIN AUTH A
-                     ON U.AUTH_ID = A.AUTH_ID
+                        ON U.AUTH_ID = A.AUTH_ID
+                     WHERE U.DEL_YN = 'N'
                      ORDER BY U.LAST_CHG_DT DESC, U.USER_NAME ASC
                      ) A
              )B
     </select>
+
     <insert id="user.addUser" parameterType="edu.dataworld.snackworld.user.service.UserVO">
         INSERT
           INTO USER(
@@ -83,13 +86,6 @@
             #{item}
         </foreach>
     </update>
-
-    <select id="user.login" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="edu.dataworld.snackworld.user.service.UserVO">
-        SELECT *
-        FROM USER
-        WHERE USER_ID = #{userId}
-          AND USER_PW = #{userPw}
-    </select>
 
     <select id="user.getUserByLoginId" parameterType="String" resultType="edu.dataworld.snackworld.user.service.UserVO">
         SELECT *
