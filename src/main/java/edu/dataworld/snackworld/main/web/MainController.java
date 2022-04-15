@@ -18,10 +18,10 @@ public class MainController {
         return "redirect:/login/loginForm.do";
     }
 
-//    @RequestMapping(value="/home/main.do")
-//    public String showMain() {
-//        return "/home/main.view";
-//    }
+    @RequestMapping(value="/home/main.do")
+    public String showMain() {
+        return "/home/main.view";
+    }
 
 //    @RequestMapping(value="/home/main.do", produces="text/plain;charset=UTF-8")
 //    @ResponseBody   //없으면 AJAX 통신 안되요
@@ -33,8 +33,8 @@ public class MainController {
 //            int page = param.getPage();  //파라메터 page값을 받는다.
 //            if (page==1){
 //                param.setStartNum(1);
-//                param.setEndNum(20);  //데이터를 20개씩 가져오겠다.
-//            }else{
+//                param.setEndNum(20);  //데이터를 20개씩 다.
+//            }else{가져오겠
 //                param.setStartNum(page+(19*(page-1)));  //10개씩 가져오고싶다면 19->9로
 //                param.setEndNum(page*20);   //20, 40, 60
 //            }
