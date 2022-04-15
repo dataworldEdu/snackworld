@@ -10,9 +10,9 @@ public class Pagination {
 
     private int rangeSize = 10;            //초기값으로 페이지범위를 10으로 셋팅
 
-    private int page;
+    private int page = 1;
 
-    private int range;
+    private int range = 1;
 
     private int listCnt;
 

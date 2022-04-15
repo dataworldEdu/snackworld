@@ -24,17 +24,13 @@ public class GoodsController {
     private GoodsService goodsService;
 
     @RequestMapping(value = "/goodsList.do", method = RequestMethod.GET)
-    public String showGoodsList(
-            @RequestParam(required=false,defaultValue="1")int page
-            , @RequestParam(required=false,defaultValue="1")int range
-            , @ModelAttribute("searchVO") Search search, ModelMap model) {
+    public String showGoodsList(@ModelAttribute("searchVO") Search search, ModelMap model) {
         model.addAttribute("search", search);
-
 
         int listCnt = goodsService.goodsCnt(search);
 
         //검색 후 페이지
-        search.pageInfo(page, range, listCnt);
+        search.pageInfo(search.getPage(), search.getRange(), listCnt);
 
         //페이징
         model.addAttribute("pagination", search);
