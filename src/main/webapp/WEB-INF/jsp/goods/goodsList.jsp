@@ -44,6 +44,35 @@
             $(ad).remove();
         });
     }
+
+    <!-- pagination -->
+    //이전 버튼 이벤트
+    function fn_prev(page, range, rangeSize) {
+        let pageSet = ((range - 2) * rangeSize) + 1;
+        let rangeSet = range - 1;
+        let url = "${pageContext.request.contextPath}/goods/goodsList.do";
+        url = url + "?page=" + pageSet;
+        url = url + "&range=" + rangeSet;
+        location.href = url;
+    }
+
+    //페이지 번호 클릭
+    function fn_pagination(page, range, rangeSize, searchType, keyword) {
+        let url = "${pageContext.request.contextPath}/goods/goodsList.do";
+        url = url + "?page=" + page;
+        url = url + "&range=" + range;
+        location.href = url;
+    }
+
+    //다음 버튼 이벤트
+    function fn_next(page, range, rangeSize) {
+        let pageSet = parseInt((range * rangeSize)) + 1;
+        let rangeSet = parseInt(range) + 1;
+        let url = "${pageContext.request.contextPath}/goods/goodsList.do";
+        url = url + "?page=" + pageSet;
+        url = url + "&range=" + rangeSet;
+        location.href = url;
+    }
 </script>
 <body>
 <div class="container">
@@ -123,21 +152,22 @@
         <div class="col">
             <div class="text-center">
                 <ul class="pagination justify-content-center">
-                    <c:if test="${pagination.page>10}">
+
+                    <c:if test="${pagination.prev}">
                         <li class="page-item">
-                            <a class="page-link" href="/goods/goodsList.do?page=${pageId-10}" tabindex="-1">Previous</a>
+                            <a class="page-link" href="#" onclick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')">Previous</a>
                         </li>
                     </c:if>
 
                     <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="pageId">
                         <li class="page-item <c:out value="${pagination.page == pageId ? 'active' : ''}"/> ">
-                            <a class="page-link" href="/goods/goodsList.do?page=${pageId}">${pageId}</a>
+                            <a class="page-link" href="#" onclick="fn_pagination('${pageId}', '${pagination.range}', '${pagination.rangeSize}')">${pageId}</a>
                         </li>
                     </c:forEach>
 
                     <c:if test="${pagination.next}">
                         <li class="page-item">
-                            <a class="page-link" href="/goods/goodsList.do?page=${pageId+10}" tabindex="+1">Next</a>
+                            <a class="page-link" href="#" onclick="fn_next('${pagination.range}','${pagination.range}', '${pagination.rangeSize}')">Next</a>
                         </li>
                     </c:if>
                 </ul>
