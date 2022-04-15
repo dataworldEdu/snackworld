@@ -61,6 +61,8 @@ public class LoginController {
         }
 
         session.setAttribute("login", currentUser.getUserId());
+        session.setAttribute("auth", currentUser.getAuthId());
+        //카운트 로직
 
         StandardVO standardVo = standardService.getUserStandard(currentUser.getUserId());
 

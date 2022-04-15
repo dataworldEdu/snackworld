@@ -18,34 +18,12 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public List<GoodsVO> retrieve(Search search) {
-        List<GoodsVO> beforeList = goodsDAO.retrieve(search);
-        List<GoodsVO> afterList = new ArrayList<>();
-        for(GoodsVO temp : beforeList){
-            switch (temp.getCatCode()){
-                case "01":
-                    temp.setCatCode("스낵");
-                    afterList.add(temp);
-                    break;
-                case "02":
-                    temp.setCatCode("사탕");
-                    afterList.add(temp);
-                    break;
-                case "03":
-                    temp.setCatCode("초콜릿");
-                    afterList.add(temp);
-                    break;
-                case "04":
-                    temp.setCatCode("젤리");
-                    afterList.add(temp);
-                    break;
-                case "05":
-                    temp.setCatCode("파이류");
-                    afterList.add(temp);
-                    break;
-            }
-        }
-        return afterList;
-//        return goodsDAO.retrieve(search);
+        return goodsDAO.retrieve(search);
+    }
+
+    @Override
+    public List<GoodsVO> listSearch(Search search) {
+        return goodsDAO.listSearch(search);
     }
 
     @Override
@@ -54,8 +32,18 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public int goodsCnt() {
-        return goodsDAO.goodsCnt();
+    public void modifyGoods(GoodsVO vo) {
+        if (vo.getGdsURL().equals("")) {
+            System.out.println("updateWithoutURL");
+            goodsDAO.updateWithoutURL(vo);
+        }else{
+            goodsDAO.update(vo);
+        }
+    }
+
+    @Override
+    public int goodsCnt(Search search) {
+        return goodsDAO.goodsCnt(search);
     }
 
     @Override

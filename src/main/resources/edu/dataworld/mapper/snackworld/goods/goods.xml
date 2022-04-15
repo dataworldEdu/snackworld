@@ -14,13 +14,31 @@
                  FROM GOODS G
                  LEFT JOIN GOODS_IMG_FILE GI
                         ON G.GDS_ID = GI.GDS_ID
+                 WHERE G.DEL_YN = 'N'
+                 <if test='keyword != null'>
+                   AND GDS_NAME LIKE CONCAT('%',#{keyword},'%')
+                   AND CAT_CODE LIKE CONCAT('%',#{searchType},'%')
+                 </if>
                  ) GDS
              ) B
         LIMIT #{startList}, #{listSize}
     </select>
+
     <select id="goods.goodsCnt" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO" resultType="Integer">
         SELECT COUNT(*)
-        FROM GOODS
+        FROM (
+                 SELECT
+                     G.*
+                      , GI.STORED_FILE_NAME
+                 FROM GOODS G
+                          LEFT JOIN GOODS_IMG_FILE GI
+                                    ON G.GDS_ID = GI.GDS_ID
+                 WHERE G.DEL_YN = 'N'
+                 <if test='keyword != null'>
+                     AND GDS_NAME LIKE CONCAT('%',#{keyword},'%')
+                     AND CAT_CODE LIKE CONCAT('%',#{searchType},'%')
+                 </if>
+             ) GDS
     </select>
     <select id="goods.selectById" parameterType="String" resultType="edu.dataworld.snackworld.goods.service.GoodsVO">
         SELECT G.*
@@ -44,20 +62,26 @@
                 , #{gdsName}
                 , #{gdsPrice}
                 , #{catCode}
-                , #{gdsUrl}
+                , #{gdsURL}
                 , 'N'
                 )
     </insert>
 
     <update id="goods.update" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO">
         UPDATE GOODS
-        SET GDS_ID = #{gdsId}
-          , GDS_NAME = #{gdsName}
+        SET GDS_NAME = #{gdsName}
           , GDS_PRICE = #{gdsPrice}
-          , USER_NAME = #{userName}
           , CAT_CODE = #{catCode}
-          , GDS_URL = #{gdsUrl}
-          , DEL_YN = #{delYn}
+          , GDS_URL = NULL
+        WHERE GDS_ID = #{gdsId}
+    </update>
+    <update id="goods.updateWithoutURL" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO">
+        UPDATE GOODS
+        SET GDS_NAME = #{gdsName}
+          , GDS_PRICE = #{gdsPrice}
+          , CAT_CODE = #{catCode}
+          , GDS_URL = #{gdsURL}
+        WHERE GDS_ID = #{gdsId}
     </update>
     <insert id="goods.fileUpload" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO">
         INSERT

@@ -49,22 +49,24 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <span style="font-weight: bold; font-size: 2rem">상품 리스트</span>
-            <div class="btn-group">
-                <select class="form-select" aria-label="Default select example" style="width: 150px">
-                    <option selected>카테고리</option>
-                    <option value="1">스낵</option>
-                    <option value="2">사탕</option>
-                    <option value="3">초콜릿</option>
-                    <option value="4">젤리</option>
-                    <option value="5">파이류</option>
-                </select>
-                <input type="search" class="form-control" placeholder="검색..." aria-label="Search">
-                <div style="margin : 10px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="goods-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                    </svg>
-                </div>
+            <div class="btn-group ">
+                <span class="fw-bold fs-2">상품 리스트</span>
+                <form id="search-form" action="/goods/goodsList.do" method="get">
+                    <div class="btn-group mt-1 ms-2">
+                        <select class="form-select me-1" name="searchType" aria-label="Default select example" style="width: 150px">
+                            <option value="0" selected>전체</option>
+                            <option value="1">스낵</option>
+                            <option value="2">사탕</option>
+                            <option value="3">초콜릿</option>
+                            <option value="4">젤리</option>
+                            <option value="5">파이류</option>
+                        </select>
+                        <div class="input-group">
+                            <input type="search" class="form-control" name="keyword" placeholder="검색..." aria-label="Search">
+                            <button type="submit" class="bi bi-search btn btn-outline-secondary fs-5"></button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -72,11 +74,11 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th class="header" width="30"><input type="checkbox" value="selectall" name="selectall" onclick="selectAll(this)"/></th>
+                <th class="header" style="width: 30px;"><input type="checkbox" value="selectall" name="selectall" onclick="selectAll(this)"/></th>
                 <th>번호</th>
                 <th>카테고리</th>
-                <th>이미지</th>
-                <th>상품명</th>
+                <th style="width: 15%;">이미지</th>
+                <th style="text-overflow: ellipsis; width: 50%;">상품명</th>
                 <th>가격</th>
                 <th></th>
             </tr>
@@ -87,28 +89,26 @@
                 <tr>
                     <td><input type="checkbox" name="selected" value="row" onclick="checkSelectAll(this)"></td>
                     <td>${rowNum}</td>
-                    <td class="catCode">${goods.catCode}</td>
-<%--                    <td class="reCode"></td>--%>
+                    <td>
+                        ${goods.catCode == "01" ? "스낵"
+                        :(goods.catCode == "02") ? "사탕"
+                        :(goods.catCode == "03") ? "초콜릿"
+                        :(goods.catCode == "04") ? "젤리" : "파이류"}
+                    </td>
                     <td>이미지</td>
-                    <td>${goods.gdsName}</td>
+                    <td>
+                        <span onclick="location.href='/goods/goodsDetail.do?Id=${goods.gdsId}'" style="cursor: pointer">${goods.gdsName}</span>
+                    </td>
                     <td><fmt:formatNumber value="${goods.gdsPrice}"/></td>
                     <td>
                         <button type="button" class="btn btn-outline-primary"
-                                onclick="location.href='/goods/modifyGoods?Id=${goods.gdsId}'">수정</button>
+                                onclick="location.href='/goods/modifyGoods.do?Id=${goods.gdsId}'">수정</button>
                     </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
     </div>
-<%--    <script>--%>
-<%--        window.onload = function(){--%>
-<%--                let code = $('.catCode').val();--%>
-<%--                console.log(code);--%>
-<%--                $(".reCode").text(code);--%>
-<%--        }--%>
-
-<%--    </script>--%>
     <!-- button -->
     <div class="row">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-right: 1%">
@@ -119,35 +119,39 @@
 
     <!-- pagination -->
     <div class="row">
-        <div class="col">
-        </div>
+        <div class="col"></div>
         <div class="col">
             <div class="text-center">
                 <ul class="pagination justify-content-center">
-                    <c:if test="${pagination.prev}">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="/goods/goodsList" tabindex="-1">Previous</a>
+                    <c:if test="${pagination.page>10}">
+                        <li class="page-item">
+                            <a class="page-link" href="/goods/goodsList.do?page=${pageId-10}" tabindex="-1">Previous</a>
                         </li>
                     </c:if>
 
                     <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="pageId">
-                        <li class="page-item" <c:out value="${pagination.page == pageId ? 'active' : ''}"/>
-                            <a class="page-link" href="/goods/goodsList?page=${pageId}">${pageId}</a></li>
+                        <li class="page-item <c:out value="${pagination.page == pageId ? 'active' : ''}"/> ">
+                            <a class="page-link" href="/goods/goodsList.do?page=${pageId}">${pageId}</a>
+                        </li>
                     </c:forEach>
 
                     <c:if test="${pagination.next}">
                         <li class="page-item">
-                            <a class="page-link" href="/goods/goodsList">Next</a>
+                            <a class="page-link" href="/goods/goodsList.do?page=${pageId+10}" tabindex="+1">Next</a>
                         </li>
                     </c:if>
                 </ul>
             </div>
         </div>
-        <div class="col">
-        </div>
+        <div class="col"></div>
     </div>
-
-
 </div>
+<script>
+    window.onload = function () {
+        console.log(${pagination.startPage});
+        console.log(${pagination.endPage});
+
+    }
+</script>
 </body>
 </html>

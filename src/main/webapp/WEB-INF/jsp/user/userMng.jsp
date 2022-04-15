@@ -5,7 +5,7 @@
   Time: 2:27 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -31,7 +31,6 @@
             selectall.checked = false;
         }
     }
-
     function deleteRow() {
         $("input:checkbox[name='selected']:checked").each(function(k,kVal) {
             console.log("kVal ::", kVal.parentElement.parentElement);
@@ -40,9 +39,14 @@
         });
     }
 
+
+
+    // $('#exampleModal').on('shown.bs.modal', function (e) {
+    //     // do something...
+    // })
+
     /*삭제 관련*/
     function deleteUser(){
-
         if($("input:checkbox[name='selected']:checked").length === 0) {
             alert("삭제할 항목을 선택하세요.");
             return;
@@ -179,7 +183,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <table class="table table-striped" id="userTable">
+            <table class="table table-striped">
                 <thead>
                 <tr>
                     <th class="header" width="30"><input type="checkbox" value="selectall" name="selectall" onclick="selectAll(this)"/></th>
@@ -196,10 +200,17 @@
                         <input type="hidden" name="inputAuth" id="td_inputAuthId" value="${user.authId}">
                         <td><input type="checkbox" name="selected" value="row" onclick="checkSelectAll(this)"></td>
                         <td>${rowNum}</td>
+<<<<<<< HEAD
+                        <td>${user.userName}</td>
+                        <td>${user.userId}</td>
+                        <td>${user.authId}</td>
+                        <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary btn-sm" >수정</button></td>
+=======
                         <td id="td_inputName">${user.userName}</td>
                         <td id="td_inputId">${user.userId}</td>
                         <td id="td_inputAuthName">${user.authName}</td>
                         <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary btn-sm" onclick="modifyUser()" >수정</button></td>
+>>>>>>> 0bcb1a3bc978290f75940c7c24df7788bff1ffb7
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -238,7 +249,7 @@
         <div class="col">
 <%--            <div class="d-grid gap-2 d-md-flex justify-content-md-end">--%>
 <%--                <button type="button" class="btn btn-outline-secondary ">취소</button>--%>
-<%--                <button type="button" class="btn btn-outline-primary" onclick="form_submit();">저장</button>--%>
+<%--                <button type="button" class="btn btn-outline-primary">저장</button>--%>
 <%--            </div>--%>
         </div>
     </div>
@@ -254,6 +265,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+
                 <form method="post" action="/user/userAdd.do" id="addUserForm">
                     <div class="mb-3">
                         <label for="addInputAuth" class="form-label">권한</label>
