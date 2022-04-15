@@ -37,9 +37,8 @@ public class GoodsController {
 
         goodsService.setRowNum();
         List<GoodsVO> goodsList = goodsService.retrieve(search);
-        for(GoodsVO goodsVO : goodsList){
-            System.out.println("goodsVO.getGdsName() = " + goodsVO.getGdsName());
-        }
+        List<GoodsVO> listSearch = goodsService.listSearch(search);
+        model.addAttribute("listSearch", listSearch);
         model.addAttribute("goodsList", goodsList);
         model.addAttribute("pageNum", search.getPage());
 

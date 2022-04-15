@@ -24,6 +24,16 @@
         LIMIT #{startList}, #{listSize}
     </select>
 
+    <select id="goods.listSearch" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO" resultType="edu.dataworld.snackworld.goods.service.GoodsVO">
+        SELECT
+            G.*
+             , GI.STORED_FILE_NAME
+        FROM GOODS G
+                 LEFT JOIN GOODS_IMG_FILE GI
+                           ON G.GDS_ID = GI.GDS_ID
+        WHERE G.DEL_YN = 'N'
+    </select>
+
     <select id="goods.goodsCnt" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO" resultType="Integer">
         SELECT COUNT(*)
         FROM (

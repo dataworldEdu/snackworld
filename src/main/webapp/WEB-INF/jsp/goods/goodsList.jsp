@@ -91,7 +91,12 @@
                             <option value="5">파이류</option>
                         </select>
                         <div class="input-group">
-                            <input type="search" class="form-control" name="keyword" placeholder="검색..." aria-label="Search">
+                            <input type="text" class="form-control" name="keyword" placeholder="검색..." list="goods-List">
+                            <datalist id="goods-List">
+                                <c:forEach items="${listSearch}" var="list" varStatus="status">
+                                    <option value="${list.gdsName}"/>
+                                </c:forEach>
+                            </datalist>
                             <button type="submit" class="bi bi-search btn btn-outline-secondary fs-5"></button>
                         </div>
                     </div>
