@@ -1,4 +1,4 @@
-package edu.dataworld.snackworld.main.service.impl;
+package edu.dataworld.snackworld.main.service;
 
 import lombok.Getter;
 import lombok.Setter;
