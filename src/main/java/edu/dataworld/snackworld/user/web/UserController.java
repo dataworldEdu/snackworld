@@ -75,12 +75,12 @@ public class UserController {
     public String modifyUser(HttpServletRequest req, @ModelAttribute("userVO") UserVO userVO) throws Exception{
 
 
-//        int joinUserCount = userService.modifyUser(userVO);
+        int joinUserCount = userService.modifyUser(userVO);
 
-//        if(joinUserCount == 0) {
-//            return Util.msgAndBack(req,"회원 추가에 실패하였습니다.");
-//        }
-        return Util.msgAndReplace(req,"회원이 추가되었습니다.", "/user/userMng.view");
+        if(joinUserCount == 0) {
+            return Util.msgAndBack(req,"회원 수정에 실패하였습니다.");
+        }
+        return Util.msgAndReplace(req,"회원 정보가 수정되었습니다.", "/user/userMng.view");
     }
 
     @ResponseBody

@@ -67,12 +67,13 @@
               , 'N'
               )
     </insert>
-    <update id="user.update" parameterType="edu.dataworld.snackworld.user.service.UserVO">
+    <update id="user.updateUser" parameterType="edu.dataworld.snackworld.user.service.UserVO">
         UPDATE USER
         SET AUTH_ID = #{authId}
             USER_PW = #{userPw}
             USER_NAME = #{userName}
             DEL_YN = #{delYn}
+        WHERE USER_ID = #{userId}
     </update>
     <update id="user.setRowNum" parameterType="edu.dataworld.snackworld.user.service.UserVO">
         SET @ROWNUM :=0;

@@ -150,6 +150,8 @@
 
         submit_form.submit();
         mod_submit_formDone = true;
+
+        $("#modifyModal").modal('hide');
     }
 
     function modifyUser() {
@@ -158,7 +160,6 @@
         $('#modInputAuth').val($("#td_inputAuthId").val()).prop("selected",true);
         $("#modInputName").val($("#td_inputName")[0].innerText);
         $("#modInputId").val($("#td_inputId")[0].innerText);
-
 
     }
 

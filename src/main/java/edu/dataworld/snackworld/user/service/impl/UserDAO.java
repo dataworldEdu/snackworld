@@ -14,14 +14,6 @@ public class UserDAO extends EgovComAbstractDAO {
         return selectList("user.retrieve", search);
     }
 
-    public void insert(UserVO vo) {
-        insert("user.insert", vo);
-    }
-
-    public void update(UserVO vo) {
-        update("user.update", vo);
-    }
-
     public UserVO login(UserVO vo){
         return selectOne("user.login", vo);
     }
@@ -44,4 +36,7 @@ public class UserDAO extends EgovComAbstractDAO {
         return update("user.deleteUser", checkBoxArr);
     }
 
+    public int modifyUser(UserVO vo) {
+        return update("user.updateUser", vo);
+    }
 }
