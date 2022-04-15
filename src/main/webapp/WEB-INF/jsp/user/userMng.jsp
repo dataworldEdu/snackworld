@@ -200,17 +200,10 @@
                         <input type="hidden" name="inputAuth" id="td_inputAuthId" value="${user.authId}">
                         <td><input type="checkbox" name="selected" value="row" onclick="checkSelectAll(this)"></td>
                         <td>${rowNum}</td>
-<<<<<<< HEAD
-                        <td>${user.userName}</td>
-                        <td>${user.userId}</td>
-                        <td>${user.authId}</td>
-                        <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary btn-sm" >수정</button></td>
-=======
                         <td id="td_inputName">${user.userName}</td>
                         <td id="td_inputId">${user.userId}</td>
                         <td id="td_inputAuthName">${user.authName}</td>
                         <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary btn-sm" onclick="modifyUser()" >수정</button></td>
->>>>>>> 0bcb1a3bc978290f75940c7c24df7788bff1ffb7
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -247,10 +240,6 @@
     </div>
     <div class="row">
         <div class="col">
-<%--            <div class="d-grid gap-2 d-md-flex justify-content-md-end">--%>
-<%--                <button type="button" class="btn btn-outline-secondary ">취소</button>--%>
-<%--                <button type="button" class="btn btn-outline-primary">저장</button>--%>
-<%--            </div>--%>
         </div>
     </div>
 </div>
