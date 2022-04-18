@@ -33,7 +33,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public void modifyGoods(GoodsVO vo) {
-        if (vo.getGdsURL().equals("")) {
+        if (vo.getGdsUrl().equals("")) {
             System.out.println("updateWithoutURL");
             goodsDAO.updateWithoutURL(vo);
         }else{
@@ -49,5 +49,10 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public void setRowNum() {
         goodsDAO.setRowNum();
+    }
+
+    @Override
+    public void deleteById(String gdsId) {
+        goodsDAO.deleteById(gdsId);
     }
 }

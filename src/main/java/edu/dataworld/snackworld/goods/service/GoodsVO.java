@@ -10,8 +10,9 @@ public class GoodsVO {
     private int gdsPrice;
     private String catCode;
     private String gdsName;
-    private String gdsURL;
+    private String gdsUrl;
     private String storedFileName; // img file
+    private String imgUrl; // img file
     private String delYn;
     private int gdsSeq;
 

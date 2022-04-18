@@ -13,5 +13,6 @@ public interface GoodsService {
     void setRowNum();
     GoodsVO selectById(String gdsId);
     void modifyGoods(GoodsVO vo);
+    void deleteById(String gdsId);
 
 }
