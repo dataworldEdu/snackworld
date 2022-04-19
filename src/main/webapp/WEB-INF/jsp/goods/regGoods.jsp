@@ -24,7 +24,10 @@
             <div class="row">
                 <!-- image 추가-->
                 <div class="row mb-1">
-                    <div style="width: 400px; height: 400px; background-color: gray"></div>
+                    <img src="${goods.imgUrl != null ? goods.imgUrl
+                                    : goods.storedFileName != null ? goods.storedFileName
+                                    : "/images/defaultimg.jpg"}" style="width: 400px; height: 400px">
+<%--                    <div style="width: 400px; height: 400px; background-color: gray"></div>--%>
                     <!--                <img src="..." class="img-thumbnail" alt="...">-->
                 </div>
                 <div class="row col-5">

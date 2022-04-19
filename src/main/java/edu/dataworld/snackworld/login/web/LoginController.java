@@ -1,5 +1,9 @@
 package edu.dataworld.snackworld.login.web;
 
+import edu.dataworld.snackworld.common.Search;
+import edu.dataworld.snackworld.common.Util;
+import edu.dataworld.snackworld.goods.service.GoodsService;
+import edu.dataworld.snackworld.goods.service.GoodsVO;
 import edu.dataworld.snackworld.standard.service.StandardService;
 import edu.dataworld.snackworld.standard.service.StandardVO;
 import edu.dataworld.snackworld.user.service.UserService;
@@ -14,12 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
+import java.util.List;
 
 @Controller
 @RequestMapping(value="/login")
 public class LoginController {
-
-    public static UserVO currentUser;
 
     @Resource(name="UserService")
     private UserService userService;
@@ -27,15 +30,18 @@ public class LoginController {
     @Resource(name="StandardService")
     private StandardService standardService;
 
+    @Resource(name = "GoodsService")
+    private GoodsService goodsService;
+
     @RequestMapping("/loginForm.do")
     public String loginForm(Model model, String ok) {
         return "/login/loginForm.view";
     }
 
     @RequestMapping(value = "/loginAction.do", method = RequestMethod.POST)
-    public String loginAction(UserVO vo, HttpServletResponse response, HttpSession session) throws Exception{
-        response.setContentType("text/html;charset=utf-8");
-        PrintWriter out = response.getWriter();
+    public String loginAction(UserVO vo, Search search, /*HttpServletResponse response,*/ HttpSession session, HttpServletRequest request) throws Exception{
+//        response.setContentType("text/html;charset=utf-8");
+//        PrintWriter out = response.getWriter();
 
         if(session.getAttribute("login") != null){
             session.removeAttribute("login");
@@ -43,22 +49,21 @@ public class LoginController {
         UserVO currentUser = userService.getUserByLoginId(vo.getUserId());
 
         if(currentUser == null) {
-            out.println("<script>");
-            out.println("alert('존재하지 않는 아이디 입니다');");
-            out.println("history.go(-1);");
-            out.println("</script>");
-            out.close();
-            return "/login/loginForm.view";
+            return Util.msgAndBack(request,"존재하지 않는 아이디 입니다");
         }
 
         if(currentUser.getUserPw().equals(vo.getUserPw()) == false) {
-            out.println("<script>");
-            out.println("alert('비밀번호가 일치하지 않습니다.');");
-            out.println("history.go(-1);");
-            out.println("</script>");
-            out.close();
-            return "/login/loginForm.view";
+//            out.println("<script>");
+//            out.println("alert('비밀번호가 일치하지 않습니다.');");
+//            out.println("history.go(-1);");
+//            out.println("</script>");
+//            out.close();
+            return Util.msgAndBack(request,"비밀번호가 일치하지 않습니다.");
         }
+
+
+        List<GoodsVO> listSearch = goodsService.listSearch(search);
+        session.setAttribute("listSearch", listSearch);
 
         session.setAttribute("login", currentUser.getUserId());
         session.setAttribute("auth", currentUser.getAuthId());

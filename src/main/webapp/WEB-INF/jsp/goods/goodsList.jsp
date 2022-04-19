@@ -38,11 +38,24 @@
             return;
         }
 
-        $("input:checkbox[name='selected']:checked").each(function(k,kVal) {
-            console.log("kVal ::", kVal.parentElement.parentElement);
-            let ad = kVal.parentElement.parentElement;
-            $(ad).remove();
+
+
+        let chk_val = [];
+        $("input:checkbox[name='selected']:checked").each(function (k, val){
+            chk_val.push($(this).val())
         });
+
+        console.log(chk_val)
+
+        let chk_form = document.getElementById("chkForm");
+        if(confirm("선택 항목을 삭제 하시겠습니까?")){
+            chk_form.submit();
+        }
+        // $("input:checkbox[name='selected']:checked").each(function(k,kVal) {
+        //     console.log("kVal ::", kVal.parentElement.parentElement);
+        //     let ad = kVal.parentElement.parentElement;
+        //     $(ad).remove();
+        // });
     }
 
     <!-- pagination -->
@@ -91,7 +104,12 @@
                             <option value="5">파이류</option>
                         </select>
                         <div class="input-group">
-                            <input type="search" class="form-control" name="keyword" placeholder="검색..." aria-label="Search">
+                            <input type="text" class="form-control" name="keyword" placeholder="검색..." list="goods-List">
+                            <datalist id="goods-List">
+                                <c:forEach items="${listSearch}" var="list" varStatus="status">
+                                    <option value="${list.gdsName}"/>
+                                </c:forEach>
+                            </datalist>
                             <button type="submit" class="bi bi-search btn btn-outline-secondary fs-5"></button>
                         </div>
                     </div>
@@ -100,6 +118,8 @@
         </div>
     </div>
     <div class="row">
+
+        <form id="chkForm" method="get" action="/goods/deleteGoods.do">
         <table class="table table-hover">
             <thead>
             <tr>
@@ -116,7 +136,10 @@
             <c:forEach items="${goodsList}" var="goods" varStatus="status">
                 <c:set var="rowNum" value="${(search.listCnt -status.index) - ((pageNum - 1) * 10) }"/>
                 <tr>
-                    <td><input type="checkbox" name="selected" value="row" onclick="checkSelectAll(this)"></td>
+                    <td>
+                            <input type="checkbox" name="selected" value="${goods.gdsId}" onclick="checkSelectAll(this)">
+
+                    </td>
                     <td>${rowNum}</td>
                     <td>
                         ${goods.catCode == "01" ? "스낵"
@@ -124,7 +147,11 @@
                         :(goods.catCode == "03") ? "초콜릿"
                         :(goods.catCode == "04") ? "젤리" : "파이류"}
                     </td>
-                    <td>이미지</td>
+                    <td>
+                        <img src="${goods.imgUrl != null ? goods.imgUrl
+                                    : goods.storedFileName != null ? goods.storedFileName
+                                    : "/images/defaultimg.jpg"}" style="width: 150px; height: 150px">
+                    </td>
                     <td>
                         <span onclick="location.href='/goods/goodsDetail.do?Id=${goods.gdsId}'" style="cursor: pointer">${goods.gdsName}</span>
                     </td>
@@ -137,11 +164,12 @@
             </c:forEach>
             </tbody>
         </table>
+        </form>
     </div>
     <!-- button -->
     <div class="row">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-right: 1%">
-            <button type="button" class="btn btn-outline-secondary">상품 삭제</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="delCheckedList()">상품 삭제</button>
             <button type="button" class="btn btn-outline-primary" onclick="location.href='/goods/regGoods'">상품 추가</button>
         </div>
     </div>
@@ -176,12 +204,5 @@
         <div class="col"></div>
     </div>
 </div>
-<script>
-    window.onload = function () {
-        console.log(${pagination.startPage});
-        console.log(${pagination.endPage});
-
-    }
-</script>
 </body>
 </html>

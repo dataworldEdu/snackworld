@@ -11,6 +11,7 @@
                  SELECT
                      G.*
                      , GI.STORED_FILE_NAME
+                     , GI.IMG_URL
                  FROM GOODS G
                  LEFT JOIN GOODS_IMG_FILE GI
                         ON G.GDS_ID = GI.GDS_ID
@@ -22,6 +23,13 @@
                  ) GDS
              ) B
         LIMIT #{startList}, #{listSize}
+    </select>
+
+    <select id="goods.listSearch" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO" resultType="edu.dataworld.snackworld.goods.service.GoodsVO">
+        SELECT
+               GDS_NAME
+        FROM GOODS
+        WHERE DEL_YN = 'N'
     </select>
 
     <select id="goods.goodsCnt" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO" resultType="Integer">
@@ -43,6 +51,7 @@
     <select id="goods.selectById" parameterType="String" resultType="edu.dataworld.snackworld.goods.service.GoodsVO">
         SELECT G.*
              , GI.STORED_FILE_NAME
+             , GI.IMG_URL
         FROM GOODS G
         LEFT JOIN GOODS_IMG_FILE GI
                ON G.GDS_ID = GI.GDS_ID
@@ -103,6 +112,12 @@
                 , 'N'
                 )
     </insert>
+
+    <update id="goods.deleteById">
+        UPDATE GOODS
+        SET DEL_YN = 'Y'
+        WHERE GDS_ID = #{gdsId}
+    </update>
 
     <update id="goods.setRowNum">
         SET @ROWNUM :=0;

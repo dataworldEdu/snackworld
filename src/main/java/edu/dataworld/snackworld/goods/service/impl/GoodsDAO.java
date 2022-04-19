@@ -25,6 +25,7 @@ public class GoodsDAO extends EgovComAbstractDAO {
         update("goods.updateWithoutURL", vo);
     }
     public void fileUpload(GoodsVO vo) {}
+    public void deleteById(String gdsId) { update("goods.deleteById", gdsId);}
     public GoodsVO selectById(String gdsId){
         return selectOne("goods.selectById", gdsId);
     }

@@ -13,6 +13,30 @@
 <head>
     <title>상품 수정</title>
 </head>
+
+<script>
+    window.onload = function(){
+        let setSelect = ${modifyGoods.catCode * 1};
+        $('#catCode').val(setSelect).prop("selected", true);
+    }
+
+    $('#submitBtn').click(function (){
+        if($('#catCode').val() == ""){
+            alert("카테고리를 선택하세요")
+            return false;
+        }
+        if($('#gdsName').val() == ""){
+            alert("상품명을 입력하세요")
+            return false;
+        }
+        if($('#gdsPrice').val() == ""){
+            alert("상품 가격을 입력하세요")
+            return false;
+        }
+        $('#modifyForm').submit();
+    })
+</script>
+
 <body>
 <div class="container">
     <div class="row">
@@ -27,8 +51,10 @@
             <div class="row">
                 <!-- image 추가-->
                 <div class="row mb-1">
-                    <div style="width: 400px; height: 400px; background-color: gray"></div>
-                    <!--                <img src="..." class="img-thumbnail" alt="...">-->
+
+                    <img src="${modifyGoods.imgUrl != null ? modifyGoods.imgUrl
+                                    : modifyGoods.storedFileName != null ? modifyGoods.storedFileName
+                                    : "/images/defaultimg.jpg"}" style="width: 400px; height: 400px">
                 </div>
                 <div class="row col-5">
                     <button type="button" class="btn btn-secondary">이미지 업로드</button>
@@ -72,7 +98,7 @@
                 <p class="fs-5 fw-bold">URL</p>
                 <div class="input-group mb-3" style="width: 80%">
                     <textarea class="form-control" id="gdsURL" rows="3"
-                        name="gdsURL"></textarea>
+                        name="gdsURL">${modifyGoods.gdsUrl}</textarea>
                 </div>
             </div>
 
@@ -91,26 +117,4 @@
     </div>
 </div>
 </body>
-<script>
-    window.onload = function(){
-        let setSelect = ${modifyGoods.catCode * 1};
-        $('#catCode').val(setSelect).prop("selected", true);
-    }
-
-    $('#submitBtn').click(function (){
-        if($('#catCode').val() == ""){
-            alert("카테고리를 선택하세요")
-            return false;
-        }
-        if($('#gdsName').val() == ""){
-            alert("상품명을 입력하세요")
-            return false;
-        }
-        if($('#gdsPrice').val() == ""){
-            alert("상품 가격을 입력하세요")
-            return false;
-        }
-        $('#modifyForm').submit();
-    })
-</script>
 </html>
