@@ -27,21 +27,14 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value="/userMng.do", method = RequestMethod.GET)
-    public String showUserList(
-            @RequestParam(required=false,defaultValue="1")int page
-            , @RequestParam(required=false,defaultValue="1")int range
-            , @RequestParam(required=false)String searchType
-            , @RequestParam(required=false)String keyword
-            , @ModelAttribute("searchVO") Search search, ModelMap model) {
+    public String showUserList(@ModelAttribute("searchVO") Search search, ModelMap model) {
 
         model.addAttribute("search", search);
-        search.setSearchType(searchType);
-        search.setKeyword(keyword);
 
-        int listCnt = userService.userCnt();
+        int listCnt = userService.userCnt(search);
 
         //검색 후 페이지
-        search.pageInfo(page, range, listCnt);
+        search.pageInfo(search.getPage(), search.getRange(), listCnt);
 
         //페이징
         model.addAttribute("pagination", search);

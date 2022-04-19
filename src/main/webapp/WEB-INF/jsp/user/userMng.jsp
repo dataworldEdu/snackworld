@@ -13,7 +13,6 @@
     <title>회원관리</title>
 </head>
 <script>
-    let flag;
     /*체크박스 관련*/
     function selectAll(selectAll)  {
         const checkboxes
@@ -39,11 +38,34 @@
         });
     }
 
+    <!-- pagination -->
+    //이전 버튼 이벤트
+    function fn_prev(page, range, rangeSize) {
+        let pageSet = ((range - 2) * rangeSize) + 1;
+        let rangeSet = range - 1;
+        let url = "${pageContext.request.contextPath}/user/userMng.do";
+        url = url + "?page=" + pageSet;
+        url = url + "&range=" + rangeSet;
+        location.href = url;
+    }
 
+    //페이지 번호 클릭
+    function fn_pagination(page, range, rangeSize, searchType, keyword) {
+        let url = "${pageContext.request.contextPath}/user/userMng.do";
+        url = url + "?page=" + page;
+        url = url + "&range=" + range;
+        location.href = url;
+    }
 
-    // $('#exampleModal').on('shown.bs.modal', function (e) {
-    //     // do something...
-    // })
+    //다음 버튼 이벤트
+    function fn_next(page, range, rangeSize) {
+        let pageSet = parseInt((range * rangeSize)) + 1;
+        let rangeSet = parseInt(range) + 1;
+        let url = "${pageContext.request.contextPath}/user/userMng.do";
+        url = url + "?page=" + pageSet;
+        url = url + "&range=" + rangeSet;
+        location.href = url;
+    }
 
     /*삭제 관련*/
     function deleteUser(){
@@ -218,7 +240,7 @@
                 <ul class="pagination justify-content-center">
                     <c:if test="${pagination.prev}">
                         <li class="page-item disabled">
-                            <a class="page-link" href="/user/userMng.do" tabindex="-1">Previous</a>
+                            <a class="page-link" onclick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')" tabindex="-1">Previous</a>
                         </li>
                     </c:if>
 
@@ -229,7 +251,7 @@
 
                     <c:if test="${pagination.next}">
                         <li class="page-item">
-                            <a class="page-link" href="/user/userMng.do">Next</a>
+                            <a class="page-link" href="#" onclick="fn_next('${pagination.range}','${pagination.range}','${pagination.rangeSize}')">Next</a>
                         </li>
                     </c:if>
                 </ul>

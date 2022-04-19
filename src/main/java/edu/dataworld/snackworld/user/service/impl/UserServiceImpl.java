@@ -31,8 +31,8 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
     }
 
     @Override
-    public int userCnt() {
-        return userDAO.userCnt();
+    public int userCnt(Search search) {
+        return userDAO.userCnt(search);
     }
 
     @Override

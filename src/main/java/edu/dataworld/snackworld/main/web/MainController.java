@@ -42,7 +42,7 @@ public class MainController {
             int page = param.getPage();  //파라메터 page값을 받는다.
             if (page==1){
                 param.setStartPage(1);
-                param.setEndPage(20);  //데이터를 20개씩 가져오겠다.
+                param.setEndPage(20);  //데이터를 20개씩 가져오겠다.s
             }else{
                 param.setStartPage(page+(19*(page-1)));  //10개씩 가져오고싶다면 19->9로
                 param.setEndPage(page*20);   //20, 40, 60
@@ -54,6 +54,7 @@ public class MainController {
             set.setTotCnt(totalCnt);
             set.setStartNum(param.getStartPage());
             set.setResultCode(200);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

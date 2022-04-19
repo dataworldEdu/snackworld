@@ -19,6 +19,12 @@
                 LEFT JOIN AUTH A
                     ON U.AUTH_ID = A.AUTH_ID
                 WHERE U.DEL_YN = 'N'
+                <if test='searchType == "id"'>
+                    AND USER_ID LIKE CONCAT('%',#{keyword},'%')
+                </if>
+                <if test='searchType == "name"'>
+                    AND USER_NAME LIKE CONCAT('%',#{keyword},'%')
+                </if>
                 ORDER BY U.LAST_CHG_DT DESC, U.USER_NAME ASC
             ) A
         )B

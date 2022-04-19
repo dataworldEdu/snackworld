@@ -10,7 +10,7 @@ public interface UserService {
 
     UserVO getUserByLoginId(String userId);
     void setRowNum();
-    int userCnt();
+    int userCnt(Search search);
 
     int addUser(UserVO userVO);
 

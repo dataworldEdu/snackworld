@@ -28,6 +28,10 @@ public class Pagination {
 
     private boolean next;
 
+    private int startNum;
+
+    private int endNum;
+
     //현재 페이지 정보, 현제 페이지 범위 정보, 게시물 총개수
     public void pageInfo(int page, int range, int listCnt) {
         this.page = page;
