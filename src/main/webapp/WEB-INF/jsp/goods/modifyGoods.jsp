@@ -20,7 +20,8 @@
         $('#catCode').val(setSelect).prop("selected", true);
     }
 
-    $('#submitBtn').click(function (){
+
+    function submitBtn(){
         if($('#catCode').val() == ""){
             alert("카테고리를 선택하세요")
             return false;
@@ -34,7 +35,16 @@
             return false;
         }
         $('#modifyForm').submit();
-    })
+    }
+
+    function setThumbnail(){
+
+        let fileInput = $("input:file[name='uploadBtn']");
+        let file = fileInput[0].files;
+
+        console.log(file);
+        let fileSize = fileInput.size;
+    }
 </script>
 
 <body>
@@ -51,13 +61,13 @@
             <div class="row">
                 <!-- image 추가-->
                 <div class="row mb-1">
-
                     <img src="${modifyGoods.imgUrl != null ? modifyGoods.imgUrl
                                     : modifyGoods.storedFileName != null ? modifyGoods.storedFileName
                                     : "/images/defaultimg.jpg"}" style="width: 400px; height: 400px">
                 </div>
                 <div class="row col-5">
-                    <button type="button" class="btn btn-secondary">이미지 업로드</button>
+                    <label for="uploadBtn" class="btn btn-secondary" >이미지 업로드</label>
+                    <input type="file" id="uploadBtn" name="uploadBtn" style="display: none" accept="image/*" onchange="setThumbnail()"/>
                 </div>
             </div>
         </div>
@@ -105,7 +115,7 @@
             <div class="row">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-right: 1%">
                     <button type="button" class="btn btn-outline-secondary" onclick="history.back()">취소</button>
-                    <input id="submitBtn" type="button" class="btn btn-outline-primary" value="수정"></input>
+                    <button type="button" class="btn btn-outline-primary" onclick="submitBtn()">수정</button>
                 </div>
             </div>
             </form>
