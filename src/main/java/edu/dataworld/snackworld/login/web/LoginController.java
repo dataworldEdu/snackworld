@@ -67,6 +67,7 @@ public class LoginController {
 
         session.setAttribute("login", currentUser.getUserId());
         session.setAttribute("auth", currentUser.getAuthId());
+        session.setAttribute("userName", currentUser.getUserName());
         //카운트 로직
 
         StandardVO standardVo = standardService.getUserStandard(currentUser.getUserId());
@@ -74,7 +75,8 @@ public class LoginController {
         session.setAttribute("order_amt", standardVo.getOrderAmt());
         session.setAttribute("user_amt", standardVo.getUserAmt());
 
-        return "redirect:/home/main.do";
+//        return "redirect:/home/main.do";
+        return "redirect:/goods/goodsList.do";
 
     }
 

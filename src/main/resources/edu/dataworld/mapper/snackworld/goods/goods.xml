@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goods">
-    <select id="goods.retrieve" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO" resultType="edu.dataworld.snackworld.goods.service.GoodsVO">
+    <select id="goods.retrieve" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO"  resultType="edu.dataworld.snackworld.goods.service.GoodsVO">
         SELECT B.*
         FROM (
              SELECT @ROWNUM :=  @ROWNUM+1 AS GOODS_SEQ
@@ -32,7 +32,7 @@
         WHERE DEL_YN = 'N'
     </select>
 
-    <select id="goods.goodsCnt" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO" resultType="Integer">
+    <select id="goods.goodsCnt" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO"  resultType="Integer">
         SELECT COUNT(*)
         FROM (
                  SELECT
@@ -42,12 +42,14 @@
                           LEFT JOIN GOODS_IMG_FILE GI
                                     ON G.GDS_ID = GI.GDS_ID
                  WHERE G.DEL_YN = 'N'
-                 <if test='keyword != null'>
+
+                 <if test='keyword != null and keyword != "" '>
                      AND GDS_NAME LIKE CONCAT('%',#{keyword},'%')
                      AND CAT_CODE LIKE CONCAT('%',#{searchType},'%')
                  </if>
              ) GDS
     </select>
+
     <select id="goods.selectById" parameterType="String" resultType="edu.dataworld.snackworld.goods.service.GoodsVO">
         SELECT G.*
              , GI.STORED_FILE_NAME
@@ -57,6 +59,7 @@
                ON G.GDS_ID = GI.GDS_ID
         WHERE G.GDS_ID = #{gdsId}
     </select>
+
     <insert id="goods.insert" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO">
         INSERT
         INTO USER(
@@ -84,6 +87,7 @@
           , GDS_URL = NULL
         WHERE GDS_ID = #{gdsId}
     </update>
+
     <update id="goods.updateWithoutURL" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO">
         UPDATE GOODS
         SET GDS_NAME = #{gdsName}
@@ -92,6 +96,7 @@
           , GDS_URL = #{gdsURL}
         WHERE GDS_ID = #{gdsId}
     </update>
+
     <insert id="goods.fileUpload" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO">
         INSERT
         INTO USER(

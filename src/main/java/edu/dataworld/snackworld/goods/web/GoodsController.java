@@ -6,31 +6,37 @@ import edu.dataworld.snackworld.goods.service.GoodsService;
 import edu.dataworld.snackworld.goods.service.GoodsVO;
 import edu.dataworld.snackworld.user.service.UserService;
 import edu.dataworld.snackworld.user.service.UserVO;
+import jdk.nashorn.internal.runtime.logging.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping(value = "/goods")
 public class GoodsController {
 
-    @Resource(name="GoodsService")
+    @Resource(name = "GoodsService")
     private GoodsService goodsService;
 
     @RequestMapping(value = "/goodsList.do", method = RequestMethod.GET)
     public String showGoodsList(@ModelAttribute("searchVO") Search search, ModelMap model, HttpSession session) {
         model.addAttribute("search", search);
         List<GoodsVO> listSearch = (List<GoodsVO>) session.getAttribute("listSearch");
-        if(listSearch == null){
+        if (listSearch == null) {
             listSearch = goodsService.listSearch(search);
             session.setAttribute("listSearch", listSearch);
         }
@@ -57,7 +63,7 @@ public class GoodsController {
     }
 
     @RequestMapping(value = "/goodsDetail.do", method = RequestMethod.GET)
-    public String showGoodsDetail(ModelMap model, String Id){
+    public String showGoodsDetail(ModelMap model, String Id) {
         model.addAttribute("goodsDetail", goodsService.selectById(Id));
         return "/goods/goodsDetail.view";
     }
@@ -68,19 +74,31 @@ public class GoodsController {
         return "/goods/modifyGoods.view";
     }
 
-    @RequestMapping(value = "/modifyGoodsAction.do", method = RequestMethod.GET)
+    @RequestMapping(value = "/modifyGoodsAction.do", method = RequestMethod.POST)
     public String modifyGoodsAction(GoodsVO goodsVO) {
-        goodsVO.setCatCode("0" + goodsVO.getCatCode());
-        goodsService.modifyGoods(goodsVO);
-        System.out.println("success");
+
+
+
+        // goods update
+
+        // goods img file update
+
+        // file create
+
+
+        // old file delete
+
+//        goodsVO.setCatCode("0" + goodsVO.getCatCode());
+//        goodsService.modifyGoods(goodsVO);
+//        System.out.println("success");
         return "redirect:/goods/goodsList.do";
     }
 
     @RequestMapping(value = "/deleteGoods.do", method = RequestMethod.GET)
     public String deleteGoodsAction(@RequestParam("selected") List<String> chkList, HttpServletRequest request
-                                    , Search search
-                                    , HttpSession session){
-        for(String gdsId : chkList) {
+            , Search search
+            , HttpSession session) {
+        for (String gdsId : chkList) {
             goodsService.deleteById(gdsId);
         }
 
