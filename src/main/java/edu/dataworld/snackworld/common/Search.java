@@ -7,6 +7,7 @@ import lombok.Setter;
 public class Search extends Pagination{
 
     private String searchType; // select box option
+    private String searchType2; // select box option
     private String keyword; // input box
 
 }

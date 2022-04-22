@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>헤더</title>
@@ -34,11 +35,11 @@
         </a>
         <div style="margin-right:20px;">
             <li style="list-style:none;">전체 잔액</li>
-            <li style="list-style:none;">${sessionScope.order_amt}원</li>
+            <li style="list-style:none;"><fmt:formatNumber value="${sessionScope.order_amt}"/>원</li>
         </div>
         <div style="margin-right:20px;">
             <li style="list-style:none;">개인 잔액</li>
-            <li class="ms-2" style="list-style:none; ">${sessionScope.user_amt}원</li>
+            <li class="ms-2" style="list-style:none; "><fmt:formatNumber value="${sessionScope.user_amt}"/>원</li>
         </div>
         <form class="col-12 col-lg-auto mb-3 mb-lg-0">
             <input type="search" class="form-control" placeholder="검색..." aria-label="Search">

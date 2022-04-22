@@ -4,53 +4,42 @@
 <mapper namespace="user">
     <select id="user.retrieve" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="edu.dataworld.snackworld.user.service.UserVO">
         SELECT
-            B.*
+            A.USER_ID
+            ,A.AUTH_ID
+            ,A.AUTH_NAME
+            ,A.USER_NAME
         FROM (
             SELECT
-                @ROWNUM :=  @ROWNUM+1 AS USER_SEQ
-                ,A.*
-            FROM (
-                SELECT
-                    U.USER_ID
-                    ,U.AUTH_ID
-                    ,A.AUTH_NAME
-                    ,U.USER_NAME
-                FROM USER U
-                LEFT JOIN AUTH A
-                    ON U.AUTH_ID = A.AUTH_ID
-                WHERE U.DEL_YN = 'N'
-                <if test='searchType == "id"'>
-                    AND USER_ID LIKE CONCAT('%',#{keyword},'%')
-                </if>
-                <if test='searchType == "name"'>
-                    AND USER_NAME LIKE CONCAT('%',#{keyword},'%')
-                </if>
-                ORDER BY U.LAST_CHG_DT DESC, U.USER_NAME ASC
-            ) A
-        )B
+                U.USER_ID
+                ,U.AUTH_ID
+                ,A.AUTH_NAME
+                ,U.USER_NAME
+            FROM USER U
+            LEFT JOIN AUTH A
+                ON U.AUTH_ID = A.AUTH_ID
+            WHERE U.DEL_YN = 'N'
+            <if test='searchType == "id"'>
+                AND USER_ID LIKE CONCAT('%',#{keyword},'%')
+            </if>
+            <if test='searchType == "name"'>
+                AND USER_NAME LIKE CONCAT('%',#{keyword},'%')
+            </if>
+            ORDER BY U.LAST_CHG_DT DESC, U.USER_NAME ASC
+        ) A
         LIMIT #{startList}, #{listSize}
     </select>
 
     <select id="user.userCnt" parameterType="edu.dataworld.snackworld.user.service.UserVO" resultType="Integer">
         SELECT
             COUNT(*)AS LIST_CNT
-        FROM (
-                 SELECT
-                     @ROWNUM :=  @ROWNUM+1 AS USER_SEQ
-                ,A.*
-                 FROM (
-                     SELECT
-                     U.USER_ID
-                         ,U.AUTH_ID
-                         ,A.AUTH_NAME
-                         ,U.USER_NAME
-                     FROM USER U
-                     LEFT JOIN AUTH A
-                        ON U.AUTH_ID = A.AUTH_ID
-                     WHERE U.DEL_YN = 'N'
-                     ORDER BY U.LAST_CHG_DT DESC, U.USER_NAME ASC
-                     ) A
-             )B
+        FROM USER
+        WHERE DEL_YN = 'N'
+        <if test='searchType == "id"'>
+            AND USER_ID LIKE CONCAT('%',#{keyword},'%')
+        </if>
+        <if test='searchType == "name"'>
+            AND USER_NAME LIKE CONCAT('%',#{keyword},'%')
+        </if>
     </select>
 
     <insert id="user.addUser" parameterType="edu.dataworld.snackworld.user.service.UserVO">
@@ -80,9 +69,6 @@
             USER_NAME = #{userName}
             DEL_YN = #{delYn}
         WHERE USER_ID = #{userId}
-    </update>
-    <update id="user.setRowNum" parameterType="edu.dataworld.snackworld.user.service.UserVO">
-        SET @ROWNUM :=0;
     </update>
 
     <update id="user.deleteUser" parameterType="java.util.ArrayList">

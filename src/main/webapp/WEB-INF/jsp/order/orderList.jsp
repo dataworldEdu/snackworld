@@ -5,73 +5,127 @@
   Time: 오후 2:25
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>주문목록</title>
 </head>
+<script>
+    function cancelCheckedList() {
+        if($("input:checkbox[name='selected']:checked").length === 0) {
+            alert("취소할 항목을 선택하세요.");
+            return;
+        }
+
+        let chk_val = [];
+        $("input:checkbox[name='selected']:checked").each(function (k, val){
+            chk_val.push($(this).val())
+        });
+
+        let chk_form = document.getElementById("chkForm");
+        if(confirm("선택 항목을 취소 하시겠습니까?")){
+            chk_form.submit();
+        }
+    }
+    <!-- pagination -->
+    //이전 버튼 이벤트
+    function fn_prev(page, range, rangeSize) {
+        let pageSet = ((range - 2) * rangeSize) + 1;
+        let rangeSet = range - 1;
+        let url = "${pageContext.request.contextPath}/order/orderList.do";
+        url = url + "?page=" + pageSet;
+        url = url + "&range=" + rangeSet;
+        location.href = url;
+    }
+
+    //페이지 번호 클릭
+    function fn_pagination(page, range, rangeSize, searchType, keyword) {
+        let url = "${pageContext.request.contextPath}/order/orderList.do";
+        url = url + "?page=" + page;
+        url = url + "&range=" + range;
+        location.href = url;
+    }
+
+    //다음 버튼 이벤트
+    function fn_next(page, range, rangeSize) {
+        let pageSet = parseInt((range * rangeSize)) + 1;
+        let rangeSet = parseInt(range) + 1;
+        let url = "${pageContext.request.contextPath}/order/orderList.do";
+        url = url + "?page=" + pageSet;
+        url = url + "&range=" + rangeSet;
+        location.href = url;
+    }
+</script>
 <body>
 <div class="container">
     <div class="row">
         <div class="col">
+            <div class="btn-group ">
             <span class="fs-2 fw-bold">주문관리</span>
-            <div class="btn-group">
-                <select class="form-select" aria-label="Default select example" style="width:100px; margin-right:7px;">
-                    <option selected>신청자</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-                <select class="form-select" aria-label="Default select example" style="width:130px;">
-                    <option selected>주문상태</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
+            <form id="search-form" action="/order/orderList.do" method="get">
+                <div class="btn-group mt-1 ms-2">
+                    <select class="form-select" name="searchType" aria-label="Default select example" style="width:130px; margin-right:7px;">
+                        <option selected>신청자</option>
+                        <c:forEach items="${userList}" var="list" varStatus="status">
+                            <option value="${list.userId}">${list.userName}</option>
+                        </c:forEach>
+                    </select>
+                    <select class="form-select" name="searchType2" aria-label="Default select example" style="width:130px;">
+                        <option selected>주문상태</option>
+                        <option value="1">대기</option>
+                        <option value="2">승인</option>
+                        <option value="3">반려</option>
+                    </select>
+                    <div class="input-group ms-2">
+                        <button type="submit" class="bi bi-search btn btn-outline-secondary fs-5"></button>
+                    </div>
+                </div>
+            </form>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th class="header" width="30"><input type="checkbox" id="checkall" /></th>
-                    <th>번호</th>
-                    <th>품명</th>
-                    <th>총가격</th>
-                    <th>신청자</th>
-                    <th>진행상태</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><input type="checkbox" name="_selected_" value="ROW_1"></td>
-                    <td>1</td>
-                    <td>허니버터칩 외 2개</td>
-                    <td>15000</td>
-                    <td>조영아</td>
-                    <td>승인</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="_selected_" value="ROW_2"></td>
-                    <td>2</td>
-                    <td>홈런볼 외 1개</td>
-                    <td>13000</td>
-                    <td>주정민</td>
-                    <td>반려</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="_selected_" value="ROW_3"></td>
-                    <td>3</td>
-                    <td>꼬북칩 외 4개</td>
-                    <td>20000</td>
-                    <td>최승주</td>
-                    <td>대기</td>
-                </tr>
-                </tbody>
-            </table>
+            <form id="chkForm" method="get" action="/order/cancelOrder.do">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="header" style="width: 30px;"><input type="checkbox" value="selectall" name="selectall" onclick="selectAll(this)"/></th>
+                        <th>번호</th>
+                        <th style="width: 15%;"></th>
+                        <th style="text-overflow: ellipsis; width: 50%;">품명</th>
+                        <th>총가격</th>
+                        <th>신청자</th>
+                        <th>진행상태</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${orderList}" var="order" varStatus="status">
+                        <c:set var="rowNum" value="${(search.listCnt -status.index) - ((pageNum - 1) * 10) }"/>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="selected" value="${order.orderId}" onclick="checkSelectAll(this)">
+                            </td>
+                            <td>${rowNum}</td>
+                            <td>
+<%--                                <img src="${goods.imgUrl != null ? goods.imgUrl--%>
+<%--                                    : goods.storedFileName != null ? goods.storedFileName--%>
+<%--                                    : "/images/defaultimg.jpg"}" style="width: 150px; height: 150px">--%>
+                            </td>
+                            <td>${order.orderName}</td>
+                            <td>
+                                <fmt:formatNumber value="${order.totalPrice}"/>
+                            </td>
+                            <td>${order.userName}</td>
+                            <td>${order.status}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </form>
         </div>
     </div>
     <div class="row">
@@ -81,24 +135,31 @@
         <div class="col">
             <div class="text-center">
                 <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">2 <span class="sr-only"></span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
+
+                    <c:if test="${pagination.prev}">
+                        <li class="page-item">
+                            <a class="page-link" href="#" onclick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')">Previous</a>
+                        </li>
+                    </c:if>
+
+                    <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="pageId">
+                        <li class="page-item <c:out value="${pagination.page == pageId ? 'active' : ''}"/> ">
+                            <a class="page-link" href="#" onclick="fn_pagination('${pageId}', '${pagination.range}', '${pagination.rangeSize}')">${pageId}</a>
+                        </li>
+                    </c:forEach>
+
+                    <c:if test="${pagination.next}">
+                        <li class="page-item">
+                            <a class="page-link" href="#" onclick="fn_next('${pagination.range}','${pagination.range}', '${pagination.rangeSize}')">Next</a>
+                        </li>
+                    </c:if>
                 </ul>
             </div>
         </div>
         <div class="col">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn btn-outline-secondary ">선택 주문 취소</button>
-                <button type="button" class="btn btn-outline-secondary">전체 주문 취소</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="cancelCheckedList()">선택 주문 취소</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="cancelAllList()">전체 주문 취소</button>
             </div>
         </div>
     </div>
