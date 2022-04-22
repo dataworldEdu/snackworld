@@ -6,7 +6,6 @@ import edu.dataworld.snackworld.goods.service.GoodsService;
 import edu.dataworld.snackworld.goods.service.GoodsVO;
 import edu.dataworld.snackworld.user.service.UserService;
 import edu.dataworld.snackworld.user.service.UserVO;
-import jdk.nashorn.internal.runtime.logging.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
