@@ -12,6 +12,27 @@
     <meta charset="UTF-8">
     <title>상품상세</title>
 </head>
+<script>
+    $(document).ready(function (){
+        let catValue;
+        if('${goodsDetail.catCode}' == "01"){
+            catValue = "스낵";
+        }
+        else if('${goodsDetail.catCode}' == "02"){
+            catValue = "사탕";
+        }
+        else if('${goodsDetail.catCode}' == "03"){
+            catValue = "초콜릿";
+        }
+        else if('${goodsDetail.catCode}' == "04"){
+            catValue = "젤리";
+        }
+        else if('${goodsDetail.catCode}' == "05"){
+            catValue = "파이류";
+        }
+        $('#catCode').text(catValue);
+    });
+</script>
 <body>
 <div class="container">
     <div class="row">
@@ -27,9 +48,9 @@
             <div class="row">
                 <!-- image 추가-->
                 <div class="row mb-1">
-                    <!-- 이미지 대용-->
-                    <div style="width: 400px; height: 400px; background-color: gray"></div>
-                    <!--                <img src="..." class="img-thumbnail" alt="...">-->
+                    <img src="${goodsDetail.imgUrl != null ? goodsDetail.imgUrl
+                                    : goodsDetail.storedFileName != null ? goodsDetail.storedFileName
+                                    : "/images/defaultimg.jpg" }" style="width: 400px; height: 400px">
                 </div>
             </div>
         </div>
@@ -56,6 +77,7 @@
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-right: 1%">
                     <button type="button" class="btn btn-outline-secondary" onclick="history.back()">취소</button>
                     <button type="button" class="btn btn-outline-primary" onclick="location.href='/goods/modifyGoods.do?Id=${goodsDetail.gdsId}'">수정</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='/order/addCartAction.do?Id=${goodsDetail.gdsId}'">담기</button>
                 </div>
             </div>
         </div>
@@ -66,28 +88,6 @@
         <div class="col mb-5"></div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function (){
-        let catValue;
-        if('${goodsDetail.catCode}' == "01"){
-            catValue = "스낵";
-        }
-        else if('${goodsDetail.catCode}' == "02"){
-            catValue = "사탕";
-        }
-        else if('${goodsDetail.catCode}' == "03"){
-            catValue = "초콜릿";
-        }
-        else if('${goodsDetail.catCode}' == "04"){
-            catValue = "젤리";
-        }
-        else if('${goodsDetail.catCode}' == "05"){
-            catValue = "파이류";
-        }
-        $('#catCode').text(catValue);
-    });
-</script>
 
 </body>
 </html>
