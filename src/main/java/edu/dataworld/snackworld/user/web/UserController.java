@@ -39,7 +39,6 @@ public class UserController {
         //페이징
         model.addAttribute("pagination", search);
 
-        userService.setRowNum();
         List<UserVO> userList = userService.retrieve(search);
         model.addAttribute("userList", userList);
         model.addAttribute("pageNum", search.getPage());

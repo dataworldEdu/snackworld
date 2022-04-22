@@ -22,6 +22,38 @@
         LEFT JOIN GOODS_IMG_FILE D ON A.GDS_ID = D.GDS_ID;
     </select>
 
+    <select id="order.orderRetrieve" parameterType="edu.dataworld.snackworld.order.service.OrderVO" resultType="edu.dataworld.snackworld.order.service.OrderVO">
+        SELECT
+            O.TOTAL_PRICE
+            ,O.ORDER_STATUS_CODE
+            ,O.USER_ID
+            ,U.USER_NAME
+        FROM `ORDER` O
+        LEFT JOIN USER U
+            ON U.USER_ID = O.USER_ID
+    </select>
+
+    <select id="order.listOption" parameterType="edu.dataworld.snackworld.order.service.OrderVO" resultType="edu.dataworld.snackworld.order.service.OrderVO">
+        SELECT DISTINCT
+            O.USER_ID,
+            U.USER_NAME
+        FROM `ORDER` O
+        INNER JOIN USER U
+            ON U.USER_ID = O.USER_ID;
+    </select>
+
+    <select id="order.orderCnt" parameterType="edu.dataworld.snackworld.order.service.OrderVO"  resultType="Integer">
+        SELECT COUNT(*) AS ORDER_CNT
+        FROM `ORDER`
+        WHERE 1=1
+        <if test='searchType != null and searchType != "" '>
+            AND USER_ID = #{searchType}
+        </if>
+        <if test='searchType2 != null and searchType2 != "" '>
+            AND STATUS = #{searchType2}
+        </if>
+    </select>
+
     <insert id="order.cartInsert" parameterType="edu.dataworld.snackworld.order.service.OrderVO" useGeneratedKeys="true">
         <selectKey resultType="String" keyProperty="cartId" order="BEFORE">
             SELECT

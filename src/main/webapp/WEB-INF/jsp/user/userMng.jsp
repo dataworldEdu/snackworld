@@ -246,7 +246,7 @@
 
                     <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="pageId">
                         <li class="page-item <c:out value="${pagination.page == pageId ? 'active' : ''}"/> ">
-                            <a class="page-link" href="/user/userMng.do?page=${pageId}">${pageId}</a></li>
+                            <a class="page-link" href="#" onclick="fn_pagination('${pageId}', '${pagination.range}', '${pagination.rangeSize}')">${pageId}</a>
                     </c:forEach>
 
                     <c:if test="${pagination.next}">

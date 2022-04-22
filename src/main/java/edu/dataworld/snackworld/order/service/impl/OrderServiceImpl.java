@@ -1,7 +1,9 @@
 package edu.dataworld.snackworld.order.service.impl;
 
+import edu.dataworld.snackworld.common.Search;
 import edu.dataworld.snackworld.order.service.OrderService;
 import edu.dataworld.snackworld.order.service.OrderVO;
+import edu.dataworld.snackworld.user.service.UserVO;
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +34,20 @@ public class OrderServiceImpl extends EgovAbstractServiceImpl implements OrderSe
     @Override
     public void cartDelete(OrderVO vo) {
         orderDAO.cartDelete(vo);
+    }
+
+    @Override
+    public List<OrderVO> listOption() {
+        return orderDAO.listOption();
+    }
+
+    @Override
+    public int orderCnt(Search search) {
+        return orderDAO.orderCnt(search);
+    }
+
+    @Override
+    public List<OrderVO> orderRetrieve(Search search) {
+        return orderDAO.orderRetrieve(search);
     }
 }

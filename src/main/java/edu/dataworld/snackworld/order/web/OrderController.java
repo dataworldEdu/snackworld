@@ -1,10 +1,15 @@
 package edu.dataworld.snackworld.order.web;
 
+import edu.dataworld.snackworld.common.Search;
 import edu.dataworld.snackworld.common.Util;
+import edu.dataworld.snackworld.goods.service.GoodsVO;
 import edu.dataworld.snackworld.order.service.OrderService;
 import edu.dataworld.snackworld.order.service.OrderVO;
+import edu.dataworld.snackworld.user.service.UserService;
+import edu.dataworld.snackworld.user.service.UserVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping(value="/order")
@@ -21,7 +27,26 @@ public class OrderController {
     private OrderService orderService;
 
     @RequestMapping(value="/orderList.do")
-    public String showOrderList() {
+    public String showOrderList(@ModelAttribute("searchVO") Search search, ModelMap model) {
+
+        List<OrderVO> userList = orderService.listOption();
+
+        model.addAttribute("userList", userList);
+        model.addAttribute("search", search);
+
+        int listCnt = orderService.orderCnt(search);
+
+        //검색 후 페이지
+        search.pageInfo(search.getPage(), search.getRange(), listCnt);
+
+        //페이징
+        model.addAttribute("pagination", search);
+
+        List<OrderVO> orderList = orderService.orderRetrieve(search);
+
+        model.addAttribute("orderList", orderList);
+        model.addAttribute("pageNum", search.getPage());
+
         return "/order/orderList.view";
     }
 
