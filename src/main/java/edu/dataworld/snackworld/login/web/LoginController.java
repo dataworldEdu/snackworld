@@ -40,8 +40,7 @@ public class LoginController {
 
     @RequestMapping(value = "/loginAction.do", method = RequestMethod.POST)
     public String loginAction(UserVO vo, Search search, /*HttpServletResponse response,*/ HttpSession session, HttpServletRequest request) throws Exception{
-//        response.setContentType("text/html;charset=utf-8");
-//        PrintWriter out = response.getWriter();
+
 
         if(session.getAttribute("login") != null){
             session.removeAttribute("login");
@@ -53,11 +52,6 @@ public class LoginController {
         }
 
         if(currentUser.getUserPw().equals(vo.getUserPw()) == false) {
-//            out.println("<script>");
-//            out.println("alert('비밀번호가 일치하지 않습니다.');");
-//            out.println("history.go(-1);");
-//            out.println("</script>");
-//            out.close();
             return Util.msgAndBack(request,"비밀번호가 일치하지 않습니다.");
         }
 

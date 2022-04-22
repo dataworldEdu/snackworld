@@ -76,20 +76,6 @@ public class GoodsController {
     @RequestMapping(value = "/modifyGoodsAction.do", method = RequestMethod.POST)
     public String modifyGoodsAction(GoodsVO goodsVO) {
 
-
-
-        // goods update
-
-        // goods img file update
-
-        // file create
-
-
-        // old file delete
-
-//        goodsVO.setCatCode("0" + goodsVO.getCatCode());
-//        goodsService.modifyGoods(goodsVO);
-//        System.out.println("success");
         return "redirect:/goods/goodsList.do";
     }
 

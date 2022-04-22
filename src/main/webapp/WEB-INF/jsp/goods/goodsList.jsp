@@ -155,7 +155,9 @@
                     <td>
                         <span onclick="location.href='/goods/goodsDetail.do?Id=${goods.gdsId}'" style="cursor: pointer">${goods.gdsName}</span>
                     </td>
-                    <td><fmt:formatNumber value="${goods.gdsPrice}"/></td>
+                    <td>
+                        <fmt:formatNumber value="${goods.gdsPrice}"/>
+                    </td>
                     <td>
                         <button type="button" class="btn btn-outline-primary"
                                 onclick="location.href='/goods/modifyGoods.do?Id=${goods.gdsId}'">수정</button>

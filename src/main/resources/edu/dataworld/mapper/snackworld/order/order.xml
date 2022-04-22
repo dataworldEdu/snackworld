@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order">
+    <select id="order.cartRetrieve" parameterType="edu.dataworld.snackworld.order.service.OrderVO" resultType="edu.dataworld.snackworld.order.service.OrderVO">
+        SELECT
+               D.IMG_URL
+             , B.GDS_NAME
+             , B.GDS_PRICE
+             , (SELECT COMN_CD_NM
+                FROM CODE_MNG C
+                WHERE B.CAT_CODE = C.COMN_CD) CAT_CODE
+             , A.QTY
+        FROM (SELECT GDS_ID
+                   , QTY
+              FROM CART
+              WHERE USER_ID = #{userId}
+                AND DEL_YN = 'N') A
+        JOIN GOODS B ON A.GDS_ID = B.GDS_ID
+        LEFT JOIN GOODS_IMG_FILE D ON A.GDS_ID = D.GDS_ID;
+    </select>
+
+    <insert id="order.cartInsert" parameterType="edu.dataworld.snackworld.order.service.OrderVO" useGeneratedKeys="true">
+        <selectKey resultType="String" keyProperty="cartId" order="BEFORE">
+            SELECT
+                   CONCAT('CART', (LPAD(IFNULL(CAST(RIGHT(MAX(CART_ID), 6) AS UNSIGNED) + 1, 1), 6, '0')))
+            FROM   CART
+        </selectKey>
+
+        INSERT
+        INTO CART(
+                  CART_ID
+                , GDS_ID
+                , USER_ID
+                , QTY
+                , DEL_YN
+                , FRST_RGTR
+                , FRST_REG_DT
+                , LAST_CHNRG
+                , LAST_CHG_DT)
+        VALUES (
+                #{cartId}
+              , #{gdsId}
+              , #{userId}
+              , 1
+              , 'N'
+              , (SELECT
+                        USER_NAME
+                 FROM   USER
+                 WHERE  USER_ID = #{userId})
+              , NOW()
+              , (SELECT
+                        USER_NAME
+                 FROM   USER
+                 WHERE  USER_ID = #{userId})
+              , NOW()
+             )
+    </insert>
+
+    <update id="order.cartQtyUpdate" parameterType="edu.dataworld.snackworld.order.service.OrderVO">
+        UPDATE CART
+        SET    QTY = {QTY}
+        WHERE  CART_ID = #{cartId}
+    </update>
+
+    <update id="order.cartDelete" parameterType="edu.dataworld.snackworld.order.service.OrderVO">
+        UPDATE CART
+        SET    DEL_YN = 'Y'
+        WHERE  CART_ID = #{cartId}
+    </update>
+</mapper>
