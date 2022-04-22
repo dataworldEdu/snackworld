@@ -11,8 +11,10 @@
                 FROM CODE_MNG C
                 WHERE B.CAT_CODE = C.COMN_CD) CAT_CODE
              , A.QTY
+             , A.CART_ID
         FROM (SELECT GDS_ID
                    , QTY
+                   , CART_ID
               FROM CART
               WHERE USER_ID = #{userId}
                 AND DEL_YN = 'N') A
@@ -59,7 +61,7 @@
 
     <update id="order.cartQtyUpdate" parameterType="edu.dataworld.snackworld.order.service.OrderVO">
         UPDATE CART
-        SET    QTY = {QTY}
+        SET    QTY = #{qty}
         WHERE  CART_ID = #{cartId}
     </update>
 
@@ -68,4 +70,6 @@
         SET    DEL_YN = 'Y'
         WHERE  CART_ID = #{cartId}
     </update>
+
+
 </mapper>

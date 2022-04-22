@@ -16,10 +16,6 @@ public class OrderVO extends GoodsVO {
     //cart
     private String cartId;
     private String gdsId;
-//    private String imgUrl;
-//    private String gdsName;
-//    private String gdsPrice;
-//    private String catCode;
     private int qty;
     private String delYn;
 }

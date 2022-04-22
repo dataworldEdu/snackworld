@@ -30,7 +30,6 @@ public class OrderController {
         return "/order/orderDetail.view";
     }
 
-    @ResponseBody
     @RequestMapping(value = "/addCartAction.do", method = RequestMethod.GET)
     public String addCartAction(OrderVO vo, String Id, HttpSession session, HttpServletRequest request){
         vo.setUserId((String) session.getAttribute("login"));
@@ -41,6 +40,14 @@ public class OrderController {
         } else {
             return Util.msgAndReplace(request, "상품을 장바구니에 담는데 실패했습니다.", "/goods/goodsList.do");
         }
+    }
+
+    @RequestMapping(value = "modifyCartQtyAction.do", method = RequestMethod.GET)
+    public String modifyCartQty(OrderVO vo){
+        System.out.println("vo = " + vo.getCartId());
+        System.out.println("vo = " + vo.getQty());
+        orderService.cartQtyUpdate(vo);
+        return "redirect:/order/cart.do";
     }
 
     @RequestMapping(value="/cart.do")

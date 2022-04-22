@@ -14,41 +14,38 @@
     <title>상품리스트</title>
 </head>
 <script>
-    function selectAll(selectAll)  {
-        const checkboxes
-            = document.getElementsByName('selected');
+    function selectAll(selectAll) {
+        const checkboxes = document.getElementsByName('selected');
 
         checkboxes.forEach((checkbox) => {
             checkbox.checked = selectAll.checked;
         })
     }
 
-    function checkSelectAll(checkbox)  {
-        const selectall
-            = document.querySelector('input[name="selectall"]');
+    function checkSelectAll(checkbox) {
+        const selectall = document.querySelector('input[name="selectall"]');
 
-        if(checkbox.checked === false)  {
+        if (checkbox.checked === false) {
             selectall.checked = false;
         }
     }
 
     function delCheckedList() {
-        if($("input:checkbox[name='selected']:checked").length === 0) {
+        if ($("input:checkbox[name='selected']:checked").length === 0) {
             alert("삭제할 항목을 선택하세요.");
             return;
         }
 
 
-
         let chk_val = [];
-        $("input:checkbox[name='selected']:checked").each(function (k, val){
+        $("input:checkbox[name='selected']:checked").each(function (k, val) {
             chk_val.push($(this).val())
         });
 
         console.log(chk_val)
 
         let chk_form = document.getElementById("chkForm");
-        if(confirm("선택 항목을 삭제 하시겠습니까?")){
+        if (confirm("선택 항목을 삭제 하시겠습니까?")) {
             chk_form.submit();
         }
         // $("input:checkbox[name='selected']:checked").each(function(k,kVal) {
@@ -95,7 +92,8 @@
                 <span class="fw-bold fs-2">상품 리스트</span>
                 <form id="search-form" action="/goods/goodsList.do" method="get">
                     <div class="btn-group mt-1 ms-2">
-                        <select class="form-select me-1" name="searchType" aria-label="Default select example" style="width: 150px">
+                        <select class="form-select me-1" name="searchType" aria-label="Default select example"
+                                style="width: 150px">
                             <option value="0" selected>전체</option>
                             <option value="1">스낵</option>
                             <option value="2">사탕</option>
@@ -104,7 +102,8 @@
                             <option value="5">파이류</option>
                         </select>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="keyword" placeholder="검색..." list="goods-List">
+                            <input type="text" class="form-control" name="keyword" placeholder="검색..."
+                                   list="goods-List">
                             <datalist id="goods-List">
                                 <c:forEach items="${listSearch}" var="list" varStatus="status">
                                     <option value="${list.gdsName}"/>
@@ -120,59 +119,63 @@
     <div class="row">
 
         <form id="chkForm" method="get" action="/goods/deleteGoods.do">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th class="header" style="width: 30px;"><input type="checkbox" value="selectall" name="selectall" onclick="selectAll(this)"/></th>
-                <th>번호</th>
-                <th>카테고리</th>
-                <th style="width: 15%;">이미지</th>
-                <th style="text-overflow: ellipsis; width: 50%;">상품명</th>
-                <th>가격</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${goodsList}" var="goods" varStatus="status">
-                <c:set var="rowNum" value="${(search.listCnt -status.index) - ((pageNum - 1) * 10) }"/>
+            <table class="table table-hover">
+                <thead>
                 <tr>
-                    <td>
-                            <input type="checkbox" name="selected" value="${goods.gdsId}" onclick="checkSelectAll(this)">
+                    <th class="header" style="width: 30px;"><input type="checkbox" value="selectall" name="selectall"
+                                                                   onclick="selectAll(this)"/></th>
+                    <th>번호</th>
+                    <th>카테고리</th>
+                    <th style="width: 15%;">이미지</th>
+                    <th style="text-overflow: ellipsis; width: 50%;">상품명</th>
+                    <th>가격</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${goodsList}" var="goods" varStatus="status">
+                    <c:set var="rowNum" value="${(search.listCnt -status.index) - ((pageNum - 1) * 10) }"/>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="selected" value="${goods.gdsId}"
+                                   onclick="checkSelectAll(this)">
 
-                    </td>
-                    <td>${rowNum}</td>
-                    <td>
-                        ${goods.catCode == "01" ? "스낵"
-                        :(goods.catCode == "02") ? "사탕"
-                        :(goods.catCode == "03") ? "초콜릿"
-                        :(goods.catCode == "04") ? "젤리" : "파이류"}
-                    </td>
-                    <td>
-                        <img src="${goods.imgUrl != null ? goods.imgUrl
+                        </td>
+                        <td>${rowNum}</td>
+                        <td>
+                                ${goods.catCode == "01" ? "스낵"
+                                        :(goods.catCode == "02") ? "사탕"
+                                        :(goods.catCode == "03") ? "초콜릿"
+                                        :(goods.catCode == "04") ? "젤리" : "파이류"}
+                        </td>
+                        <td>
+                            <img src="${goods.imgUrl != null ? goods.imgUrl
                                     : goods.storedFileName != null ? goods.storedFileName
                                     : "/images/defaultimg.jpg"}" style="width: 150px; height: 150px">
-                    </td>
-                    <td>
-                        <span onclick="location.href='/goods/goodsDetail.do?Id=${goods.gdsId}'" style="cursor: pointer">${goods.gdsName}</span>
-                    </td>
-                    <td>
-                        <fmt:formatNumber value="${goods.gdsPrice}"/>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-outline-primary"
-                                onclick="location.href='/goods/modifyGoods.do?Id=${goods.gdsId}'">수정</button>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                        </td>
+                        <td>
+                            <a href="/goods/goodsDetail.do?Id=${goods.gdsId}" class="link-dark">${goods.gdsName}</a>
+                        </td>
+                        <td>
+                            <fmt:formatNumber value="${goods.gdsPrice}"/>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-outline-primary"
+                                    onclick="location.href='/goods/modifyGoods.do?Id=${goods.gdsId}'">수정
+                            </button>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
         </form>
     </div>
     <!-- button -->
     <div class="row">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-right: 1%">
             <button type="button" class="btn btn-outline-secondary" onclick="delCheckedList()">상품 삭제</button>
-            <button type="button" class="btn btn-outline-primary" onclick="location.href='/goods/regGoods'">상품 추가</button>
+            <button type="button" class="btn btn-outline-primary" onclick="location.href='/goods/regGoods.do'">상품 추가
+            </button>
         </div>
     </div>
 
@@ -185,19 +188,22 @@
 
                     <c:if test="${pagination.prev}">
                         <li class="page-item">
-                            <a class="page-link" href="#" onclick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')">Previous</a>
+                            <a class="page-link" href="#"
+                               onclick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')">Previous</a>
                         </li>
                     </c:if>
 
                     <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="pageId">
                         <li class="page-item <c:out value="${pagination.page == pageId ? 'active' : ''}"/> ">
-                            <a class="page-link" href="#" onclick="fn_pagination('${pageId}', '${pagination.range}', '${pagination.rangeSize}')">${pageId}</a>
+                            <a class="page-link" href="#"
+                               onclick="fn_pagination('${pageId}', '${pagination.range}', '${pagination.rangeSize}')">${pageId}</a>
                         </li>
                     </c:forEach>
 
                     <c:if test="${pagination.next}">
                         <li class="page-item">
-                            <a class="page-link" href="#" onclick="fn_next('${pagination.range}','${pagination.range}', '${pagination.rangeSize}')">Next</a>
+                            <a class="page-link" href="#"
+                               onclick="fn_next('${pagination.range}','${pagination.range}', '${pagination.rangeSize}')">Next</a>
                         </li>
                     </c:if>
                 </ul>
