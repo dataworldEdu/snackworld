@@ -12,6 +12,7 @@
                 WHERE B.CAT_CODE = C.COMN_CD) CAT_CODE
              , A.QTY
              , A.CART_ID
+             , A.GDS_ID
         FROM (SELECT GDS_ID
                    , QTY
                    , CART_ID
@@ -62,8 +63,7 @@
         </selectKey>
 
         INSERT
-        INTO CART(
-                  CART_ID
+        INTO CART(CART_ID
                 , GDS_ID
                 , USER_ID
                 , QTY
@@ -88,7 +88,7 @@
                  FROM   USER
                  WHERE  USER_ID = #{userId})
               , NOW()
-             )
+              )
     </insert>
 
     <update id="order.cartQtyUpdate" parameterType="edu.dataworld.snackworld.order.service.OrderVO">
@@ -102,6 +102,76 @@
         SET    DEL_YN = 'Y'
         WHERE  CART_ID = #{cartId}
     </update>
+
+    <insert id="order.orderInsert" parameterType="edu.dataworld.snackworld.order.service.OrderVO" useGeneratedKeys="true">
+        <selectKey resultType="String" keyProperty="orderID" order="BEFORE">
+            SELECT
+            CONCAT('ODR', (LPAD(IFNULL(CAST(RIGHT(MAX(CART_ID), 5) AS UNSIGNED) + 1, 1), 6, '0')))
+            FROM   CART
+        </selectKey>
+
+        INSERT
+        INTO ORDER(ORDER_ID
+                 , USER_ID
+                 , TOTAL_PRICE
+                 , ORDER_STATUS_CODE
+                 , DEL_YN
+                 , FRST_RGTR
+                 , FRST_REG_DT
+                 , LAST_CHNRG
+                 , LAST_CHG_DT)
+        VALUES (#{orderID}
+              , #{userId}
+              , #{totalPrice}
+              , 'A001'
+              , 'N'
+              , (SELECT
+                        USER_NAME
+                 FROM   USER
+                 WHERE  USER_ID = #{userId})
+              , NOW()
+              , (SELECT
+                        USER_NAME
+                 FROM   USER
+                 WHERE  USER_ID = #{userId})
+              , NOW())
+    </insert>
+
+    <insert id="order.orderDetailInsert" parameterType="edu.dataworld.snackworld.order.service.OrderVO" useGeneratedKeys="true">
+        <selectKey resultType="String" keyProperty="orderDetailID" order="BEFORE">
+            SELECT
+            CONCAT('ODRD', (LPAD(IFNULL(CAST(RIGHT(MAX(CART_ID), 6) AS UNSIGNED) + 1, 1), 6, '0')))
+            FROM   CART
+        </selectKey>
+
+        INSERT
+        INTO ORDER_DETAIL(ORDER_DETAIL_ID
+                        , ORDER_ID
+                        , GDS_ID
+                        , QTY
+                        , ORDER_STATUS_CODE
+                        , DEL_YN
+                        , FRST_RGTR
+                        , FRST_REG_DT
+                        , LAST_CHNRG
+                        , LAST_CHG_DT)
+        VALUES (#{orderDetailID}
+              , #{orderID}
+              , #{gdsId}
+              , #{qty}
+              , 'A001'
+              , 'N'
+              , (SELECT
+                        USER_NAME
+                 FROM   USER
+                 WHERE  USER_ID = #{userId})
+              , NOW()
+              , (SELECT
+                        USER_NAME
+                 FROM   USER
+                 WHERE  USER_ID = #{userId})
+              , NOW())
+    </insert>
 
 
 </mapper>

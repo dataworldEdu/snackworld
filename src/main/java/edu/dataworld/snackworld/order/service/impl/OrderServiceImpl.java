@@ -50,4 +50,14 @@ public class OrderServiceImpl extends EgovAbstractServiceImpl implements OrderSe
     public List<OrderVO> orderRetrieve(Search search) {
         return orderDAO.orderRetrieve(search);
     }
+
+    @Override
+    public int orderInsert(OrderVO vo) {
+        return orderDAO.orderInsert(vo);
+    }
+
+    @Override
+    public void orderDetailInsert(OrderVO vo) {
+        orderDAO.orderDetailInsert(vo);
+    }
 }

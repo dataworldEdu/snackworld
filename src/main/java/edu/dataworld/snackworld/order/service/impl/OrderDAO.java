@@ -39,4 +39,10 @@ public class OrderDAO extends EgovComAbstractDAO {
     public List<OrderVO> orderRetrieve(Search search) {
         return selectList("order.orderRetrieve", search);
     }
+
+    public int orderInsert(OrderVO vo) { return insert("order.orderInsert", vo); }
+
+    public void orderDetailInsert(OrderVO vo){
+        insert("order.orderDetailInsert", vo);
+    }
 }

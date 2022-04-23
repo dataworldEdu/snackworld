@@ -42,8 +42,6 @@
             chk_val.push($(this).val())
         });
 
-        console.log(chk_val)
-
         let chk_form = document.getElementById("chkForm");
         if (confirm("선택 항목을 삭제 하시겠습니까?")) {
             chk_form.submit();

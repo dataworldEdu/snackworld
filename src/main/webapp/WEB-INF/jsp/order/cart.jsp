@@ -39,6 +39,7 @@
         $('.itemPrice').each(function () {
             totalPrice += Number($(this).val());
         })
+        $('input[name=totalPrice]').val(totalPrice);
         totalPrice = totalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
         $('.totalPrice').text(totalPrice);
 
@@ -70,7 +71,7 @@
             <p class="fs-2 fw-bold">장바구니</p>
         </div>
     </div>
-    <form>
+    <form method="get" action="">
         <div class="row">
             <table class="table table-hover">
                 <thead>
@@ -92,19 +93,24 @@
                     <tr>
                         <td>
                                 <%--                         onclick 기능은 추후 공통 기능으로 묶어서 구현 --%>
-                            <input type="checkbox" name="selected" value="${goods.gdsId}"
+                            <input type="checkbox" name="selected" value="${goods.cartId}"
                                    onclick="checkSelectAll(this)"/>
+                            <input type="hidden" name="gdsId" value="${goods.gdsId}"/>
+
                         </td>
                         <td>
                             <img src="${goods.imgUrl != null ? goods.imgUrl
                                     : goods.storedFileName != null ? goods.storedFileName
                                     : "/images/defaultimg.jpg"}" style="width: 150px; height: 150px">
+                            <input type="hidden" name="imgUrl" value="${goods.imgUrl}"/>
                         </td>
                         <td>
                             <div class="prod-item">${goods.gdsName}</div>
                             <div class="prod-price">
                                 <fmt:formatNumber value="${goods.gdsPrice}"/>
                             </div>
+                            <input type="hidden" name="gdsPrice" value="${goods.gdsPrice}"/>
+                            <input type="hidden" name="gdsName" value="${goods.gdsName}"/>
                         </td>
                         <td>${goods.catCode}</td>
                         <td>
@@ -119,7 +125,7 @@
                             <fmt:formatNumber value="${goods.gdsPrice * goods.qty}"/>
                         </td>
                         <td>
-                            <input type="hidden" id="cartId" value="${goods.cartId}"/>
+                            <input type="hidden" id="cartId" name="cartId" value="${goods.cartId}"/>
                             <button type="button" class="btn btn-outline-primary modBtn">수정</button>
                         </td>
                     </tr>
@@ -127,13 +133,14 @@
                 </tbody>
             </table>
             <p class="fs-3 text-end text-white bg-secondary">총 주문 금액 :
-                <span class="totalPrice fs-2 fw-bold fst-italic" name="totalPrice"/>
+                <span class="totalPrice fs-2 fw-bold fst-italic"/>
             </p>
+            <input type="hidden" name="totalPrice" value=""/>
         </div>
         <div class="row">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn btn-outline-secondary ">선택 삭제</button>
-                <button type="button" class="btn btn-outline-secondary">선택 주문 요청</button>
+                <button type="button" class="btn btn-outline-secondary" >선택 삭제</button>
+                <button type="button" class="btn btn-outline-secondary" >선택 주문 요청</button>
                 <button type="button" class="btn btn-outline-primary" id="allOrderBtn">전체 주문 요청</button>
             </div>
         </div>

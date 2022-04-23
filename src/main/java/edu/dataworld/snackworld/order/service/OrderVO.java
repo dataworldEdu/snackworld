@@ -8,16 +8,15 @@ import lombok.Setter;
 @Setter
 public class OrderVO extends GoodsVO {
 
+    private String cartId;
     private String orderId;
+    private String orderDetailId;
     private String userId;
     private String userName;
-    private int totalPrice;
+    private String orderStatusCode;
     private String status;
     private String orderName;
-
-    //cart
-    private String cartId;
-    private String gdsId;
-    private int qty;
     private String delYn;
+    private int qty;
+    private int totalPrice;
 }

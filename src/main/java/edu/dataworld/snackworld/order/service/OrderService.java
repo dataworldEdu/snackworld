@@ -18,4 +18,8 @@ public interface OrderService {
     int orderCnt(Search search);
 
     List<OrderVO> orderRetrieve(Search search);
+
+    int orderInsert(OrderVO vo);
+
+    void orderDetailInsert(OrderVO vo);
 }
