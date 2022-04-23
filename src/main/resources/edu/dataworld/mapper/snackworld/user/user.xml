@@ -65,9 +65,12 @@
     <update id="user.updateUser" parameterType="edu.dataworld.snackworld.user.service.UserVO">
         UPDATE USER
         SET AUTH_ID = #{authId}
-            USER_PW = #{userPw}
-            USER_NAME = #{userName}
-            DEL_YN = #{delYn}
+            <if test='userPw != null and userPw != "" '>
+            ,USER_PW = #{userPw}
+            </if>
+            <if test='userName != null and userName != "" '>
+            ,USER_NAME = #{userName}
+            </if>
         WHERE USER_ID = #{userId}
     </update>
 

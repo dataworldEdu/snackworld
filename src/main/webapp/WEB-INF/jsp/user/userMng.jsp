@@ -79,11 +79,12 @@
             var tr = checkbox.parent().parent().eq(key);
             var td = tr.children();
 
-            var td_userId = td.eq(3).text();
+            var td_userId = td.eq(4).text();
             arr.push(td_userId);
         });
 
         if(arr.length != 0) {
+            debugger;
             var url = "/user/deleteUser.do";
             $.ajax({
                 type: "POST",
@@ -93,9 +94,7 @@
                     checkBoxArr : arr
                 },
                 success: function(data){
-                    // let data2 = JSON.stringify(data);
-                    // console.log("값은 ? ", data2);
-                    if(data.id > 0) {
+                    if(data.removeUserCnt > 0) {
                         alert("회원이 삭제되었습니다.");
                         deleteRow();
                     }
@@ -320,12 +319,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-
                 <h5 class="modal-title" id="modModalLabel">회원 수정</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="/user/userModify.do" id="ModUserForm">
+                <form method="post" action="/user/userModify.do" id="modUserForm">
                     <div class="mb-3">
                         <label for="modInputAuth" class="form-label">권한</label>
                         <select class="form-select" id="modInputAuth" name="authId" required>
@@ -343,7 +341,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="modInputId" class="form-label">아이디</label>
-                        <input type="text" class="form-control" id="modInputId" name="userId" required>
+                        <input type="text" class="form-control" id="modInputId" name="userId" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="modInputPassword" class="form-label">비밀번호</label>

@@ -60,7 +60,7 @@ public class UserController {
         if(joinUserCount == 0) {
             return Util.msgAndBack(req,"회원 추가에 실패하였습니다.");
         }
-        return Util.msgAndReplace(req,"회원이 추가되었습니다.", "/user/userMng.view");
+        return Util.msgAndReplace(req,"회원이 추가되었습니다.", "/user/userMng.do");
     }
 
     @RequestMapping(value="/userModify.do", method = RequestMethod.POST)
@@ -72,7 +72,7 @@ public class UserController {
         if(joinUserCount == 0) {
             return Util.msgAndBack(req,"회원 수정에 실패하였습니다.");
         }
-        return Util.msgAndReplace(req,"회원 정보가 수정되었습니다.", "/user/userMng.view");
+        return Util.msgAndReplace(req,"회원 정보가 수정되었습니다.", "/user/userMng.do");
     }
 
     @ResponseBody
@@ -82,7 +82,7 @@ public class UserController {
 
         int value = userService.deleteUser(checkBoxArr);
 
-        result.put("id", value);
+        result.put("removeUserCnt", value);
 
         return gson.toJson(result);
     }
