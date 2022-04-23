@@ -72,21 +72,21 @@
         </div>
     </div>
     <div class="row">
-        <form method="post" action="/standard/standardAdd.do" id="addStandardForm">
+        <form method="post" action="/standard/addStandard.do" id="addStandardForm">
             <div class="col">
             </div>
             <div class="col">
                 <div class="col-12 mb-3">
                     <label for="dept_name" class="form-label">부서</label>
                     <select class="form-select" id="dept_name" required>
-                        <option value="">솔루션개발본부</option>
-                        <option>경영지원팀</option>
-                        <option>SM1팀</option>
-                        <option>SM2팀</option>
-                        <option>SI팀</option>
-                        <option>AI연구팀</option>
-                        <option>개발팀</option>
-                        <option>빅데이터팀</option>
+                        <option value="1">솔루션개발본부</option>
+                        <option value="2">경영지원팀</option>
+                        <option value="3">SM1팀</option>
+                        <option value="4">SM2팀</option>
+                        <option value="5">SI팀</option>
+                        <option value="6">AI연구팀</option>
+                        <option value="7">개발팀</option>
+                        <option value="8">빅데이터팀</option>
                     </select>
                     <div class="invalid-feedback">
                         부서를 선택해주세요.
@@ -94,14 +94,14 @@
                 </div>
                 <div class="col-12 mb-3">
                     <label for="order_amt" class="form-label">주문가능금액</label>
-                    <input type="text" class="form-control" id="order_amt" value="${standard.orderAmt}" required>
+                    <input type="text" class="form-control" id="order_amt" name="orderAmt" value="${standard.orderAmt}" required>
                     <div class="invalid-feedback">
                         금액을 입력해주세요.
                     </div>
                 </div>
                 <div class="col-12 mb-3">
                     <label for="user_amt" class="form-label">개인잔액</label>
-                    <input type="text" class="form-control" id="user_amt" value="${standard.userAmt}" required>
+                    <input type="text" class="form-control" id="user_amt" name="userAmt" value="${standard.userAmt}" required>
                     <div class="invalid-feedback">
                         잔액을 입력해주세요.
                     </div>
@@ -109,9 +109,9 @@
                 <div class="col-12 mb-3">
                     <label for="start_dt" class="form-label">주문가능기간</label>
                     <div>
-                        <input type="date" class="form-control" id="start_dt" value="${standard.orderBgng}" required style="width:150px; display:inline;">
+                        <input type="date" class="form-control" id="start_dt" name="orderBgng" value="${standard.orderBgng}" required style="width:150px; display:inline;">
                         ~
-                        <input type="date" class="form-control" id="end_dt" value="${standard.orderEnd}" required style="width:150px; display:inline;">
+                        <input type="date" class="form-control" id="end_dt" name="orderEnd" value="${standard.orderEnd}" required style="width:150px; display:inline;">
                     </div>
                 </div>
             </div>
@@ -126,8 +126,8 @@
         </div>
         <div class="col">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn btn-outline-secondary ">취소</button>
-                <button type="button" class="btn btn-secondary">저장</button>
+                <button type="reset" class="btn btn-outline-secondary" form="addStandardForm">취소</button>
+                <button type="submit" class="btn btn-secondary" form="addStandardForm">저장</button>
             </div>
         </div>
     </div>

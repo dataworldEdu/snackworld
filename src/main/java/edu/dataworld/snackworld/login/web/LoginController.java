@@ -66,8 +66,14 @@ public class LoginController {
 
         StandardVO standardVo = standardService.getUserStandard(currentUser.getUserId());
 
-        session.setAttribute("order_amt", standardVo.getOrderAmt());
-        session.setAttribute("user_amt", standardVo.getUserAmt());
+        if(standardVo != null) {
+            session.setAttribute("order_amt", standardVo.getOrderAmt());
+            session.setAttribute("user_amt", standardVo.getUserAmt());
+        } else {
+            session.setAttribute("order_amt", 0);
+            session.setAttribute("user_amt", 0);
+        }
+
 
 //        return "redirect:/home/main.do";
         return "redirect:/goods/goodsList.do";

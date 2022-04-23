@@ -18,4 +18,19 @@ public class StandardServiceImpl extends EgovAbstractServiceImpl implements Stan
     public StandardVO getUserStandard(String userId) {
         return standardDAO.getUserStandard(userId);
     }
+
+    @Override
+    public int addStandard(StandardVO vo) {
+        return standardDAO.addStandard(vo);
+    }
+
+    @Override
+    public void setDelStandard(StandardVO vo) {
+        standardDAO.setDelStandard(vo);
+    }
+
+    @Override
+    public int updatdStandard(StandardVO vo) {
+        return standardDAO.updatdStandard(vo);
+    }
 }

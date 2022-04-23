@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @RequestMapping(value="/userAdd.do", method = RequestMethod.POST)
-    public String addUser(HttpServletRequest req, @ModelAttribute("userVO") UserVO userVO) throws Exception{
+    public String addUser(HttpServletRequest req, @ModelAttribute("userVO") UserVO userVO){
 
         UserVO existUser = userService.getUserByLoginId(userVO.getUserId());
 
@@ -64,7 +64,7 @@ public class UserController {
     }
 
     @RequestMapping(value="/userModify.do", method = RequestMethod.POST)
-    public String modifyUser(HttpServletRequest req, @ModelAttribute("userVO") UserVO userVO) throws Exception{
+    public String modifyUser(HttpServletRequest req, @ModelAttribute("userVO") UserVO userVO){
 
 
         int joinUserCount = userService.modifyUser(userVO);
