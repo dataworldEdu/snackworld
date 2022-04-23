@@ -71,8 +71,8 @@
             <span class="fs-2 fw-bold">기준관리</span>
         </div>
     </div>
-    <div class="row">
-        <form method="post" action="/standard/addStandard.do" id="addStandardForm">
+    <form method="post" action="/standard/addStandard.do" id="addStandardForm">
+        <div class="row">
             <div class="col">
             </div>
             <div class="col">
@@ -117,8 +117,8 @@
             </div>
             <div class="col">
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
     <div class="row">
         <div class="col">
         </div>
