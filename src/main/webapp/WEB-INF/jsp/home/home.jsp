@@ -48,11 +48,12 @@
               let storedFileName = data[i].storedFileName;         //파일이름
               let imgUrl = data[i].imgUrl != null ? data[i].imgUrl : storedFileName != null ? storedFileName : "/images/defaultimg.jpg";         //파일경로
               let gdsPrice = data[i].gdsPrice;           //가격
+                debugger;
               let gdsId = data[i].gdsId;     //상품아이디
 
 
               html += "<div class='col-sm-6 col-md-4 col-lg-3 col-xl-3 item' data-aos='fade'>";
-              html += "  <a href= ../goods/goodsDetail.do?id=" + gdsId + ">";
+              html += "  <a href= ../goods/goodsDetail.do?Id=" + gdsId + ">";
               html += "     <img src = '" + imgUrl + "' alt='IMage' class='img-fluid' style='width: 100%; height: 326px; margin-bottom: 20px;'>";
               html += "  </a>";
               html += "</div>";

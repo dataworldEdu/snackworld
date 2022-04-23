@@ -41,18 +41,19 @@ public class MainController {
             int totalCnt = goodsService.goodsCnt(param);  //데이터의 전체 갯수를 가져온다.
             int page = param.getPage();  //파라메터 page값을 받는다.
             if (page==1){
-                param.setStartPage(1);
-                param.setEndPage(20);  //데이터를 20개씩 가져오겠다.s
+                param.setStartNum(1);
+                param.setEndNum(20);  //데이터를 20개씩 가져오겠다.s
             }else{
-                param.setStartPage(page+(19*(page-1)));  //10개씩 가져오고싶다면 19->9로
-                param.setEndPage(page*20);   //20, 40, 60
+                param.setStartNum(page+(19*(page-1)));  //10개씩 가져오고싶다면 19->9로
+                param.setEndNum(page*20);   //20, 40, 60
             }
             //위에서 구한, 데이터를 가져올 시작 rownum과 끝 rownum을 값을 같이 보낸다. 이 사이의 데이터를 조회
-            List<GoodsVO> list = goodsService.retrieve(param);  //조회한 데이터를 가져온다.
+//            List<GoodsVO> list = goodsService.retrieve(param);  //조회한 데이터를 가져온다.
+            List<GoodsVO> list = goodsService.goodsList(param);
 
             set.setRows(list);
             set.setTotCnt(totalCnt);
-            set.setStartNum(param.getStartPage());
+            set.setStartNum(param.getStartNum());
             set.setResultCode(200);
 
         } catch (Exception e) {

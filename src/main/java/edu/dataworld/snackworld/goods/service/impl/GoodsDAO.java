@@ -34,4 +34,7 @@ public class GoodsDAO extends EgovComAbstractDAO {
     }
     public void setRowNum() { update("goods.setRowNum"); }
 
+    public List<GoodsVO> goodsList(Search search) {
+        return selectList("goods.goodsList", search);
+    }
 }

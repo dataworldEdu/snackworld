@@ -13,4 +13,5 @@ public interface GoodsService {
     void modifyGoods(GoodsVO vo);
     void deleteById(String gdsId);
 
+    List<GoodsVO> goodsList(Search param);
 }
