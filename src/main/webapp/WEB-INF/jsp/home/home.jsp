@@ -9,6 +9,14 @@
 <html>
 <head>
     <title>Title</title>
+<style>
+    .ellipsis {
+        width: 310px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;  /* 말줄임 적용 */
+    }
+</style>
 </head>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -47,17 +55,16 @@
               let gdsName = data[i].gdsName;              //상품명
               let storedFileName = data[i].storedFileName;         //파일이름
               let imgUrl = data[i].imgUrl != null ? data[i].imgUrl : storedFileName != null ? storedFileName : "/images/defaultimg.jpg";         //파일경로
-              let gdsPrice = data[i].gdsPrice;           //가격
-                debugger;
+              let gdsPrice = data[i].gdsPrice.toLocaleString('ko-KR');           //가격
               let gdsId = data[i].gdsId;     //상품아이디
 
-
-              html += "<div class='col-sm-6 col-md-4 col-lg-3 col-xl-3 item' data-aos='fade'>";
-              html += "  <a href= ../goods/goodsDetail.do?Id=" + gdsId + ">";
+              html += "<div class='col-sm-6 col-md-4 col-lg-3 col-xl-3 item mb-3' data-aos='fade'>";
+              html += "  <a href= ../goods/goodsDetail.do?Id=" + gdsId + " style='text-decoration-line: none; color: black'>";
               html += "     <img src = '" + imgUrl + "' alt='IMage' class='img-fluid' style='width: 100%; height: 326px; margin-bottom: 20px;'>";
+              html += "     <div class='prod-name ellipsis'>"+ gdsName +"</div>";
+              html += "     <div class='prod-price' style='text-align: left;'>"+ gdsPrice +"원</div>";
               html += "  </a>";
               html += "</div>";
-
             }
           }else{
             //데이터가 없을경우
@@ -110,11 +117,6 @@
 <body>
 <div class="container">
     <div class="row" id="list">
-        <div class="col">
-            <div class="row" id="imgBox">
-
-            </div>
-        </div>
     </div>
 </div>
 </body>
