@@ -27,12 +27,12 @@ public class MainController {
         return "redirect:/login/loginForm.do";
     }
 
-//    @RequestMapping(value="/home/main.do")
-//    public String showMain() {
-//        return "/home/main.view";
-//    }
+    @RequestMapping(value="/home/main.do")
+    public String main() {
+        return "/home/home.view";
+    }
 
-    @RequestMapping(value="/home/main.do", produces="text/plain;charset=UTF-8")
+    @RequestMapping(value="/home/showMain.do", produces="text/plain;charset=UTF-8")
     @ResponseBody   //없으면 AJAX 통신 안되요
     public String showMain(Search param, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
         Gson gson = new Gson();

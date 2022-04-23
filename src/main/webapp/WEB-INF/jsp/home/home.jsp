@@ -10,10 +10,12 @@
 <head>
     <title>Title</title>
 </head>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   var page = 1;  //페이징과 같은 방식이라고 생각하면 된다.
 
   $(function(){  //페이지가 로드되면 데이터를 가져오고 page를 증가시킨다.
+      debugger;
     getList(page);
     page++;
   });
@@ -30,9 +32,8 @@
       type : 'POST',
       dataType : 'json',
       data : {"page" : page},
-      url : '/picture/likeListMake',
+      url : '/home/showMain.do',
       success : function(returnData) {
-        //alert("ㅎㅇㅇㅇㅇ1");
         var data = returnData.rows;
         var html = "";
         var data2 = JSON.stringify(data);
@@ -43,25 +44,23 @@
         if (returnData.startNum<=returnData.totCnt){
           if(data.length>0){
             for(const i in data){
-              let pic_num = data[i].pic_num;              //댓글번호
-              let pic_path = data[i].pic_path;         //파일경로
-              let pic_name = data[i].pic_name;         //원본이름
-              let thum_name = data[i].thum_name;           //썸내일
-              let board_id = parseInt(data[i].board_id);     //글번호
-              let user_id = data[i].user_id;              //글쓴이이름
-              let profile_img = data[i].profile_img;        //끌쓴이프로필이미지
+              let gdsName = data[i].gdsName;              //상품명
+              let storedFileName = data[i].storedFileName;         //파일이름
+              let imgUrl = data[i].imgUrl != null ? data[i].imgUrl : storedFileName != null ? storedFileName : "/images/defaultimg.jpg";         //파일경로
+              let gdsPrice = data[i].gdsPrice;           //가격
+              let gdsId = data[i].gdsId;     //상품아이디
 
 
               html += "<div class='col-sm-6 col-md-4 col-lg-3 col-xl-3 item' data-aos='fade'>";
-              html += "  <a href= ../picture/picDetail?board_id=" + board_id + ">";
-              html += "     <img src = '" + pic_path + "' alt='IMage' class='img-fluid' style='width: 100%; height: 326px; margin-bottom: 20px;'>";
+              html += "  <a href= ../goods/goodsDetail.do?id=" + gdsId + ">";
+              html += "     <img src = '" + imgUrl + "' alt='IMage' class='img-fluid' style='width: 100%; height: 326px; margin-bottom: 20px;'>";
               html += "  </a>";
               html += "</div>";
 
             }
           }else{
             //데이터가 없을경우
-            html += "<div><h1 style='text-align: center;'>구독한 작가가 없습니다.</h1></div>";
+            html += "<div><h1 style='text-align: center;'>상품이 없습니다.</h1></div>";
           }
         }
         html = html.replace(/%20/gi, " ");
@@ -96,7 +95,8 @@
             }
           })
 
-          $("#list").append(html);
+          // $("#list").append(html);
+          $('#list').append(html);
         }
       },error:function(e){
         if(e.status==300){
@@ -107,7 +107,15 @@
   }
 </script>
 <body>
+<div class="container">
+    <div class="row" id="list">
+        <div class="col">
+            <div class="row" id="imgBox">
 
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 
