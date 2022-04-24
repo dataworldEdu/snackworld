@@ -97,4 +97,9 @@ public class OrderServiceImpl extends EgovAbstractServiceImpl implements OrderSe
     public void orderDetailInsert(OrderVO vo) {
         orderDAO.orderDetailInsert(vo);
     }
+
+    @Override
+    public int cancelOrder(List<String> checkBoxArr) {
+        return orderDAO.cancelOrder(checkBoxArr);
+    }
 }

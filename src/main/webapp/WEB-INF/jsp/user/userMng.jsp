@@ -73,18 +73,18 @@
             alert("삭제할 항목을 선택하세요.");
             return;
         }
-        var arr = new Array();
-        var checkbox =  $("input:checkbox[name='selected']:checked");
+        let arr = new Array();
+        let checkbox =  $("input:checkbox[name='selected']:checked");
         checkbox.each(function(key) {
-            var tr = checkbox.parent().parent().eq(key);
-            var td = tr.children();
+            let tr = checkbox.parent().parent().eq(key);
+            let td = tr.children();
 
-            var td_userId = td.eq(4).text();
+            let td_userId = td.eq(4).text();
             arr.push(td_userId);
         });
 
         if(arr.length != 0) {
-            var url = "/user/deleteUser.do";
+            let url = "/user/deleteUser.do";
             $.ajax({
                 type: "POST",
                 dataType : 'json',

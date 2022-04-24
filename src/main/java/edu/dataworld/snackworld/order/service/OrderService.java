@@ -16,4 +16,5 @@ public interface OrderService {
     List<OrderVO> orderRetrieve(Search search);
     void orderInsert(String userId, String cartId, String gdsId, String gdsPrice, String qty);
     void orderDetailInsert(OrderVO vo);
+    int cancelOrder(List<String> checkBoxArr);
 }

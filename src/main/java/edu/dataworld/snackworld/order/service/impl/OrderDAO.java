@@ -44,4 +44,8 @@ public class OrderDAO extends EgovComAbstractDAO {
     public void orderDetailInsert(OrderVO vo){
         insert("order.orderDetailInsert", vo);
     }
+
+    public int cancelOrder(List<String> checkBoxArr) {
+        return update("order.cancelOrder", checkBoxArr);
+    }
 }

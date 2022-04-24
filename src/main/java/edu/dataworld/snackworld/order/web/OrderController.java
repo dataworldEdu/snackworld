@@ -49,6 +49,30 @@ public class OrderController {
         return "/order/orderDetail.view";
     }
 
+    @RequestMapping(value = "/cancelOrder.do", method = RequestMethod.GET)
+    public String cancelOrder(@RequestParam("selected") List<String> checkBoxArr, HttpServletRequest req) {
+
+        int value = orderService.cancelOrder(checkBoxArr);
+
+        if(value == 0) {
+            return Util.msgAndBack(req,"주문 취소에 실패하였습니다.");
+        }
+
+        return Util.msgAndReplace(req, "주문 취소가 완료되었습니다.", "/order/orderList.do");
+    }
+
+    @RequestMapping(value = "/modifyOrderStatus.do", method = RequestMethod.GET)
+    public String modifyOrderStatus(@RequestParam("selected") List<String> checkBoxArr, HttpServletRequest req) {
+
+        int value = orderService.cancelOrder(checkBoxArr);
+
+        if(value == 0) {
+            return Util.msgAndBack(req,"주문 취소에 실패하였습니다.");
+        }
+
+        return Util.msgAndReplace(req, "주문 취소가 완료되었습니다.", "/order/orderList.do");
+    }
+
     @RequestMapping(value = "/addCartAction.do", method = RequestMethod.GET)
     public String addCartAction(OrderVO vo, String Id, HttpSession session, HttpServletRequest request){
         vo.setUserId((String) session.getAttribute("login"));

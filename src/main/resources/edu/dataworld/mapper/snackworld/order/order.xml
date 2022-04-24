@@ -48,7 +48,7 @@
                    ON OD.GDS_ID = D.GDS_ID
         LEFT JOIN USER U
                    ON U.USER_ID = O.USER_ID
-        WHERE 1=1
+        WHERE O.DEL_YN = 'N'
         <if test='searchType != null and searchType != "" '>
             AND O.USER_ID = #{searchType}
         </if>
@@ -127,6 +127,15 @@
         SET    DEL_YN = 'Y'
              , LAST_CHG_DT = NOW()
         WHERE  CART_ID = #{cartId}
+    </update>
+
+    <update id="order.cancelOrder" parameterType="java.util.ArrayList">
+        UPDATE `ORDER`
+        SET DEL_YN = 'Y'
+        WHERE ORDER_ID IN
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
     </update>
 
     <insert id="order.orderInsert" parameterType="edu.dataworld.snackworld.order.service.OrderVO" useGeneratedKeys="true">
