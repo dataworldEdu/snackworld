@@ -29,7 +29,8 @@ public class MainController {
     }
 
     @RequestMapping(value="/home/main.do")
-    public String main(String catCode, ModelMap model) {
+    public String main(String catCode, String keyword, ModelMap model) {
+        model.addAttribute("keyword", keyword);
         model.addAttribute("catCode", catCode);
         return "/home/home.view";
     }

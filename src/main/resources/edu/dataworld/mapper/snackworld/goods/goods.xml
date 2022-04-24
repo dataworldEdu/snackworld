@@ -40,6 +40,9 @@
             <if test='searchType != null and searchType != ""'>
                 AND G.CAT_CODE = #{searchType}
             </if>
+            <if test='keyword != null and keyword != ""'>
+                AND G.GDS_NAME LIKE CONCAT('%',#{keyword},'%')
+            </if>
         ) GDS
         LIMIT #{startNum}, #{endNum}
     </select>
@@ -61,9 +64,11 @@
                           LEFT JOIN GOODS_IMG_FILE GI
                                     ON G.GDS_ID = GI.GDS_ID
                  WHERE G.DEL_YN = 'N'
-                 <if test='keyword != null and keyword != "" '>
-                     AND GDS_NAME LIKE CONCAT('%',#{keyword},'%')
-                     AND CAT_CODE LIKE CONCAT('%',#{searchType},'%')
+                 <if test='searchType != null and searchType != ""'>
+                    AND G.CAT_CODE = #{searchType}
+                 </if>
+                 <if test='keyword != null and keyword != ""'>
+                    AND G.GDS_NAME LIKE CONCAT('%',#{keyword},'%')
                  </if>
              ) GDS
     </select>
