@@ -45,17 +45,22 @@
                         <option value="2">초콜릿</option>
                         <option value="3">홈런볼</option>
                     </select>
+                    <span class="fs-5 fw-bold text-danger ms-2">*</span>
                 </div>
             </div>
 
             <div class="row">
-                <p class="fs-5 fw-bold">이름</p>
+                <p class="fs-5 fw-bold">이름
+                    <span class="text-danger">*</span>
+                </p>
                 <div class="input-group mb-2" style="width: 80%">
                     <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" >
                 </div>
             </div>
             <div class="row">
-                <p class="fs-5 fw-bold">가격</p>
+                <p class="fs-5 fw-bold">가격
+                    <span class="text-danger">*</span>
+                </p>
                 <div class="input-group mb-2" style="width: 80%">
                     <input type="text" class="form-control" aria-label="Price" aria-describedby="inputGroup-sizing-default" >
                 </div>

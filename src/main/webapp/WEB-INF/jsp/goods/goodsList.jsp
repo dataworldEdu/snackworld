@@ -30,6 +30,13 @@
         }
     }
 
+    $(document).ready(function () {
+        if("" != '${pagination.searchType}'){
+            $('#searchType').val('${pagination.searchType}').prop("selected", true);
+        }
+        $('#keyword').attr('value', '${pagination.keyword}');
+    });
+
     function delCheckedList() {
         if ($("input:checkbox[name='selected']:checked").length === 0) {
             alert("삭제할 항목을 선택하세요.");
@@ -59,16 +66,32 @@
         let pageSet = ((range - 2) * rangeSize) + 1;
         let rangeSet = range - 1;
         let url = "${pageContext.request.contextPath}/goods/goodsList.do";
-        url = url + "?page=" + pageSet;
-        url = url + "&range=" + rangeSet;
+        url += "?page=" + pageSet;
+        url += "&range=" + rangeSet;
+        url += "&searchType=";
+        if("" != '${pagination.searchType}'){
+            url += '${pagination.searchType}';
+        }
+        url += "&keyword=";
+        if("" != '${pagination.keyword}'){
+            url += '${pagination.keyword}';
+        }
         location.href = url;
     }
 
     //페이지 번호 클릭
     function fn_pagination(page, range, rangeSize, searchType, keyword) {
         let url = "${pageContext.request.contextPath}/goods/goodsList.do";
-        url = url + "?page=" + page;
-        url = url + "&range=" + range;
+        url += "?page=" + page;
+        url += "&range=" + range;
+        url += "&searchType=";
+        if("" != '${pagination.searchType}'){
+            url += '${pagination.searchType}';
+        }
+        url += "&keyword=";
+        if("" != '${pagination.keyword}'){
+            url += '${pagination.keyword}';
+        }
         location.href = url;
     }
 
@@ -77,8 +100,16 @@
         let pageSet = parseInt((range * rangeSize)) + 1;
         let rangeSet = parseInt(range) + 1;
         let url = "${pageContext.request.contextPath}/goods/goodsList.do";
-        url = url + "?page=" + pageSet;
-        url = url + "&range=" + rangeSet;
+        url += "?page=" + pageSet;
+        url += "&range=" + rangeSet;
+        url += "&searchType=";
+        if("" != '${pagination.searchType}'){
+            url += '${pagination.searchType}';
+        }
+        url += "&keyword=";
+        if("" != '${pagination.keyword}'){
+            url += '${pagination.keyword}';
+        }
         location.href = url;
     }
 </script>
@@ -90,17 +121,17 @@
                 <span class="fw-bold fs-2">상품 리스트</span>
                 <form id="search-form" action="/goods/goodsList.do" method="get">
                     <div class="btn-group mt-1 ms-2">
-                        <select class="form-select me-1" name="searchType" aria-label="Default select example"
+                        <select class="form-select me-1" name="searchType" id="searchType" aria-label="Default select example"
                                 style="width: 150px">
-                            <option value="0" selected>전체</option>
-                            <option value="1">스낵</option>
-                            <option value="2">사탕</option>
-                            <option value="3">초콜릿</option>
-                            <option value="4">젤리</option>
-                            <option value="5">파이류</option>
+                            <option value="" selected>전체</option>
+                            <option value="01">스낵</option>
+                            <option value="02">사탕</option>
+                            <option value="03">초콜릿</option>
+                            <option value="04">젤리</option>
+                            <option value="05">파이류</option>
                         </select>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="keyword" placeholder="검색..."
+                            <input type="text" class="form-control" name="keyword" id="keyword" placeholder="검색..."
                                    list="goods-List">
                             <datalist id="goods-List">
                                 <c:forEach items="${listSearch}" var="list" varStatus="status">
