@@ -71,8 +71,6 @@
         url += "&searchType=";
         if("" != '${pagination.searchType}'){
             url += '${pagination.searchType}';
-        } else {
-            url += '0';
         }
         url += "&keyword=";
         if("" != '${pagination.keyword}'){
@@ -89,8 +87,6 @@
         url += "&searchType=";
         if("" != '${pagination.searchType}'){
             url += '${pagination.searchType}';
-        } else {
-            url += '0';
         }
         url += "&keyword=";
         if("" != '${pagination.keyword}'){
@@ -109,8 +105,6 @@
         url += "&searchType=";
         if("" != '${pagination.searchType}'){
             url += '${pagination.searchType}';
-        } else {
-            url += '0';
         }
         url += "&keyword=";
         if("" != '${pagination.keyword}'){
@@ -130,11 +124,11 @@
                         <select class="form-select me-1" name="searchType" id="searchType" aria-label="Default select example"
                                 style="width: 150px">
                             <option value="" selected>전체</option>
-                            <option value="1">스낵</option>
-                            <option value="2">사탕</option>
-                            <option value="3">초콜릿</option>
-                            <option value="4">젤리</option>
-                            <option value="5">파이류</option>
+                            <option value="01">스낵</option>
+                            <option value="02">사탕</option>
+                            <option value="03">초콜릿</option>
+                            <option value="04">젤리</option>
+                            <option value="05">파이류</option>
                         </select>
                         <div class="input-group">
                             <input type="text" class="form-control" name="keyword" id="keyword" placeholder="검색..."
