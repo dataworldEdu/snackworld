@@ -22,7 +22,7 @@
 <script>
   var page = 1;  //페이징과 같은 방식이라고 생각하면 된다.
   var catCode = "${catCode}";
-  debugger;
+  var keyword = "${keyword}";
 
   $(function(){  //페이지가 로드되면 데이터를 가져오고 page를 증가시킨다.
     getList(page);
@@ -37,11 +37,11 @@
   });
 
   function getList(page){
-      var url = "";
-      if(catCode == "" || catCode == null) {
-          url += "/home/showMain.do";
-      } else {
-          url += "/home/showMain.do?searchType=" + catCode;
+      var url = "/home/showMain.do";
+      if(catCode != "" && catCode != null) {
+          url += "?searchType=" + catCode;
+      } if(keyword != "" && keyword != null){
+          url += "?keyword=" + keyword;
       }
     $.ajax({
       type : 'POST',
@@ -110,7 +110,6 @@
             }
           })
 
-          // $("#list").append(html);
           $('#list').append(html);
         }
       },error:function(e){

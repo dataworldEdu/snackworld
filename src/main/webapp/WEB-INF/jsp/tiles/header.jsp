@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>헤더</title>
@@ -20,7 +21,7 @@
         <ul class="nav">
             <li class="nav-item"><a href="/user/userMng.do" class="nav-link link-dark px-2">회원관리</a></li>
             <li class="nav-item"><a href="/standard/standardMng.do" class="nav-link link-dark px-2">기준관리</a></li>
-            <li class="nav-item"><a href="/goods/goodsList.do" class="nav-link link-dark px-2 active" aria-current="page">상품관리</a></li>
+            <li class="nav-item"><a href="/goods/goodsList.do" class="nav-link link-dark px-2" aria-current="page">상품관리</a></li>
             <li class="nav-item"><a href="/order/cart.do" class="nav-link link-dark px-2">장바구니</a></li>
             <li class="nav-item"><a href="/order/orderList.do" class="nav-link link-dark px-2">주문목록</a></li>
             <li class="nav-item"><a href="/login/loginForm.do" class="nav-link link-dark px-2">로그아웃</a></li>
@@ -41,13 +42,11 @@
             <li style="list-style:none;">개인 잔액</li>
             <li class="ms-2" style="list-style:none; "><fmt:formatNumber value="${sessionScope.user_amt}"/>원</li>
         </div>
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0">
-            <input type="search" class="form-control" placeholder="검색..." aria-label="Search">
-        </form>
-        <div style="margin : 10px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="goods-search" viewBox="0 0 16 16">
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-            </svg>
+        <div style="margin: 10px; width: 250px;">
+            <form id="search-form" action="/home/main.do">
+                <input type="text" class="form-control" name="keyword" placeholder="검색..." style="width: 82%; float: left">
+                <button type="submit" class="bi bi-search btn btn-outline-secondary fs-10"></button>
+            </form>
         </div>
     </div>
 </header>
