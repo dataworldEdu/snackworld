@@ -30,6 +30,23 @@
             chk_form.submit();
         }
     }
+
+    function cancelAllList() {
+        if($("input:checkbox[name='selected']:checked").length === 0) {
+            alert("취소할 항목을 선택하세요.");
+            return;
+        }
+
+        let chk_val = [];
+        $("input:checkbox[name='selected']:checked").each(function (k, val){
+            chk_val.push($(this).val())
+        });
+
+        let chk_form = document.getElementById("chkForm");
+        if(confirm("선택 항목을 취소 하시겠습니까?")){
+            chk_form.submit();
+        }
+    }
     <!-- pagination -->
     //이전 버튼 이벤트
     function fn_prev(page, range, rangeSize) {
@@ -158,8 +175,18 @@
         </div>
         <div class="col">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn btn-outline-secondary" onclick="cancelCheckedList()">선택 주문 취소</button>
-                <button type="button" class="btn btn-outline-secondary" onclick="cancelAllList()">전체 주문 취소</button>
+                <c:choose>
+                    <c:when test='${sessionScope.auth == "USER"}'>
+                        <button type="button" class="btn btn-outline-secondary" onclick="cancelCheckedList()">선택 주문 취소</button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="cancelAllList()">전체 주문 취소</button>
+                    </c:when>
+                    <c:when test='${sessionScope.auth} == "APPR"'>
+                        <button type="button" class="btn btn-outline-secondary" onclick="sendBack()">반려</button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="signOffOn()">승인</button>
+                    </c:when>
+                    <c:otherwise>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>
