@@ -22,7 +22,6 @@
 <script>
   var page = 1;  //페이징과 같은 방식이라고 생각하면 된다.
   var catCode = "${catCode}";
-  debugger;
 
   $(function(){  //페이지가 로드되면 데이터를 가져오고 page를 증가시킨다.
     getList(page);
@@ -110,7 +109,6 @@
             }
           })
 
-          // $("#list").append(html);
           $('#list').append(html);
         }
       },error:function(e){

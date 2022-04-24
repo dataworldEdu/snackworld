@@ -20,7 +20,7 @@
         <ul class="nav">
             <li class="nav-item"><a href="/user/userMng.do" class="nav-link link-dark px-2">회원관리</a></li>
             <li class="nav-item"><a href="/standard/standardMng.do" class="nav-link link-dark px-2">기준관리</a></li>
-            <li class="nav-item"><a href="/goods/goodsList.do" class="nav-link link-dark px-2 active" aria-current="page">상품관리</a></li>
+            <li class="nav-item"><a href="/goods/goodsList.do" class="nav-link link-dark px-2" aria-current="page">상품관리</a></li>
             <li class="nav-item"><a href="/order/cart.do" class="nav-link link-dark px-2">장바구니</a></li>
             <li class="nav-item"><a href="/order/orderList.do" class="nav-link link-dark px-2">주문목록</a></li>
             <li class="nav-item"><a href="/login/loginForm.do" class="nav-link link-dark px-2">로그아웃</a></li>

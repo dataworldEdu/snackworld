@@ -14,7 +14,16 @@
     .navbar-nav > .nav-item{
         margin: 0px 70px;
     }
+    .active {
+        font-weight: bold;
+    }
 </style>
+<script>
+    $(document).on("click", ".nav-item>a", function() {
+        $(this).addClass('active');
+        $(this).parent().siblings().children().removeClass('active');
+    });
+</script>
 <body>
 <div class="mb-3">
     <nav class="navbar navbar-expand-lg navbar-light bg-light rounded" aria-label="Twelfth navbar example">
@@ -26,7 +35,7 @@
             <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/home/main.do">전체보기</a>
+                        <a class="nav-link" aria-current="page" href="/home/main.do">전체보기</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/home/main.do?catCode=01">스낵</a>
