@@ -8,6 +8,7 @@ import edu.dataworld.snackworld.goods.service.GoodsVO;
 import edu.dataworld.snackworld.main.service.MainService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -28,13 +29,14 @@ public class MainController {
     }
 
     @RequestMapping(value="/home/main.do")
-    public String main() {
+    public String main(String catCode, ModelMap model) {
+        model.addAttribute("catCode", catCode);
         return "/home/home.view";
     }
 
     @RequestMapping(value="/home/showMain.do", produces="text/plain;charset=UTF-8")
     @ResponseBody   //없으면 AJAX 통신 안되요
-    public String showMain(Search param, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+    public String showMain(@ModelAttribute("searchVO") Search param, ModelMap model) {
         Gson gson = new Gson();
         DataSet set = new DataSet();
         try {
@@ -42,14 +44,14 @@ public class MainController {
             int page = param.getPage();  //파라메터 page값을 받는다.
             if (page==1){
                 param.setStartNum(1);
-                param.setEndNum(20);  //데이터를 20개씩 가져오겠다.s
+                param.setEndNum(20);  //데이터를 20개씩 가져오겠다.
             }else{
                 param.setStartNum(page+(19*(page-1)));  //10개씩 가져오고싶다면 19->9로
                 param.setEndNum(page*20);   //20, 40, 60
             }
+
             //위에서 구한, 데이터를 가져올 시작 rownum과 끝 rownum을 값을 같이 보낸다. 이 사이의 데이터를 조회
-//            List<GoodsVO> list = goodsService.retrieve(param);  //조회한 데이터를 가져온다.
-            List<GoodsVO> list = goodsService.goodsList(param);
+            List<GoodsVO> list = goodsService.goodsList(param); //조회한 데이터를 가져온다.
 
             set.setRows(list);
             set.setTotCnt(totalCnt);

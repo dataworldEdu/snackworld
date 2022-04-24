@@ -74,10 +74,10 @@
                         </c:forEach>
                     </select>
                     <select class="form-select" name="searchType2" aria-label="Default select example" style="width:130px;">
-                        <option selected>주문상태</option>
-                        <option value="1">대기</option>
-                        <option value="2">승인</option>
-                        <option value="3">반려</option>
+                        <option value="" selected>주문상태</option>
+                        <option value="A001">대기</option>
+                        <option value="A002">승인</option>
+                        <option value="A003">반려</option>
                     </select>
                     <div class="input-group ms-2">
                         <button type="submit" class="bi bi-search btn btn-outline-secondary fs-5"></button>
@@ -94,7 +94,7 @@
                     <thead>
                     <tr>
                         <th class="header" style="width: 30px;"><input type="checkbox" value="selectall" name="selectall" onclick="selectAll(this)"/></th>
-                        <th>번호</th>
+                        <th>주문번호</th>
                         <th style="width: 15%;"></th>
                         <th style="text-overflow: ellipsis; width: 50%;">품명</th>
                         <th>총가격</th>
@@ -109,18 +109,18 @@
                             <td>
                                 <input type="checkbox" name="selected" value="${order.orderId}" onclick="checkSelectAll(this)">
                             </td>
-                            <td>${rowNum}</td>
+                            <td>${order.orderId}</td>
                             <td>
-<%--                                <img src="${goods.imgUrl != null ? goods.imgUrl--%>
-<%--                                    : goods.storedFileName != null ? goods.storedFileName--%>
-<%--                                    : "/images/defaultimg.jpg"}" style="width: 150px; height: 150px">--%>
+                                <img src="${order.imgUrl != null ? order.imgUrl
+                                    : order.storedFileName != null ? order.storedFileName
+                                    : "/images/defaultimg.jpg"}" style="width: 150px; height: 150px">
                             </td>
                             <td>${order.orderName}</td>
                             <td>
                                 <fmt:formatNumber value="${order.totalPrice}"/>
                             </td>
                             <td>${order.userName}</td>
-                            <td>${order.status}</td>
+                            <td>${order.orderStatus}</td>
                         </tr>
                     </c:forEach>
                     </tbody>

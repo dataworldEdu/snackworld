@@ -84,7 +84,6 @@
         });
 
         if(arr.length != 0) {
-            debugger;
             var url = "/user/deleteUser.do";
             $.ajax({
                 type: "POST",

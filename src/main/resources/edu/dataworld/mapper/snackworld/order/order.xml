@@ -25,13 +25,37 @@
 
     <select id="order.orderRetrieve" parameterType="edu.dataworld.snackworld.order.service.OrderVO" resultType="edu.dataworld.snackworld.order.service.OrderVO">
         SELECT
-            O.TOTAL_PRICE
-            ,O.ORDER_STATUS_CODE
-            ,O.USER_ID
-            ,U.USER_NAME
+            O.ORDER_ID ,
+            CONCAT(CONCAT(CONCAT(G.GDS_NAME,' 외 '),COUNT(OD.GDS_ID)),'개') AS ORDER_NAME,
+            D.IMG_URL ,
+            D.STORED_FILE_NAME ,
+            O.TOTAL_PRICE ,
+            O.ORDER_STATUS_CODE ,
+            CASE
+                WHEN O.ORDER_STATUS_CODE = 'A001' THEN '대기'
+                WHEN O.ORDER_STATUS_CODE = 'A002' THEN '승인'
+                WHEN O.ORDER_STATUS_CODE = 'A003' THEN '반려'
+                ELSE '주문실패'
+                END AS ORDER_STATUS ,
+            O.USER_ID ,
+            U.USER_NAME
         FROM `ORDER` O
+        LEFT JOIN ORDER_DETAIL OD
+                   ON O.ORDER_ID = OD.ORDER_ID
+        LEFT JOIN GOODS G
+                   ON OD.GDS_ID = G.GDS_ID
+        LEFT JOIN GOODS_IMG_FILE D
+                   ON OD.GDS_ID = D.GDS_ID
         LEFT JOIN USER U
-            ON U.USER_ID = O.USER_ID
+                   ON U.USER_ID = O.USER_ID
+        WHERE 1=1
+        <if test='searchType != null and searchType != "" '>
+            AND O.USER_ID = #{searchType}
+        </if>
+        <if test='searchType2 != null and searchType2 != "" '>
+            AND O.ORDER_STATUS_CODE = #{searchType2}
+        </if>
+        GROUP BY ORDER_ID
     </select>
 
     <select id="order.listOption" parameterType="edu.dataworld.snackworld.order.service.OrderVO" resultType="edu.dataworld.snackworld.order.service.OrderVO">
@@ -51,7 +75,7 @@
             AND USER_ID = #{searchType}
         </if>
         <if test='searchType2 != null and searchType2 != "" '>
-            AND STATUS = #{searchType2}
+            AND ORDER_STATUS_CODE = #{searchType2}
         </if>
     </select>
 

@@ -26,22 +26,22 @@
             <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">전체보기</a>
+                        <a class="nav-link active" aria-current="page" href="/home/main.do">전체보기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">스낵</a>
+                        <a class="nav-link" href="/home/main.do?catCode=01">스낵</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">사탕</a>
+                        <a class="nav-link" href="/home/main.do?catCode=02">사탕</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">초콜릿</a>
+                        <a class="nav-link" href="/home/main.do?catCode=03">초콜릿</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">젤리</a>
+                        <a class="nav-link" href="/home/main.do?catCode=04">젤리</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">파이류</a>
+                        <a class="nav-link" href="/home/main.do?catCode=04">파이류</a>
                     </li>
                 </ul>
             </div>

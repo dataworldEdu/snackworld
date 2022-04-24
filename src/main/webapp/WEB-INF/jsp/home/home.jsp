@@ -21,9 +21,10 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   var page = 1;  //페이징과 같은 방식이라고 생각하면 된다.
+  var catCode = "${catCode}";
+  debugger;
 
   $(function(){  //페이지가 로드되면 데이터를 가져오고 page를 증가시킨다.
-      debugger;
     getList(page);
     page++;
   });
@@ -36,11 +37,17 @@
   });
 
   function getList(page){
+      var url = "";
+      if(catCode == "" || catCode == null) {
+          url += "/home/showMain.do";
+      } else {
+          url += "/home/showMain.do?searchType=" + catCode;
+      }
     $.ajax({
       type : 'POST',
       dataType : 'json',
       data : {"page" : page},
-      url : '/home/showMain.do',
+      url : url,
       success : function(returnData) {
         var data = returnData.rows;
         var html = "";

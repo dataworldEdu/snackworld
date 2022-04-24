@@ -10,13 +10,12 @@ public class OrderVO extends GoodsVO {
 
     private String cartId;
     private String orderId;
+    private String orderName;
     private String orderDetailId;
+    private String orderStatusCode;
+    private String orderStatus;
     private String userId;
     private String userName;
-    private String orderStatusCode;
-    private String status;
-    private String orderName;
-    private String delYn;
     private int qty;
     private int totalPrice;
 }
