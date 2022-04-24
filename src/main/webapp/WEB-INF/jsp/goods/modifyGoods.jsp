@@ -112,11 +112,11 @@
                                 style="width: 150px"
                                 name="catCode">
                             <option value="" selected>카테고리</option>
-                            <option value="1">스낵</option>
-                            <option value="2">사탕</option>
-                            <option value="3">초콜릿</option>
-                            <option value="4">젤리</option>
-                            <option value="5">파이류</option>
+                            <option value="01">스낵</option>
+                            <option value="02">사탕</option>
+                            <option value="03">초콜릿</option>
+                            <option value="04">젤리</option>
+                            <option value="05">파이류</option>
                         </select>
                     </div>
                 </div>

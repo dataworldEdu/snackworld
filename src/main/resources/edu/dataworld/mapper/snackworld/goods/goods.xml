@@ -16,9 +16,11 @@
                  LEFT JOIN GOODS_IMG_FILE GI
                         ON G.GDS_ID = GI.GDS_ID
                  WHERE G.DEL_YN = 'N'
-                 <if test='keyword != null'>
-                   AND GDS_NAME LIKE CONCAT('%',#{keyword},'%')
-                   AND CAT_CODE LIKE CONCAT('%',#{searchType},'%')
+                 <if test='keyword != null and keyword != ""'>
+                 AND   GDS_NAME LIKE CONCAT('%', #{keyword},'%')
+                 </if>
+                 <if test='searchType != "" and searchType != null'>
+                     AND   CAT_CODE LIKE CONCAT('%', #{searchType}, '%')
                  </if>
                  ) GDS
              ) B
@@ -63,7 +65,9 @@
                  WHERE G.DEL_YN = 'N'
                  <if test='keyword != null and keyword != "" '>
                      AND GDS_NAME LIKE CONCAT('%',#{keyword},'%')
-                     AND CAT_CODE LIKE CONCAT('%',#{searchType},'%')
+                 </if>
+                 <if test='searchType != "" and searchType != null'>
+                     AND   CAT_CODE LIKE CONCAT('%', #{searchType}, '%')
                  </if>
              ) GDS
     </select>
