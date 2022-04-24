@@ -2,17 +2,11 @@ package edu.dataworld.snackworld.order.web;
 
 import edu.dataworld.snackworld.common.Search;
 import edu.dataworld.snackworld.common.Util;
-import edu.dataworld.snackworld.goods.service.GoodsVO;
 import edu.dataworld.snackworld.order.service.OrderService;
 import edu.dataworld.snackworld.order.service.OrderVO;
-import edu.dataworld.snackworld.user.service.UserService;
-import edu.dataworld.snackworld.user.service.UserVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -80,5 +74,23 @@ public class OrderController {
         vo.setUserId((String) session.getAttribute("login"));
         model.addAttribute("cartList", orderService.cartRetrieve(vo));
         return "/order/cart.view";
+    }
+
+    @RequestMapping(value = "/cartDeleteAction.do", method = RequestMethod.GET)
+    public String cartDeleteGoodsAction(@RequestParam("checkedItem") String cartId, HttpServletRequest request) {
+        orderService.cartDelete(cartId);
+
+        return Util.msgAndReplace(request, "삭제가 완료되었습니다.", "/order/cart.do");
+    }
+
+    @RequestMapping(value = "/cartOrderAction.do", method = RequestMethod.GET)
+    public String cartOrderAction(@RequestParam("checkedItem") String cartId,
+                                  String gdsId, String gdsPrice, String qty,
+                                  HttpServletRequest request, HttpSession session) {
+
+        String userId = (String) session.getAttribute("login");
+        orderService.orderInsert(userId, cartId, gdsId, gdsPrice, qty);
+
+        return Util.msgAndReplace(request, "주문이 완료되었습니다.", "/order/cart.do");
     }
 }

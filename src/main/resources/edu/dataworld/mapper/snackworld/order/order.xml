@@ -94,33 +94,35 @@
     <update id="order.cartQtyUpdate" parameterType="edu.dataworld.snackworld.order.service.OrderVO">
         UPDATE CART
         SET    QTY = #{qty}
+             , LAST_CHG_DT = NOW()
         WHERE  CART_ID = #{cartId}
     </update>
 
-    <update id="order.cartDelete" parameterType="edu.dataworld.snackworld.order.service.OrderVO">
+    <update id="order.cartDelete" parameterType="String">
         UPDATE CART
         SET    DEL_YN = 'Y'
+             , LAST_CHG_DT = NOW()
         WHERE  CART_ID = #{cartId}
     </update>
 
     <insert id="order.orderInsert" parameterType="edu.dataworld.snackworld.order.service.OrderVO" useGeneratedKeys="true">
-        <selectKey resultType="String" keyProperty="orderID" order="BEFORE">
+        <selectKey resultType="String" keyProperty="orderId" order="BEFORE">
             SELECT
-            CONCAT('ODR', (LPAD(IFNULL(CAST(RIGHT(MAX(CART_ID), 5) AS UNSIGNED) + 1, 1), 6, '0')))
-            FROM   CART
+                   CONCAT('ODR', (LPAD(IFNULL(CAST(RIGHT(MAX(ORDER_ID), 5) AS UNSIGNED) + 1, 1), 5, '0')))
+            FROM   `ORDER`
         </selectKey>
 
         INSERT
-        INTO ORDER(ORDER_ID
-                 , USER_ID
-                 , TOTAL_PRICE
-                 , ORDER_STATUS_CODE
-                 , DEL_YN
-                 , FRST_RGTR
-                 , FRST_REG_DT
-                 , LAST_CHNRG
-                 , LAST_CHG_DT)
-        VALUES (#{orderID}
+        INTO `ORDER`(ORDER_ID
+                   , USER_ID
+                   , TOTAL_PRICE
+                   , ORDER_STATUS_CODE
+                   , DEL_YN
+                   , FRST_RGTR
+                   , FRST_REG_DT
+                   , LAST_CHNRG
+                   , LAST_CHG_DT)
+        VALUES (#{orderId}
               , #{userId}
               , #{totalPrice}
               , 'A001'
@@ -138,10 +140,10 @@
     </insert>
 
     <insert id="order.orderDetailInsert" parameterType="edu.dataworld.snackworld.order.service.OrderVO" useGeneratedKeys="true">
-        <selectKey resultType="String" keyProperty="orderDetailID" order="BEFORE">
+        <selectKey resultType="String" keyProperty="orderDetailId" order="BEFORE">
             SELECT
-            CONCAT('ODRD', (LPAD(IFNULL(CAST(RIGHT(MAX(CART_ID), 6) AS UNSIGNED) + 1, 1), 6, '0')))
-            FROM   CART
+                   CONCAT('ODRD', (LPAD(IFNULL(CAST(RIGHT(MAX(ORDER_DETAIL_ID), 6) AS UNSIGNED) + 1, 1), 6, '0')))
+            FROM   ORDER_DETAIL
         </selectKey>
 
         INSERT
@@ -155,8 +157,8 @@
                         , FRST_REG_DT
                         , LAST_CHNRG
                         , LAST_CHG_DT)
-        VALUES (#{orderDetailID}
-              , #{orderID}
+        VALUES (#{orderDetailId}
+              , #{orderId}
               , #{gdsId}
               , #{qty}
               , 'A001'

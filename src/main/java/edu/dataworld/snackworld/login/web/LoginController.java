@@ -17,7 +17,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.PrintWriter;
 import java.util.List;
 
 @Controller
@@ -75,9 +74,7 @@ public class LoginController {
         }
 
 
-//        return "redirect:/home/main.do";
-        return "redirect:/goods/goodsList.do";
-
+        return "redirect:/home/main.do";
     }
 
     @RequestMapping(value = "/logoutAction.do")

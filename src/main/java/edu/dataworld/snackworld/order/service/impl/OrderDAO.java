@@ -3,7 +3,6 @@ package edu.dataworld.snackworld.order.service.impl;
 import edu.dataworld.egov.cmm.service.impl.EgovComAbstractDAO;
 import edu.dataworld.snackworld.common.Search;
 import edu.dataworld.snackworld.order.service.OrderVO;
-import edu.dataworld.snackworld.user.service.UserVO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,8 +23,8 @@ public class OrderDAO extends EgovComAbstractDAO {
         update("order.cartQtyUpdate", vo);
     }
 
-    public void cartDelete(OrderVO vo) {
-        update("order.cartDelete", vo);
+    public void cartDelete(String cartId) {
+        update("order.cartDelete", cartId);
     }
 
     public List<OrderVO> listOption() {
