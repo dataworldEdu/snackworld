@@ -66,13 +66,6 @@
                           LEFT JOIN GOODS_IMG_FILE GI
                                     ON G.GDS_ID = GI.GDS_ID
                  WHERE G.DEL_YN = 'N'
-<!--                 <if test='keyword != null and keyword != "" '>-->
-<!--                     AND GDS_NAME LIKE CONCAT('%',#{keyword},'%')-->
-<!--                 </if>-->
-<!--                 <if test='searchType != "" and searchType != null'>-->
-<!--                     AND   CAT_CODE LIKE CONCAT('%', #{searchType}, '%')-->
-<!--                 </if>-->
-
                  <if test='searchType != null and searchType != ""'>
                     AND G.CAT_CODE = #{searchType}
                  </if>
@@ -92,31 +85,93 @@
         WHERE G.GDS_ID = #{gdsId}
     </select>
 
-    <insert id="goods.insert" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO">
+    <insert id="goods.insertGoods" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO" useGeneratedKeys="true">
+        <selectKey resultType="String" keyProperty="gdsId" order="BEFORE">
+            SELECT DATE_FORMAT(NOW(), '%s%i%H%d%m%y');
+        </selectKey>
+
         INSERT
-        INTO USER(
+        INTO GOODS(
                    GDS_ID
                  , GDS_NAME
                  , GDS_PRICE
                  , CAT_CODE
                  , GDS_URL
                  , DEL_YN
-        ) VALUES(
-                  #{gdsId}
-                , #{gdsName}
-                , #{gdsPrice}
-                , #{catCode}
-                , #{gdsURL}
-                , 'N'
-                )
+                 , FRST_RGTR
+                 , FRST_REG_DT
+                 , LAST_CHNRG
+                 , LAST_CHG_DT
+                 )
+        VALUES(
+                #{gdsId}
+              , #{gdsName}
+              , #{gdsPrice}
+              , #{catCode}
+              , #{gdsURL}
+              , 'N'
+              , (SELECT
+                        USER_NAME
+                 FROM   USER
+                 WHERE  USER_ID = #{userId})
+              , NOW()
+              , (SELECT
+                        USER_NAME
+                 FROM   USER
+                 WHERE  USER_ID = #{userId})
+              , NOW()
+              )
     </insert>
 
-    <update id="goods.update" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO">
+    <insert id="goods.insertGoodsWithOutUrl" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO" useGeneratedKeys="true">
+        <selectKey resultType="String" keyProperty="gdsId" order="BEFORE">
+            SELECT DATE_FORMAT(NOW(), '%s%i%H%d%m%y');
+        </selectKey>
+
+        INSERT
+        INTO GOODS(
+                   GDS_ID
+                 , GDS_NAME
+                 , GDS_PRICE
+                 , CAT_CODE
+                 , GDS_URL
+                 , DEL_YN
+                 , FRST_RGTR
+                 , FRST_REG_DT
+                 , LAST_CHNRG
+                 , LAST_CHG_DT
+                  )
+        VALUES(
+                #{gdsId}
+              , #{gdsName}
+              , #{gdsPrice}
+              , #{catCode}
+              , NULL
+              , 'N'
+              , (SELECT
+                        USER_NAME
+                 FROM   USER
+                 WHERE  USER_ID = #{userId})
+              , NOW()
+              , (SELECT
+                        USER_NAME
+                 FROM   USER
+                 WHERE  USER_ID = #{userId})
+              , NOW()
+              )
+    </insert>
+
+    <update id="goods.modifyGoods" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO">
         UPDATE GOODS
         SET GDS_NAME = #{gdsName}
           , GDS_PRICE = #{gdsPrice}
           , CAT_CODE = #{catCode}
-          , GDS_URL = NULL
+          , GDS_URL = #{gdsUrl}
+          , LAST_CHNRG = (SELECT
+                                 USER_NAME
+                          FROM   USER
+                          WHERE  USER_ID = #{userId})
+          , LAST_CHG_DT = NOW()
         WHERE GDS_ID = #{gdsId}
     </update>
 
@@ -125,13 +180,18 @@
         SET GDS_NAME = #{gdsName}
           , GDS_PRICE = #{gdsPrice}
           , CAT_CODE = #{catCode}
-          , GDS_URL = #{gdsURL}
+          , GDS_URL = NULL
+          , LAST_CHNRG = (SELECT
+                                 USER_NAME
+                          FROM   USER
+                          WHERE  USER_ID = #{userId})
+          , LAST_CHG_DT = NOW()
         WHERE GDS_ID = #{gdsId}
     </update>
 
     <insert id="goods.fileUpload" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO">
         INSERT
-        INTO USER(
+        INTO GOODS(
                    IMGFILE_ID
                  , GDS_ID
                  , ORIGIN_FILE_NAME
@@ -153,6 +213,11 @@
     <update id="goods.deleteById">
         UPDATE GOODS
         SET DEL_YN = 'Y'
+          , LAST_CHNRG = (SELECT
+                                 USER_NAME
+                          FROM   USER
+                          WHERE  USER_ID = #{userId})
+          , LAST_CHG_DT = NOW()
         WHERE GDS_ID = #{gdsId}
     </update>
 

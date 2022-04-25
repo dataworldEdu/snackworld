@@ -75,7 +75,7 @@
 
             <div class="row">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-right: 1%">
-                    <button type="button" class="btn btn-outline-secondary" onclick="history.back()">취소</button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="location.href='/goods/goodsList.do'">취소</button>
                     <button type="button" class="btn btn-outline-primary" onclick="location.href='/goods/modifyGoods.do?Id=${goodsDetail.gdsId}'">수정</button>
                     <button type="button" class="btn btn-outline-primary" onclick="location.href='/order/addCartAction.do?Id=${goodsDetail.gdsId}'">담기</button>
                 </div>

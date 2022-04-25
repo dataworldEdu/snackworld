@@ -62,18 +62,30 @@ public class GoodsController {
         return "/goods/modifyGoods.view";
     }
 
-    @RequestMapping(value = "/modifyGoodsAction.do", method = RequestMethod.POST)
-    public String modifyGoodsAction(GoodsVO goodsVO) {
-
+    @RequestMapping(value = "/modifyGoodsAction.do", method = RequestMethod.GET)
+    public String modifyGoodsAction(GoodsVO vo, HttpSession session) {
+        vo.setUserId((String) session.getAttribute("login"));
+        goodsService.modifyGoods(vo);
         return "redirect:/goods/goodsList.do";
+    }
+
+    @RequestMapping(value = "/regGoodsAction.do", method = RequestMethod.GET)
+    public String regGoodsAction(GoodsVO vo, HttpSession session) {
+        vo.setUserId((String) session.getAttribute("login"));
+        goodsService.registrationGoods(vo);
+        System.out.println("vo = " + vo.getGdsId());
+        return "redirect:/goods/goodsDetail.do?Id=" + vo.getGdsId();
     }
 
     @RequestMapping(value = "/deleteGoods.do", method = RequestMethod.GET)
     public String deleteGoodsAction(@RequestParam("selected") List<String> chkList, HttpServletRequest request
             , Search search
             , HttpSession session) {
+        GoodsVO vo = new GoodsVO();
+        vo.setUserId((String) session.getAttribute("login"));
         for (String gdsId : chkList) {
-            goodsService.deleteById(gdsId);
+            vo.setGdsId(gdsId);
+            goodsService.deleteById(vo);
         }
 
         session.setAttribute("listSearch", goodsService.listSearch(search));

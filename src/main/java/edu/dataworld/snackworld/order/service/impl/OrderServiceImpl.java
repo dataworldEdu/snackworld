@@ -64,14 +64,17 @@ public class OrderServiceImpl extends EgovAbstractServiceImpl implements OrderSe
         List<String> gdsIdList = Arrays.asList(gdsId.split(","));
         List<String> gdsPriceList = Arrays.asList(gdsPrice.split(","));
         List<String> qtyList = Arrays.asList(qty.split(","));
+
         List<OrderVO> vo = new ArrayList<>();
 
         int totalPrice = 0;
         for(int i = 0 ; i < cartIdList.size() ; i++){
-            OrderVO temp = new OrderVO();
             int tempPrice = Integer.parseInt(gdsPriceList.get(i));
             int tempQty = Integer.parseInt(qtyList.get(i));
             totalPrice += (tempPrice * tempQty);
+
+            OrderVO temp = new OrderVO();
+
             temp.setCartId(cartIdList.get(i));
             temp.setGdsId(gdsIdList.get(i));
             temp.setGdsPrice(tempPrice);
