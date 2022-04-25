@@ -134,6 +134,7 @@ public class OrderServiceImpl extends EgovAbstractServiceImpl implements OrderSe
             param.put("statusCode", statusCode);
 
             orderDAO.signOffOn(param);
+            orderDAO.signOffOnDetail(param);
             orderDAO.modifyAmt(param);
         }
 

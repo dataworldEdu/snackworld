@@ -67,7 +67,11 @@ public class OrderDAO extends EgovComAbstractDAO {
         return selectOne("order.getStandard", userId);
     }
 
-    public List<OrderVO> orderDetailRetrieve(String orderId){
+    public List<OrderVO> orderDetailRetrieve(String orderId) {
         return selectList("orderDetailRetrieve", orderId);
+    }
+
+    public void signOffOnDetail(Map<String, Object> param) {
+        update("order.signOffOnDetail", param);
     }
 }
