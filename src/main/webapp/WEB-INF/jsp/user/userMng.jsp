@@ -30,6 +30,8 @@
             selectall.checked = false;
         }
     }
+
+    /*삭제관련*/
     function deleteRow() {
         $("input:checkbox[name='selected']:checked").each(function(k,kVal) {
             console.log("kVal ::", kVal.parentElement.parentElement);

@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value="/order")
@@ -62,15 +64,31 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/modifyOrderStatus.do", method = RequestMethod.GET)
-    public String modifyOrderStatus(@RequestParam("selected") List<String> checkBoxArr, HttpServletRequest req) {
+    public String modifyOrderStatus(@RequestParam("selected") List<String> checkBoxArr, int statusFlag, HttpServletRequest req) {
 
-        int value = orderService.cancelOrder(checkBoxArr);
+        Map<String, Object> param = new HashMap<>();
+        String statusCode = "";
+        String result = "";
 
-        if(value == 0) {
-            return Util.msgAndBack(req,"주문 취소에 실패하였습니다.");
+        param.put("checkBoxArr", checkBoxArr);
+        if(statusFlag == 1) {
+            statusCode = "A002";
+            result = "승인";
+        } else {
+            statusCode = "A003";
+            result = "반려";
+        }
+        param.put("statusCode", statusCode);
+
+        int statusValue = orderService.modifyOrderStatus(param);
+
+        if(statusValue == 0) {
+            return Util.msgAndBack(req,"주문 " + result + "에 실패하였습니다.");
         }
 
-        return Util.msgAndReplace(req, "주문 취소가 완료되었습니다.", "/order/orderList.do");
+        int amtValue = orderService.modifyAmt(param);
+
+        return Util.msgAndReplace(req, "주문 " + statusValue +"건 "+ result + "되었습니다.", "/order/orderList.do");
     }
 
     @RequestMapping(value = "/addCartAction.do", method = RequestMethod.GET)

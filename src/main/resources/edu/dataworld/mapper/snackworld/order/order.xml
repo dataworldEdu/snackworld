@@ -26,7 +26,10 @@
     <select id="order.orderRetrieve" parameterType="edu.dataworld.snackworld.order.service.OrderVO" resultType="edu.dataworld.snackworld.order.service.OrderVO">
         SELECT
             O.ORDER_ID ,
-            CONCAT(CONCAT(CONCAT(G.GDS_NAME,' 외 '),COUNT(OD.GDS_ID)-1),'개') AS ORDER_NAME,
+            CASE
+                WHEN COUNT(OD.GDS_ID) != 1 THEN CONCAT(CONCAT(CONCAT(G.GDS_NAME,' 외 '),COUNT(OD.GDS_ID)-1),'개')
+                ELSE G.GDS_NAME
+            END AS ORDER_NAME,
             D.IMG_URL ,
             D.STORED_FILE_NAME ,
             O.TOTAL_PRICE ,
@@ -134,6 +137,15 @@
         SET DEL_YN = 'Y'
         WHERE ORDER_ID IN
         <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+
+    <update id="order.modifyOrderStatus" parameterType="HashMap">
+        UPDATE `ORDER`
+        SET ORDER_STATUS_CODE = #{statusCode}
+        WHERE ORDER_ID IN
+        <foreach collection="checkBoxArr" item="item" open="(" close=")" separator=",">
             #{item}
         </foreach>
     </update>

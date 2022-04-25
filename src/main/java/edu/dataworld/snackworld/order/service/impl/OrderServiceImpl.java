@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Service("OrderService")
 public class OrderServiceImpl extends EgovAbstractServiceImpl implements OrderService {
@@ -101,5 +102,15 @@ public class OrderServiceImpl extends EgovAbstractServiceImpl implements OrderSe
     @Override
     public int cancelOrder(List<String> checkBoxArr) {
         return orderDAO.cancelOrder(checkBoxArr);
+    }
+
+    @Override
+    public int modifyOrderStatus(Map<String, Object> param) {
+        return orderDAO.modifyOrderStatus(param);
+    }
+
+    @Override
+    public int modifyAmt(Map<String, Object> param) {
+        return orderDAO.modifyAmt(param);
     }
 }

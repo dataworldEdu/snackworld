@@ -6,6 +6,7 @@ import edu.dataworld.snackworld.order.service.OrderVO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository("OrderDAO")
 public class OrderDAO extends EgovComAbstractDAO {
@@ -47,5 +48,13 @@ public class OrderDAO extends EgovComAbstractDAO {
 
     public int cancelOrder(List<String> checkBoxArr) {
         return update("order.cancelOrder", checkBoxArr);
+    }
+
+    public int modifyOrderStatus(Map<String, Object> param) {
+        return update("order.modifyOrderStatus", param);
+    }
+
+    public int modifyAmt(Map<String, Object> param) {
+        return update("order.modifyAmt", param);
     }
 }

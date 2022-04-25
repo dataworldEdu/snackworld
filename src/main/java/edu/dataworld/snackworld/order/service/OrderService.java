@@ -3,6 +3,7 @@ package edu.dataworld.snackworld.order.service;
 import edu.dataworld.snackworld.common.Search;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderService {
 
@@ -17,4 +18,7 @@ public interface OrderService {
     void orderInsert(String userId, String cartId, String gdsId, String gdsPrice, String qty);
     void orderDetailInsert(OrderVO vo);
     int cancelOrder(List<String> checkBoxArr);
+    int modifyOrderStatus(Map<String, Object> param);
+
+    int modifyAmt(Map<String, Object> param);
 }

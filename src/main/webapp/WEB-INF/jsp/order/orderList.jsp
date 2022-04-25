@@ -14,6 +14,15 @@
     <title>주문목록</title>
 </head>
 <script>
+    /*체크박스 관련*/
+    function selectAll(selectAll)  {
+        const checkboxes
+            = document.getElementsByName('selected');
+
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = selectAll.checked;
+        })
+    }
     function checkSelectAll(checkbox)  {
         const selectall
             = document.querySelector('input[name="selectall"]');
@@ -48,21 +57,8 @@
         }
     }
 
-    function sendBack() {
-        if($("input:checkbox[name='selected']:checked").length === 0) {
-            alert("반려할 항목을 선택하세요.");
-            return;
-        }
-
-        getCheckedOrderId();
-
-        let chk_form = document.getElementById("chkForm");
-        chk_form.action = "/order/modifyOrderStatus";
-        if(confirm("선택 항목을 반려 하시겠습니까?")){
-            chk_form.submit();
-        }
-    }
-
+    <!-- 결재 -->
+    //승인
     function signOffOn() {
         if($("input:checkbox[name='selected']:checked").length === 0) {
             alert("승인할 항목을 선택하세요.");
@@ -70,25 +66,52 @@
         }
 
         getCheckedOrderId();
+        if($("input:checkbox[name='selected']:checked").length === 0) {
+            alert("승인할 항목이 없습니다.");
+            return;
+        }
 
         let chk_form = document.getElementById("chkForm");
-        chk_form.action = "/order/modifyOrderStatus";
+        chk_form.action = "/order/modifyOrderStatus.do";
         if(confirm("선택 항목을 승인 하시겠습니까?")){
             chk_form.submit();
         }
     }
 
+    //반려
+    function sendBack() {
+        if($("input:checkbox[name='selected']:checked").length === 0) {
+            alert("반려할 항목을 선택하세요.");
+            return;
+        }
+
+
+        getCheckedOrderId();
+        if($("input:checkbox[name='selected']:checked").length === 0) {
+            alert("반려할 항목이 없습니다.");
+            return;
+        }
+
+        $("#statusFlag").val(2);
+
+        let chk_form = document.getElementById("chkForm");
+        chk_form.action = "/order/modifyOrderStatus.do";
+        if(confirm("선택 항목을 반려 하시겠습니까?")){
+            chk_form.submit();
+        }
+    }
+
     function getCheckedOrderId() {
-        let arr = new Array();
         let checkbox =  $("input:checkbox[name='selected']:checked");
-        checkbox.each(function(key) {
+        checkbox.each(function(key, value) {
             let tr = checkbox.parent().parent().eq(key);
             let td = tr.children();
+            let orderStatusCode = td.eq(7).text();
 
-            let td_orderId = td.eq(1).text();
-            arr.push(td_orderId);
+            if(orderStatusCode != 'A001') {
+                value.checked = false;
+            }
         });
-        return arr;
     }
 
     <!-- pagination -->
@@ -151,6 +174,7 @@
     <div class="row">
         <div class="col">
             <form id="chkForm" action="/order/cancelOrder.do">
+                <input type="hidden" id="statusFlag" name="statusFlag" value="1" >
                 <table class="table table-hover">
                     <thead>
                     <tr>
@@ -166,6 +190,7 @@
                     <tbody>
                     <c:forEach items="${orderList}" var="order" varStatus="status">
                         <c:set var="rowNum" value="${(search.listCnt -status.index) - ((pageNum - 1) * 10) }"/>
+                        <c:set var="orderStatusCode" value="${orderStatusCode}"/>
                         <tr>
                             <td>
                                 <input type="checkbox" name="selected" value="${order.orderId}" onclick="checkSelectAll(this)">
@@ -182,6 +207,8 @@
                             </td>
                             <td>${order.userName}</td>
                             <td>${order.orderStatus}</td>
+                            <td style="display: none">${order.orderStatusCode}</td>
+
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -225,8 +252,8 @@
                         <button type="button" class="btn btn-outline-secondary" onclick="cancelAllList()">전체 주문 취소</button>
                     </c:when>
                     <c:when test='${sessionScope.auth == "APPR"}'>
-                        <button type="button" class="btn btn-outline-secondary" onclick="sendBack()">선택 주문 취소</button>
-                        <button type="button" class="btn btn-outline-secondary" onclick="signOffOn()">전체 주문 취소</button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="sendBack()">반려</button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="signOffOn()">승인</button>
                     </c:when>
                     <c:otherwise>
                     </c:otherwise>
