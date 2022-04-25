@@ -124,8 +124,8 @@ public class OrderServiceImpl extends EgovAbstractServiceImpl implements OrderSe
             StandardVO standard = orderDAO.getStandard(userIdList.get(i));
 
             int price = Integer.parseInt(priceList.get(i));
-            int orderAmt = standard.getOrderAmt() - price < 0 ? 0: standard.getOrderAmt() - price;
-            int userAmt = standard.getUserAmt() - price;
+            int orderAmt = standard.getOrderAmt() - price < 0 ? 0 : standard.getOrderAmt() - price;
+            int userAmt = standard.getUserAmt() - price < 0 ? 0 : standard.getUserAmt() - price;
 
             param.put("orderId", orderIdList.get(i));
             param.put("orderAmt", orderAmt);

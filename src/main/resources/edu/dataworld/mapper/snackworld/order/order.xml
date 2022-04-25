@@ -168,7 +168,7 @@
     <update id="order.modifyAmt" parameterType="HashMap">
         UPDATE CRTR_MNG
         SET ORDER_AMT = #{orderAmt}
-        AND USER_AMT = #{userAmt}
+            ,USER_AMT = #{userAmt}
         WHERE USER_ID = #{userId}
           AND DEL_YN = 'N'
     </update>
