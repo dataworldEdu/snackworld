@@ -3,6 +3,7 @@ package edu.dataworld.snackworld.order.service.impl;
 import edu.dataworld.egov.cmm.service.impl.EgovComAbstractDAO;
 import edu.dataworld.snackworld.common.Search;
 import edu.dataworld.snackworld.order.service.OrderVO;
+import edu.dataworld.snackworld.standard.service.StandardVO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -50,11 +51,19 @@ public class OrderDAO extends EgovComAbstractDAO {
         return update("order.cancelOrder", checkBoxArr);
     }
 
-    public int modifyOrderStatus(Map<String, Object> param) {
-        return update("order.modifyOrderStatus", param);
+    public int sendBack(Map<String, Object> param) {
+        return update("order.sendBack", param);
+    }
+
+    public int signOffOn(Map<String, Object> param) {
+        return update("order.signOffOn", param);
     }
 
     public int modifyAmt(Map<String, Object> param) {
         return update("order.modifyAmt", param);
+    }
+
+    public StandardVO getStandard(String userId) {
+        return selectOne("order.getStandard", userId);
     }
 }

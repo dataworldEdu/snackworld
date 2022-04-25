@@ -70,6 +70,15 @@
             ON U.USER_ID = O.USER_ID;
     </select>
 
+    <select id="order.getStandard" parameterType="String"  resultType="edu.dataworld.snackworld.standard.service.StandardVO">
+        SELECT
+            ORDER_AMT,
+            USER_AMT
+        FROM CRTR_MNG
+        WHERE USER_ID = ${userId}
+        AND DEL_YN = 'N'
+    </select>
+
     <select id="order.orderCnt" parameterType="edu.dataworld.snackworld.order.service.OrderVO"  resultType="Integer">
         SELECT COUNT(*) AS ORDER_CNT
         FROM `ORDER`
@@ -141,13 +150,27 @@
         </foreach>
     </update>
 
-    <update id="order.modifyOrderStatus" parameterType="HashMap">
+    <update id="order.sendBack" parameterType="HashMap">
         UPDATE `ORDER`
         SET ORDER_STATUS_CODE = #{statusCode}
         WHERE ORDER_ID IN
-        <foreach collection="checkBoxArr" item="item" open="(" close=")" separator=",">
+        <foreach collection="orderIdArr" item="item" open="(" close=")" separator=",">
             #{item}
         </foreach>
+    </update>
+
+    <update id="order.signOffOn" parameterType="HashMap">
+        UPDATE `ORDER`
+        SET ORDER_STATUS_CODE = #{statusCode}
+        WHERE ORDER_ID = #{orderId}
+    </update>
+
+    <update id="order.modifyAmt" parameterType="HashMap">
+        UPDATE CRTR_MNG
+        SET ORDER_AMT = #{orderAmt}
+        AND USER_AMT = #{userAmt}
+        WHERE USER_ID = #{userId}
+          AND DEL_YN = 'N';
     </update>
 
     <insert id="order.orderInsert" parameterType="edu.dataworld.snackworld.order.service.OrderVO" useGeneratedKeys="true">

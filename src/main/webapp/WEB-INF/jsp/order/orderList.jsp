@@ -65,14 +65,14 @@
             return;
         }
 
-        getCheckedOrderId();
+        getsignOffOnData();
         if($("input:checkbox[name='selected']:checked").length === 0) {
             alert("승인할 항목이 없습니다.");
             return;
         }
 
         let chk_form = document.getElementById("chkForm");
-        chk_form.action = "/order/modifyOrderStatus.do";
+        chk_form.action = "/order/signOffOn.do";
         if(confirm("선택 항목을 승인 하시겠습니까?")){
             chk_form.submit();
         }
@@ -86,7 +86,7 @@
         }
 
 
-        getCheckedOrderId();
+        getSandBackData();
         if($("input:checkbox[name='selected']:checked").length === 0) {
             alert("반려할 항목이 없습니다.");
             return;
@@ -95,13 +95,28 @@
         $("#statusFlag").val(2);
 
         let chk_form = document.getElementById("chkForm");
-        chk_form.action = "/order/modifyOrderStatus.do";
+        chk_form.action = "/order/sendBack.do";
         if(confirm("선택 항목을 반려 하시겠습니까?")){
             chk_form.submit();
         }
     }
 
-    function getCheckedOrderId() {
+    function getsignOffOnData() {
+        let checkbox =  $("input:checkbox[name='selected']:checked");
+        checkbox.each(function(key, value) {
+            let tr = checkbox.parent().parent().eq(key);
+            let td = tr.children();
+            let orderStatusCode = td.eq(7).text();
+
+            if(orderStatusCode != 'A001') {
+                value.checked = false;
+                $(this).closest("tr").find("#userIdInput").attr("disabled", false);
+                $(this).closest("tr").find("#orderPriceInput").attr("disabled", false);
+            }
+        });
+    }
+
+    function getSandBackData() {
         let checkbox =  $("input:checkbox[name='selected']:checked");
         checkbox.each(function(key, value) {
             let tr = checkbox.parent().parent().eq(key);
@@ -208,7 +223,8 @@
                             <td>${order.userName}</td>
                             <td>${order.orderStatus}</td>
                             <td style="display: none">${order.orderStatusCode}</td>
-
+                            <input type="hidden" id="userIdInput" name="userId" value="${order.userId}" disabled>
+                            <input type="hidden" id="orderPriceInput" name="orderPrice" value="${order.totalPrice}" disabled>
                         </tr>
                     </c:forEach>
                     </tbody>

@@ -18,7 +18,6 @@ public interface OrderService {
     void orderInsert(String userId, String cartId, String gdsId, String gdsPrice, String qty);
     void orderDetailInsert(OrderVO vo);
     int cancelOrder(List<String> checkBoxArr);
-    int modifyOrderStatus(Map<String, Object> param);
-
-    int modifyAmt(Map<String, Object> param);
+    int sendBack(Map<String, Object> param);
+    int signOffOn(String orderId, String orderPrice, String userId, String statusCode);
 }

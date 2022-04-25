@@ -3,14 +3,13 @@ package edu.dataworld.snackworld.order.service.impl;
 import edu.dataworld.snackworld.common.Search;
 import edu.dataworld.snackworld.order.service.OrderService;
 import edu.dataworld.snackworld.order.service.OrderVO;
+import edu.dataworld.snackworld.standard.service.StandardVO;
+import edu.dataworld.snackworld.user.service.impl.UserDAO;
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service("OrderService")
 public class OrderServiceImpl extends EgovAbstractServiceImpl implements OrderService {
@@ -108,12 +107,37 @@ public class OrderServiceImpl extends EgovAbstractServiceImpl implements OrderSe
     }
 
     @Override
-    public int modifyOrderStatus(Map<String, Object> param) {
-        return orderDAO.modifyOrderStatus(param);
+    public int sendBack(Map<String, Object> param) {
+        return orderDAO.sendBack(param);
+    }
+    @Override
+    public int signOffOn(String orderId, String orderPrice, String userId, String statusCode) {
+
+        List<String> orderIdList = Arrays.asList(orderId.split(","));
+        List<String> priceList = Arrays.asList(orderPrice.split(","));
+        List<String> userIdList = Arrays.asList(userId.split(","));
+
+        Map<String, Object> param = new HashMap();
+
+        for(int i= 0; i < orderIdList.size(); i++) {
+
+            StandardVO standard = orderDAO.getStandard(userIdList.get(i));
+
+            int price = Integer.parseInt(priceList.get(i));
+            int orderAmt = standard.getOrderAmt() - price;
+            int userAmt = standard.getUserAmt() - price;
+
+            param.put("orderId", orderIdList.get(i));
+            param.put("orderAmt", orderAmt);
+            param.put("userAmt", userAmt);
+            param.put("userId", userIdList.get(i));
+            param.put("statusCode", statusCode);
+
+            orderDAO.signOffOn(param);
+            orderDAO.modifyAmt(param);
+        }
+
+        return orderIdList.size();
     }
 
-    @Override
-    public int modifyAmt(Map<String, Object> param) {
-        return orderDAO.modifyAmt(param);
-    }
 }

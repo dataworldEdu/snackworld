@@ -63,32 +63,39 @@ public class OrderController {
         return Util.msgAndReplace(req, "주문 취소가 완료되었습니다.", "/order/orderList.do");
     }
 
-    @RequestMapping(value = "/modifyOrderStatus.do", method = RequestMethod.GET)
-    public String modifyOrderStatus(@RequestParam("selected") List<String> checkBoxArr, int statusFlag, HttpServletRequest req) {
+    @RequestMapping(value = "/signOffOn.do", method = RequestMethod.GET)
+    public String signOffOn(
+            @RequestParam("selected") String orderId,
+            @RequestParam("orderPrice") String orderPrice,
+            @RequestParam("userId") String userId,
+            HttpServletRequest req) {
 
-        Map<String, Object> param = new HashMap<>();
-        String statusCode = "";
-        String result = "";
+        String statusCode = "A002";
 
-        param.put("checkBoxArr", checkBoxArr);
-        if(statusFlag == 1) {
-            statusCode = "A002";
-            result = "승인";
-        } else {
-            statusCode = "A003";
-            result = "반려";
-        }
-        param.put("statusCode", statusCode);
-
-        int statusValue = orderService.modifyOrderStatus(param);
+        int statusValue = orderService.signOffOn(orderId, orderPrice, userId, statusCode);
 
         if(statusValue == 0) {
-            return Util.msgAndBack(req,"주문 " + result + "에 실패하였습니다.");
+            return Util.msgAndBack(req,"주문 승인에 실패하였습니다.");
         }
 
-        int amtValue = orderService.modifyAmt(param);
+        return Util.msgAndReplace(req, "주문 " + statusValue +"건 승인되었습니다.", "/order/orderList.do");
+    }
 
-        return Util.msgAndReplace(req, "주문 " + statusValue +"건 "+ result + "되었습니다.", "/order/orderList.do");
+    @RequestMapping(value = "/sendBack.do", method = RequestMethod.GET)
+    public String sendBack(
+            @RequestParam("selected") List<String> orderIdArr, HttpServletRequest req) {
+
+        Map<String, Object> param = new HashMap();
+        param.put("orderIdArr", orderIdArr);
+        param.put("statusCode", "A003");
+
+        int statusValue = orderService.sendBack(param);
+
+        if(statusValue == 0) {
+            return Util.msgAndBack(req,"주문 반려에 실패하였습니다.");
+        }
+
+        return Util.msgAndReplace(req, "주문 " + statusValue +"건 "+ "반려되었습니다.", "/order/orderList.do");
     }
 
     @RequestMapping(value = "/addCartAction.do", method = RequestMethod.GET)
