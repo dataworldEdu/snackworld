@@ -60,6 +60,10 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public void registrationGoods(GoodsVO vo) {
-
+        if ("".equals(vo.getGdsUrl())) {
+            goodsDAO.insertGoodsWithOutUrl(vo);
+        }else{
+            goodsDAO.insertGoods(vo);
+        }
     }
 }
