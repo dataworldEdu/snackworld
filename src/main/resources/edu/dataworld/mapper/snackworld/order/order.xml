@@ -245,23 +245,27 @@
 
     <select id="order.orderDetailRetrieve" parameterType="edu.dataworld.snackworld.order.service.OrderVO" resultType="edu.dataworld.snackworld.order.service.OrderVO">
         SELECT
-             D.IMG_URL
+               C.IMG_URL
              , B.GDS_NAME
              , B.GDS_PRICE
-             , (SELECT COMN_CD_NM
-                FROM CODE_MNG C
-                WHERE B.CAT_CODE = C.COMN_CD) CAT_CODE
              , A.QTY
-             , A.CART_ID
-             , A.GDS_ID
-        FROM (SELECT GDS_ID
+             , (B.GDS_PRICE  * A.QTY) AS TOTAL_PRICE
+             , (SELECT COMN_CD_NM
+                FROM CODE_MNG
+                WHERE COMN_CD = A.ORDER_STATUS_CODE) AS ORDER_STATUS_CODE
+             , (SELECT COMN_CD_NM
+                FROM CODE_MNG
+                WHERE COMN_CD = B.CAT_CODE) AS CAT_CODE
+        FROM (SELECT
+                     GDS_ID
                    , QTY
-                   , CART_ID
-              FROM CART
-              WHERE USER_ID = #{userId}
-                AND DEL_YN = 'N') A
-                 JOIN GOODS B ON A.GDS_ID = B.GDS_ID
-                 LEFT JOIN GOODS_IMG_FILE D ON A.GDS_ID = D.GDS_ID;
+                   , ORDER_STATUS_CODE
+              FROM   ORDER_DETAIL od
+              WHERE  ORDER_ID = #{orderId}) A
+        JOIN GOODS B
+        ON   (B.GDS_ID = A.GDS_ID)
+        LEFT JOIN GOODS_IMG_FILE C
+        ON        (B.GDS_ID = C.GDS_ID);
     </select>
 
 

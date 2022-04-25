@@ -140,4 +140,8 @@ public class OrderServiceImpl extends EgovAbstractServiceImpl implements OrderSe
         return orderIdList.size();
     }
 
+    @Override
+    public List<OrderVO> orderDetailRetrieve(String orderId) {
+        return orderDAO.orderDetailRetrieve(orderId);
+    }
 }

@@ -46,8 +46,18 @@ public class OrderController {
         return "/order/orderList.view";
     }
 
-    @RequestMapping(value="/orderDetail.do")
-    public String showOrderDetail() {
+    @RequestMapping(value="/orderDetail.do", method = RequestMethod.GET)
+    public String showOrderDetail(ModelMap model, String orderId) {
+        List<OrderVO> detailList = orderService.orderDetailRetrieve(orderId);
+        for(OrderVO item : detailList){
+            System.out.println("item.getImgUrl() = " + item.getImgUrl());
+            System.out.println("item.getGdsPrice() = " + item.getGdsPrice());
+            System.out.println("item.getGdsName() = " + item.getGdsName());
+            System.out.println("item.getQty() = " + item.getQty());
+            System.out.println("item.getTotalPrice() = " + item.getTotalPrice());
+            System.out.println("item.getOrderStatusCode() = " + item.getOrderStatusCode());
+        }
+        model.addAttribute("orderDetail", orderService.orderDetailRetrieve(orderId));
         return "/order/orderDetail.view";
     }
 

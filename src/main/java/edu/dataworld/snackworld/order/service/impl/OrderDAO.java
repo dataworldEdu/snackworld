@@ -66,4 +66,8 @@ public class OrderDAO extends EgovComAbstractDAO {
     public StandardVO getStandard(String userId) {
         return selectOne("order.getStandard", userId);
     }
+
+    public List<OrderVO> orderDetailRetrieve(String orderId){
+        return selectList("orderDetailRetrieve", orderId);
+    }
 }
