@@ -328,7 +328,7 @@
     <build>
         <defaultGoal>install</defaultGoal>
         <directory>${basedir}/target</directory>
-        <finalName>egovExam</finalName>
+        <finalName>snackworld</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
