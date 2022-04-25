@@ -91,7 +91,7 @@
         </selectKey>
 
         INSERT
-        INTO USER(
+        INTO GOODS(
                    GDS_ID
                  , GDS_NAME
                  , GDS_PRICE
@@ -102,24 +102,25 @@
                  , FRST_REG_DT
                  , LAST_CHNRG
                  , LAST_CHG_DT
-        ) VALUES(
-                  #{gdsId}
-                , #{gdsName}
-                , #{gdsPrice}
-                , #{catCode}
-                , #{gdsURL}
-                , 'N'
-                , (SELECT
-                          USER_NAME
-                   FROM   USER
-                   WHERE  USER_ID = #{userId})
-                , NOW()
-                , (SELECT
-                          USER_NAME
-                   FROM   USER
-                   WHERE  USER_ID = #{userId})
-                , NOW())
-                )
+                 )
+        VALUES(
+                #{gdsId}
+              , #{gdsName}
+              , #{gdsPrice}
+              , #{catCode}
+              , #{gdsURL}
+              , 'N'
+              , (SELECT
+                        USER_NAME
+                 FROM   USER
+                 WHERE  USER_ID = #{userId})
+              , NOW()
+              , (SELECT
+                        USER_NAME
+                 FROM   USER
+                 WHERE  USER_ID = #{userId})
+              , NOW()
+              )
     </insert>
 
     <insert id="goods.insertGoodsWithOutUrl" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO" useGeneratedKeys="true">
@@ -128,35 +129,36 @@
         </selectKey>
 
         INSERT
-        INTO USER(
-                  GDS_ID
-                , GDS_NAME
-                , GDS_PRICE
-                , CAT_CODE
-                , GDS_URL
-                , DEL_YN
-                , FRST_RGTR
-                , FRST_REG_DT
-                , LAST_CHNRG
-                , LAST_CHG_DT
-        ) VALUES(
-                 #{gdsId}
-               , #{gdsName}
-               , #{gdsPrice}
-               , #{catCode}
-               , NULL
-               , 'N'
-               , (SELECT
-                         USER_NAME
-                  FROM   USER
-                  WHERE  USER_ID = #{userId})
-               , NOW()
-               , (SELECT
-                         USER_NAME
-                  FROM   USER
-                  WHERE  USER_ID = #{userId})
-               , NOW())
-        )
+        INTO GOODS(
+                   GDS_ID
+                 , GDS_NAME
+                 , GDS_PRICE
+                 , CAT_CODE
+                 , GDS_URL
+                 , DEL_YN
+                 , FRST_RGTR
+                 , FRST_REG_DT
+                 , LAST_CHNRG
+                 , LAST_CHG_DT
+                  )
+        VALUES(
+                #{gdsId}
+              , #{gdsName}
+              , #{gdsPrice}
+              , #{catCode}
+              , NULL
+              , 'N'
+              , (SELECT
+                        USER_NAME
+                 FROM   USER
+                 WHERE  USER_ID = #{userId})
+              , NOW()
+              , (SELECT
+                        USER_NAME
+                 FROM   USER
+                 WHERE  USER_ID = #{userId})
+              , NOW()
+              )
     </insert>
 
     <update id="goods.modifyGoods" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO">
@@ -189,7 +191,7 @@
 
     <insert id="goods.fileUpload" parameterType="edu.dataworld.snackworld.goods.service.GoodsVO">
         INSERT
-        INTO USER(
+        INTO GOODS(
                    IMGFILE_ID
                  , GDS_ID
                  , ORIGIN_FILE_NAME
@@ -212,7 +214,7 @@
         UPDATE GOODS
         SET DEL_YN = 'Y'
           , LAST_CHNRG = (SELECT
-                              USER_NAME
+                                 USER_NAME
                           FROM   USER
                           WHERE  USER_ID = #{userId})
           , LAST_CHG_DT = NOW()

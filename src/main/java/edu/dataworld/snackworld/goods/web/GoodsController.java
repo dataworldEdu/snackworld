@@ -73,7 +73,8 @@ public class GoodsController {
     public String regGoodsAction(GoodsVO vo, HttpSession session) {
         vo.setUserId((String) session.getAttribute("login"));
         goodsService.registrationGoods(vo);
-        return "redirect:/goods/goodsDetail.do?Id=" ;
+        System.out.println("vo = " + vo.getGdsId());
+        return "redirect:/goods/goodsDetail.do?Id=" + vo.getGdsId();
     }
 
     @RequestMapping(value = "/deleteGoods.do", method = RequestMethod.GET)

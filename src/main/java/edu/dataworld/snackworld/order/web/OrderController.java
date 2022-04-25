@@ -79,9 +79,9 @@ public class OrderController {
         vo.setGdsId(Id);
 
         if(orderService.cartInsert(vo) == 1){
-            return Util.msgAndReplace(request, "상품을 장바구니에 담았습니다.", "/goods/goodsList.do");
+            return Util.msgAndReplace(request, "상품을 장바구니에 담았습니다.", "/home/main.do");
         } else {
-            return Util.msgAndReplace(request, "상품을 장바구니에 담는데 실패했습니다.", "/goods/goodsList.do");
+            return Util.msgAndReplace(request, "상품을 장바구니에 담는데 실패했습니다.", "/home/main.do");
         }
     }
 

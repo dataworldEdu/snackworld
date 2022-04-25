@@ -65,5 +65,6 @@ public class GoodsServiceImpl implements GoodsService {
         }else{
             goodsDAO.insertGoods(vo);
         }
+        System.out.println("vo = " + vo.getGdsId());
     }
 }

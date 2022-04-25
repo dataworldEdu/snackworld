@@ -28,6 +28,11 @@
                 return;
             }
 
+            if($('#gdsPrice').val() < 1 || $('#gdsPrice').val() > 100000){
+                alert("유효한 상품 가격을 입력해주세요. (1 ~ 100000)")
+                return;
+            }
+
             $('#regForm').submit();
         })
     }))
