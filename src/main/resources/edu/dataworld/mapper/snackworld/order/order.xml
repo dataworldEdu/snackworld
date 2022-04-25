@@ -243,5 +243,26 @@
               , NOW())
     </insert>
 
+    <select id="order.orderDetailRetrieve" parameterType="edu.dataworld.snackworld.order.service.OrderVO" resultType="edu.dataworld.snackworld.order.service.OrderVO">
+        SELECT
+             D.IMG_URL
+             , B.GDS_NAME
+             , B.GDS_PRICE
+             , (SELECT COMN_CD_NM
+                FROM CODE_MNG C
+                WHERE B.CAT_CODE = C.COMN_CD) CAT_CODE
+             , A.QTY
+             , A.CART_ID
+             , A.GDS_ID
+        FROM (SELECT GDS_ID
+                   , QTY
+                   , CART_ID
+              FROM CART
+              WHERE USER_ID = #{userId}
+                AND DEL_YN = 'N') A
+                 JOIN GOODS B ON A.GDS_ID = B.GDS_ID
+                 LEFT JOIN GOODS_IMG_FILE D ON A.GDS_ID = D.GDS_ID;
+    </select>
+
 
 </mapper>

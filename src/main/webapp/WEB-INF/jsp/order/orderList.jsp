@@ -212,7 +212,9 @@
                                     : order.storedFileName != null ? order.storedFileName
                                     : "/images/defaultimg.jpg"}" style="width: 150px; height: 150px">
                             </td>
-                            <td>${order.orderName}</td>
+                            <td>
+                                <a href="/order/orderDetail.do?orderId=${order.orderId}" class="link-dark">${order.orderName}</a>
+                            </td>
                             <td>
                                 <fmt:formatNumber value="${order.totalPrice}"/>
                             </td>
