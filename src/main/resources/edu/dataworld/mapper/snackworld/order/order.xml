@@ -165,6 +165,12 @@
         WHERE ORDER_ID = #{orderId}
     </update>
 
+    <update id="order.signOffOnDetail" parameterType="HashMap">
+        UPDATE `ORDER_DETAIL`
+        SET ORDER_STATUS_CODE = #{statusCode}
+        WHERE ORDER_ID = #{orderId}
+    </update>
+
     <update id="order.modifyAmt" parameterType="HashMap">
         UPDATE CRTR_MNG
         SET ORDER_AMT = #{orderAmt}

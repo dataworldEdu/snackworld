@@ -66,4 +66,8 @@ public class OrderDAO extends EgovComAbstractDAO {
     public StandardVO getStandard(String userId) {
         return selectOne("order.getStandard", userId);
     }
+
+    public void signOffOnDetail(Map<String, Object> param) {
+        update("order.signOffOnDetail", param);
+    }
 }
