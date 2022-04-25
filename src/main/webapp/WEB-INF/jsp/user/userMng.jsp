@@ -180,12 +180,13 @@
         $("#modifyModal").modal('hide');
     }
 
-    function modifyUser() {
+    function modifyUser(modBtn) {
         $("#modifyModal").modal('show');
+        let node = modBtn.closest("tr").children;
 
-        $('#modInputAuth').val($("#td_inputAuthId").val()).prop("selected",true);
-        $("#modInputName").val($("#td_inputName")[0].innerText);
-        $("#modInputId").val($("#td_inputId")[0].innerText);
+        $('#modInputAuth').val(node[0].value).prop("selected",true);
+        $("#modInputName").val(node[3].innerText);
+        $("#modInputId").val(node[4].innerText);
 
     }
 
@@ -225,7 +226,9 @@
                         <td id="td_inputName">${user.userName}</td>
                         <td id="td_inputId">${user.userId}</td>
                         <td id="td_inputAuthName">${user.authName}</td>
-                        <td style="text-align: right;"><button type="button" class="btn btn-outline-secondary btn-sm" onclick="modifyUser()" >수정</button></td>
+                        <td style="text-align: right;">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="modifyUser(this)">수정</button>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
