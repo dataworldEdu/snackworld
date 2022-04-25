@@ -38,8 +38,6 @@
             return;
         }
 
-        getCheckedOrderId();
-
         let chk_form = document.getElementById("chkForm");
         if(confirm("선택 항목을 취소 하시겠습니까?")){
             chk_form.submit();
@@ -48,8 +46,6 @@
 
     function cancelAllList() {
         checkSelectAll();
-
-        getCheckedOrderId();
 
         let chk_form = document.getElementById("chkForm");
         if(confirm("선택 항목을 취소 하시겠습니까?")){
@@ -110,9 +106,10 @@
 
             if(orderStatusCode != 'A001') {
                 value.checked = false;
-                $(this).closest("tr").find("#userIdInput").attr("disabled", false);
-                $(this).closest("tr").find("#orderPriceInput").attr("disabled", false);
             }
+            $(this).closest("tr").find("#userIdInput").attr("disabled", false);
+            $(this).closest("tr").find("#orderPriceInput").attr("disabled", false);
+
         });
     }
 
@@ -205,7 +202,6 @@
                     <tbody>
                     <c:forEach items="${orderList}" var="order" varStatus="status">
                         <c:set var="rowNum" value="${(search.listCnt -status.index) - ((pageNum - 1) * 10) }"/>
-                        <c:set var="orderStatusCode" value="${orderStatusCode}"/>
                         <tr>
                             <td>
                                 <input type="checkbox" name="selected" value="${order.orderId}" onclick="checkSelectAll(this)">

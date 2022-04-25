@@ -75,7 +75,7 @@
             ORDER_AMT,
             USER_AMT
         FROM CRTR_MNG
-        WHERE USER_ID = ${userId}
+        WHERE USER_ID = #{userId}
         AND DEL_YN = 'N'
     </select>
 
@@ -170,7 +170,7 @@
         SET ORDER_AMT = #{orderAmt}
         AND USER_AMT = #{userAmt}
         WHERE USER_ID = #{userId}
-          AND DEL_YN = 'N';
+          AND DEL_YN = 'N'
     </update>
 
     <insert id="order.orderInsert" parameterType="edu.dataworld.snackworld.order.service.OrderVO" useGeneratedKeys="true">
