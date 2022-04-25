@@ -3,7 +3,6 @@ package edu.dataworld.snackworld.goods.service.impl;
 import edu.dataworld.egov.cmm.service.impl.EgovComAbstractDAO;
 import edu.dataworld.snackworld.common.Search;
 import edu.dataworld.snackworld.goods.service.GoodsVO;
-import edu.dataworld.snackworld.user.service.UserVO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,14 +17,14 @@ public class GoodsDAO extends EgovComAbstractDAO {
     public void insert(GoodsVO vo) {
         insert("goods.insert", vo);
     }
-    public void update(GoodsVO vo) {
-        update("goods.update", vo);
+    public void modifyGoods(GoodsVO vo) {
+        update("goods.modifyGoods", vo);
     }
     public void updateWithoutURL(GoodsVO vo) {
         update("goods.updateWithoutURL", vo);
     }
     public void fileUpload(GoodsVO vo) {}
-    public void deleteById(String gdsId) { update("goods.deleteById", gdsId);}
+    public void deleteById(GoodsVO vo) { update("goods.deleteById", vo);}
     public GoodsVO selectById(String gdsId){
         return selectOne("goods.selectById", gdsId);
     }

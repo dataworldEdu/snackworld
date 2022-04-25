@@ -16,4 +16,6 @@ public class GoodsVO {
     private String delYn;
     private int gdsSeq;
 
+    private String userId;
+
 }

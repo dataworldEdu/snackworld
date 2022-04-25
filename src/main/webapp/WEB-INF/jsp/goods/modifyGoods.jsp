@@ -47,23 +47,20 @@
             previewImage.src = event.target.result;
         };
         reader.readAsDataURL(event.target.files[0]);
-
-
-        <!-- 파일 업로드 -->
     }
 
     function submitBtn() {
         if ($('#catCode').val() == "") {
             alert("카테고리를 선택하세요")
-            return false;
+            return;
         }
         if ($('#gdsName').val() == "") {
             alert("상품명을 입력하세요")
-            return false;
+            return;
         }
         if ($('#gdsPrice').val() == "") {
             alert("상품 가격을 입력하세요")
-            return false;
+            return;
         }
 
         $('#modifyForm').submit();
@@ -101,15 +98,14 @@
             </div>
         </div>
         <div class="col-4">
-            <form id="modifyForm" action="/goods/modifyGoodsAction.do" method="post">
+            <form id="modifyForm" action="/goods/modifyGoodsAction.do" method="get">
 
                 <!-- 상품 정보 입력-->
                 <div class="row">
                     <input type="hidden" value="${modifyGoods.gdsId}" name="gdsId">
                     <div class="btn-group mb-5">
-                        <select class="form-select" id="catCode" aria-label="Default select example"
-                                style="width: 150px"
-                                name="catCode">
+                        <select class="form-select" id="catCode" name="catCode" aria-label="Default select example"
+                                style="width: 150px">
                             <option value="" selected>카테고리</option>
                             <option value="01">스낵</option>
                             <option value="02">사탕</option>
@@ -145,8 +141,8 @@
                 <div class="row">
                     <p class="fs-5 fw-bold">URL</p>
                     <div class="input-group mb-3" style="width: 80%">
-                    <textarea class="form-control" id="gdsURL" rows="3"
-                              name="gdsURL">${modifyGoods.gdsUrl}</textarea>
+                    <textarea class="form-control" id="gdsUrl" rows="3"
+                              name="gdsUrl">${modifyGoods.gdsUrl}</textarea>
                     </div>
                 </div>
 
